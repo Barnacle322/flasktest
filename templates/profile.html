@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- <link rel="stylesheet" href="static/mystyle.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+</head>
+
+<body>
+    <div>
+        <div class="ui grid">
+            <div class="four wide column">
+
+            </div>
+            <div class='eight wide column'>
+                <div style="margin-top: 50px;" class="ui container">
+                    <h1 class="ui center aligned header">Your houses</h1>
+                    <a class="ui blue button" href="/registration">Register</a>
+                    <a class="ui green button" href="/login">Login</a>
+                    <hr>
+                    <div class="ui segment ">
+                        <a class="ui green button " href="/add_house">Add House</a>
+                    </div>
+                    {% if house_list.__len__() != 0 %}
+                    <div>
+                        {% for house in house_list %}
+                        <div class="ui segment">
+                            <div class="ui grid">
+                                <div class="twelve wide column ">
+                                    <div class="ui big header ">{{ house.name }}</div>
+                                    <h4>{{ house.description }}</h4>
+                                </div>
+                                <div class="two wide column">
+                                    <a class="ui green button" href="TODO">Enter</a>
+                                    <a class="ui red button" href="/delete_house/{{ house.id }}">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
