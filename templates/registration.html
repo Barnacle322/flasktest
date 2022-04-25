@@ -1,36 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
-    <link rel="stylesheet" href="https://unpkg.com/twinklecss@1.1.0/twinkle.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,400">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/registration.css') }}">
+    <!-- <link rel="stylesheet" href="./registration.css"> -->
+    <title>Login</title>
 </head>
 
 <body>
-    <div class="flex p-4 m-6 justify-center">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="/users">
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-              Username
-            </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" name="username" type="text">
+    <div class="v9_31">
+        <div class="center_prompt">
+            <div class="login_prompt">
+                <div class='center_title'>
+                    <span class="v13_44">REGISTER</span>
+                </div>
+                <form class="form" method="post" action="/users">
+
+                    <div class="user_field">
+                        <div class="user_icon">
+                            <div class="center">
+                                <i class="user icon"></i>
+                            </div>
+
+                        </div>
+                        <input class="input" type="text" name="username" placeholder="Username">
+                    </div>
+
+                    <div class="password_field">
+                        <div class="lock_icon">
+                            <div class="center">
+                                <i class="lock icon"></i>
+                            </div>
+                        </div>
+                        <input class="input" type="password" name="password" placeholder="Password">
+                    </div>
+
+
+                    <div class="login_button_field">
+                        <button class="button login" id="login">Register</button>
+                    </div>
+                    <div class="register_button_field">
+                        <a class="button register" id="register" href="/login">Login</a>
+                    </div>
+                </form>
             </div>
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-              Password
-            </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password">
-            </div>
-            <div class="flex items-center justify-between">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Sign Up
-            </button>
-                <a class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" href="/login">Login</a>
-            </div>
-        </form>
-    </div>
+        </div>
 </body>
 
 </html>

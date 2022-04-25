@@ -27,7 +27,7 @@
                     <a class="ui green button" href="/login">Login</a> {% else %}
                     <a class="ui red button" href="/logout">Logout</a> {% endif %}
 
-                    <form class="ui form" action="/add" method="post">
+                    <form class="ui form" action="/add/{{ house_id }}" method="post">
                         <div class="field">
                             <label>Name</label>
                             <input type="text" name="name" placeholder="Enter the name of the product..."><br>

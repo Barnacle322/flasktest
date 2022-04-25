@@ -1,0 +1,227 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+    line-height: normal;
+    transform-origin: center;
+}
+
+.v9_31 {
+    width: 100%;
+    min-width: 600px;
+    height: 100%;
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    opacity: 1;
+    overflow: hidden;
+    position: absolute;
+    /* margin-left: auto;
+    margin-right: auto; */
+}
+
+.login_prompt {
+    width: 302px;
+    height: 418px;
+    background: rgba(255, 255, 255, 1);
+    opacity: 1;
+    position: fixed;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.center_prompt {
+    position: relative;
+    top: 20%;
+    left: 120%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.v13_44 {
+    width: 103px;
+    color: rgba(8, 13, 30, 1);
+    position: absolute;
+    top: 30px;
+    left: 99px;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 30px;
+    opacity: 1;
+    text-align: center;
+}
+
+.center_title {
+    position: relative;
+    left: 42%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.email_field {
+    width: 235px;
+    height: 44px;
+    background: rgba(222, 222, 222, 1);
+    opacity: 1;
+    position: absolute;
+    top: 106px;
+    left: 33px;
+    overflow: hidden;
+}
+
+.user_field {
+    width: 235px;
+    height: 44px;
+    background: rgba(222, 222, 222, 1);
+    opacity: 1;
+    position: absolute;
+    top: 106px;
+    left: 33px;
+    overflow: hidden;
+}
+
+input[type=text] {
+    width: 200px;
+    height: 44px;
+    background: rgba(222, 222, 222, 1);
+    margin: 8px 0;
+    display: inline-block;
+    border: 0px solid #ccc;
+    border-radius: 0px;
+    position: relative;
+    top: -53px;
+    left: 35px;
+    overflow: hidden;
+    font-family: Montserrat;
+    font-weight: 400;
+    font-size: 15px;
+    outline: none;
+}
+
+.user_icon {
+    background: rgba(222, 222, 222, 1);
+    width: 35px;
+    height: 44px;
+    position: relative;
+    font-size: 20px;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+}
+
+.center {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 70%;
+    opacity: 0.4;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.lock_icon {
+    background: rgba(222, 222, 222, 1);
+    width: 35px;
+    height: 44px;
+    position: relative;
+    font-size: 20px;
+    overflow: hidden;
+}
+
+.password_field {
+    width: 235px;
+    height: 44px;
+    background: rgba(222, 222, 222, 1);
+    opacity: 1;
+    position: absolute;
+    top: 176px;
+    left: 33px;
+    overflow: hidden;
+}
+
+input[type=password] {
+    width: 200px;
+    height: 44px;
+    background: rgba(222, 222, 222, 1);
+    display: inline-block;
+    border: 0px solid #ccc;
+    border-radius: 0px;
+    position: relative;
+    top: -44px;
+    left: 35px;
+    overflow: hidden;
+    font-family: Montserrat;
+    font-weight: 400;
+    font-size: 15px;
+    outline: none;
+}
+
+.lock_icon {
+    background: rgba(222, 222, 222, 1);
+    width: 35px;
+    height: 44px;
+    position: relative;
+    font-size: 20px;
+    overflow: hidden;
+}
+
+.login_button_field {
+    margin: 0;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.login {
+    border: none;
+    color: white;
+    padding: 10px 100px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 700;
+    margin: 4px 2px;
+    cursor: pointer;
+    position: relative;
+    top: 20px;
+    border-radius: 20px;
+    transition: 0.5s;
+    background: linear-gradient(90deg, #fbc2eb, #a6c1ee 51%, #fbc2eb) var(--x, 0)/ 200%;
+    transition-duration: 0.4s;
+}
+
+.register_button_field {
+    margin: 0;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.register {
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: italic;
+    font-weight: 700;
+    text-decoration: underline;
+    position: relative;
+    top: 50px;
+}
+
+.register:hover {
+    color: #4158D0;
+}
+
+.login:hover {
+    --x: 100%;
+}

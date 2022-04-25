@@ -1,5 +1,6 @@
 from doctest import debug_script
 from pydoc import describe
+import re
 from flask import Flask, render_template, request, redirect, session, url_for, flash, jsonify, sessions, g
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
@@ -28,17 +29,18 @@ class User(db.Model):
     username = db.Column(db.String(80), unique = True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
 
-class Table(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
-
-
 class House(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     name = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(120))
+
+class Table(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    house_id = db.Column(db.Integer, db.ForeignKey('house.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+
 
 
 db.create_all()
@@ -61,8 +63,11 @@ def registration():
     return render_template('registration.html')
 
 # Add an item to the list
-@app.post("/add")
-def add_item():
+@app.post("/add/<int:house_id>")
+def add_item(house_id):
+    if not g.user:
+        return redirect(url_for('login'))
+
     name = request.form.get("name")
     price = request.form.get("price")
     quantity = request.form.get("quantity")
@@ -71,10 +76,10 @@ def add_item():
     db.session.commit()
 
     item = db.session.query(Item).filter(Item.name == name, Item.price == price, Item.quantity == quantity).first()
-    new_table = Table(user_id=g.user.id, item_id=item.id)
+    new_table = Table(house_id = house_id, user_id=g.user.id, item_id=item.id)
     db.session.add(new_table)
     db.session.commit()
-    return redirect(url_for("tracker"))
+    return redirect("/tracker/" + str(house_id))
 
 @app.route("/add_house", methods=['GET', 'POST'])
 def add_house():
@@ -126,7 +131,7 @@ def add_user():
     new_user = User(username=username, password=password)
     db.session.add(new_user)
     db.session.commit()
-    return redirect(url_for("tracker"))
+    return redirect(url_for("profile"))
 
 # Update the status of an item
 @app.get("/update/<int:item_id>")
@@ -178,7 +183,7 @@ def login():
 
         if user and user.password == password:
             session['user_id'] = user.id
-            return redirect(url_for("tracker"))
+            return redirect(url_for("profile"))
         
         return redirect(url_for("login"))
 
@@ -189,19 +194,18 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for('login'))
 
-@app.route('/tracker')
-def tracker():
+@app.route('/tracker/<int:house_id>')
+def tracker(house_id):
     if not g.user:
         return redirect(url_for('login'))
-
-    table_list = db.session.query(Table).filter(Table.user_id == g.user.id).all()
+    table_list = db.session.query(Table).filter(Table.user_id == g.user.id).filter(Table.house_id == house_id).all()
     # list = []
 
     # for table in table_list:
     #     list.append(db.session.query(Item).filter(Item.id == table.item_id).first())
     list = [db.session.query(Item).filter(Item.id == table.item_id).first() for table in table_list if table.item_id]
 
-    return render_template('tracker.html', item_list = list)
+    return render_template('tracker.html', item_list = list, house_id = house_id)
 
 if __name__ == "__main__":
     app.run(debug=True)
