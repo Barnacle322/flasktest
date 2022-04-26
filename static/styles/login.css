@@ -66,7 +66,7 @@ body {
 .user_field {
     width: 235px;
     height: 44px;
-    background: rgba(222, 222, 222, 1);
+    background: transparent;
     opacity: 1;
     position: absolute;
     top: 106px;
@@ -74,9 +74,9 @@ body {
     overflow: hidden;
 }
 
-input[type=text] {
+.user_input {
     width: 200px;
-    height: 44px;
+    height: 45px;
     background: rgba(222, 222, 222, 1);
     margin: 8px 0;
     display: inline-block;
@@ -94,7 +94,7 @@ input[type=text] {
 
 .user_icon {
     background: rgba(222, 222, 222, 1);
-    width: 35px;
+    width: 36px;
     height: 44px;
     position: relative;
     font-size: 20px;
@@ -133,7 +133,7 @@ input[type=text] {
     overflow: hidden;
 }
 
-input[type=password] {
+.password_input {
     width: 200px;
     height: 44px;
     background: rgba(222, 222, 222, 1);
@@ -173,7 +173,6 @@ input[type=password] {
     color: white;
     padding: 10px 100px;
     text-align: center;
-    text-decoration: none;
     display: inline-block;
     font-family: Montserrat;
     font-size: 20px;
