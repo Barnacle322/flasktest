@@ -1,0 +1,259 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+    line-height: normal;
+    transform-origin: center;
+}
+
+.page {
+    width: 100%;
+    min-width: 600px;
+    height: 100%;
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    opacity: 1;
+    overflow: hidden;
+    position: absolute;
+    /* margin-left: auto;
+    margin-right: auto; */
+}
+
+.top_bar {
+    width: 100%;
+    height: 100px;
+    background: rgba(255, 255, 255, 1);
+    opacity: 1;
+    position: fixed;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 1px 3px 15px 1px grey;
+}
+
+.back_button {
+    width: 30px;
+    height: 30px;
+    font-size: 25px;
+    opacity: 0.8;
+    position: relative;
+    top: 10px;
+    left: 10px;
+    overflow: hidden;
+}
+
+.profile_picture {
+    width: 80px;
+    height: 80px;
+    background: rgb(156, 156, 156);
+    opacity: 1;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    border-radius: 80px;
+    overflow: hidden;
+}
+
+.name_div {
+    width: 450px;
+    height: 80px;
+    position: fixed;
+    right: 100px;
+    top: 10px;
+}
+
+.name {
+    width: auto;
+    color: rgba(8, 13, 30, 1);
+    position: relative;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 30px;
+    opacity: 1;
+    text-align: right;
+    margin: auto;
+    padding: 20px 0;
+}
+
+.ui.grid>.column:not(.row) {
+    width: 430px;
+}
+
+.ui.grid.container {
+    width: 100%;
+}
+
+@media only screen {
+    .ui.grid.container {
+        width: 100%;
+    }
+}
+
+.main_content {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    opacity: 1;
+    position: fixed;
+    top: 100px;
+    left: 0px;
+    overflow: hidden;
+}
+
+.house_element {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    top: 20px;
+}
+
+.house_element2 {
+    width: 400px;
+    height: 300px;
+    position: fixed;
+    top: 180px;
+    left: 550px;
+}
+
+.house_element3 {
+    width: 400px;
+    height: 300px;
+    position: relative;
+    top: -558px;
+    left: 1000px;
+}
+
+.house {
+    width: 400px;
+    height: 300px;
+    position: relative;
+    top: 60px;
+    background-color: lightgray;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 1px 3px 15px 1px grey;
+    opacity: 0.3;
+}
+
+.house3 {
+    width: 400px;
+    height: 398px;
+    position: relative;
+    top: 0px;
+    background-color: lightgray;
+    border-radius: 10px;
+    box-shadow: 1px 3px 15px 1px grey;
+    opacity: 0.3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.center_icon {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 55px;
+}
+
+.add_button {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 300px;
+    position: relative;
+    transition: background-color 0.2s ease-out;
+    transition: color 0.2 ease-out;
+}
+
+.add_button:hover {
+    background-color: rgb(189, 189, 189);
+    color: rgb(105, 78, 109);
+    opacity: 1;
+}
+
+.plus_icon_field {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 60px;
+    position: relative;
+}
+
+.white_margin {
+    width: 350px;
+    height: 260px;
+    position: relative;
+    top: -220px;
+    left: 25px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 1px 3px 15px 1px grey;
+}
+
+.information {
+    color: rgba(0, 0, 0, 1);
+    position: relative;
+    top: 25%;
+    font-family: Montserrat;
+    font-weight: 400;
+    font-size: 20px;
+    font-style: italic;
+    opacity: 1;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.house_name_plate {
+    width: 400px;
+    height: 100px;
+    position: relative;
+    background-color: white;
+    background-image: radial-gradient( circle farthest-corner at 10.2% 55.8%, rgba(252, 37, 103, 1) 0%, rgba(250, 38, 151, 1) 46.2%, rgba(186, 8, 181, 1) 90.1%);
+    box-shadow: -2px 5px 12px 1px rgba(0, 0, 0, 0.26);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    opacity: 1;
+}
+
+.house_name_plate2 {
+    width: 400px;
+    height: 100px;
+    position: relative;
+    background-color: white;
+    background-image: radial-gradient( circle farthest-corner at 92.3% 71.5%, rgba(83, 138, 214, 1) 0%, rgba(134, 231, 214, 1) 90%);
+    box-shadow: -2px 5px 12px 1px rgba(0, 0, 0, 0.26);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    opacity: 1;
+}
+
+.house_name {
+    color: rgba(255, 255, 255, 1);
+    position: relative;
+    top: 25%;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 30px;
+    font-style: italic;
+    opacity: 1;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.add_field {
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.271);
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}

@@ -3,52 +3,72 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,400">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <!-- <link rel="stylesheet" href="static/mystyle.css"> -->
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="./profile.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/profile.css') }}">
 
+    <title>Document</title>
 </head>
 
 <body>
-    <div>
-        <div class="ui grid">
-            <div class="four wide column">
-
+    <div class="page">
+        <div class="top_bar">
+            <div class="back_button">
+                <a href="/login">
+                    <i class="black chevron circle left icon"></i>
+                </a>
             </div>
-            <div class='eight wide column'>
-                <div style="margin-top: 50px;" class="ui container">
-                    <h1 class="ui center aligned header">Your houses</h1>
-                    <a class="ui blue button" href="/registration">Register</a>
-                    <a class="ui green button" href="/login">Login</a>
-                    <hr>
-                    <div class="ui segment ">
-                        <a class="ui green button " href="/add_house">Add House</a>
-                    </div>
-                    {% if house_list.__len__() != 0 %}
-                    <div>
-                        {% for house in house_list %}
-                        <div class="ui segment">
-                            <div class="ui grid">
-                                <div class="twelve wide column ">
-                                    <div class="ui big header ">{{ house.name }}</div>
-                                    <h4>{{ house.description }}</h4>
-                                </div>
-                                <div class="two wide column">
-                                    <a class="ui green button" href="/tracker/{{ house.id }}">Enter</a>
-                                    <a class="ui red button" href="/delete_house/{{ house.id }}">Delete</a>
+            <div class="profile_picture">
+                <!-- <img src="TODO IMG" alt=""> -->
+            </div>
+            <div class="name_div">
+                <div class="name">
+                    Arstanbek Usenov
+                </div>
+            </div>
+        </div>
+        {% if house_list.__len__() != 0 %}
+        <div class="main_content">
+            <div class="ui stackable grid container">
+                {% for house in house_list %}
+                <div class="column">
+                    <div class="house_element">
+                        <div class="house_name_plate">
+                            <div class="house_name">
+                                {{ house.name }}
+                            </div>
+                            <div class="house">
+
+                            </div>
+                            <div class="white_margin">
+                                <div class="information">
+                                    {{ house.description}}
                                 </div>
                             </div>
                         </div>
-                    </div> {% endfor %}
+                    </div>
                 </div>
-                {% endif %}
+                {% endfor %}
+                <div class="column">
+                    <div class="house_element">
+                        <div class="add_field">
+                            <div class="add_button" href="/add_house">
+                                <!-- <div class="plus_icon_field">
+                                    <i class="plus icon"></i>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-    </div>
+    {% endif %}
 </body>
 
 </html>

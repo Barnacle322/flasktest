@@ -6,13 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,400">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/login.css') }}">
     <!-- <link rel="stylesheet" href="./login.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/login.css') }}">
     <title>Login</title>
 </head>
 
 <body>
     <div class="v9_31">
+        <!-- <div class="logo">
+            <img src="{{ url_for('static',filename='styles/elements/PERET-removebg-preview.png') }}" alt="">
+        </div> -->
+        <div class="logo2">
+            <img src="{{ img }}">
+        </div>
         <div class="center_prompt">
             <div class="login_prompt"><span class="v13_44">LOGIN</span>
                 <form class="form" method="post">

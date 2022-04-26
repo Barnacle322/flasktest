@@ -186,8 +186,9 @@ def login():
             return redirect(url_for("profile"))
         
         return redirect(url_for("login"))
+    img = './static/elements/PERET-removebg-preview.png'
 
-    return render_template("login.html")
+    return render_template("login.html", img=img)
 
 @app.route('/logout')
 def logout():

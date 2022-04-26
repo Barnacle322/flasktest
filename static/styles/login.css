@@ -31,6 +31,17 @@ body {
     overflow: hidden;
 }
 
+.logo2 {
+    width: auto;
+    height: 418px;
+    opacity: 1;
+    position: fixed;
+    top: 150px;
+    left: 850px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
 .center_prompt {
     position: relative;
     top: 20%;
@@ -216,4 +227,5 @@ body {
 
 .login:hover {
     --x: 100%;
+    box-shadow: 1px 3px 15px 1px grey;
 }
