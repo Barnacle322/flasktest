@@ -1,0 +1,138 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+    line-height: normal;
+    transform-origin: center;
+}
+
+.v9_31 {
+    width: 100%;
+    min-width: 600px;
+    height: 100%;
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    opacity: 1;
+    overflow: hidden;
+    position: absolute;
+}
+
+.notification_screen {
+    width: 500px;
+    height: 900px;
+    background: rgba(255, 255, 255, 1);
+    opacity: 1;
+    position: fixed;
+    border-radius: 3px;
+    overflow: hidden;
+    animation: fadeInUp;
+    animation-duration: slow;
+    box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
+}
+
+.logo2 {
+    width: auto;
+    height: 418px;
+    opacity: 1;
+    position: fixed;
+    top: 150px;
+    left: 850px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.center_title {
+    position: relative;
+    top: 6.5%;
+    justify-content: center;
+    text-align: center;
+}
+
+.title {
+    width: 103px;
+    color: rgba(8, 13, 30, 1);
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 30px;
+    opacity: 1;
+    text-align: center;
+}
+
+.center_prompt {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+}
+
+.notifications {
+    width: 92%;
+    height: 730px;
+    top: 150px;
+    margin-left: 20px;
+    background: transparent;
+    opacity: 1;
+    position: absolute;
+    overflow: hidden;
+    animation: fadeInUp;
+    animation-duration: slow;
+}
+
+#outer.row {
+    padding: 20px;
+    height: 120px;
+}
+
+#inner_small.column {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    top: 10px
+}
+
+#inner_big.column {
+    width: 355px;
+}
+
+.notification_title {
+    font-family: montserrat;
+    font-weight: 400;
+    font-size: 22px;
+}
+
+.notification_body {
+    font-family: montserrat;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.accept_button {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    opacity: 0.8;
+    position: relative;
+    color: ivory;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    overflow: hidden;
+    border-radius: 50px;
+    background-color: #77DD77;
+    box-shadow: 1px 3px 10px 1px grey;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.accept_button:hover {
+    background-color: rgb(67, 180, 67);
+}
+
+.center_accept {
+    padding: 14px;
+    display: flex;
+    left: 1px;
+    justify-content: center;
+    position: relative;
+}

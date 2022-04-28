@@ -29,6 +29,8 @@ body {
     position: fixed;
     border-radius: 3px;
     overflow: hidden;
+    animation: fadeInUp;
+    animation-duration: slow;
 }
 
 .logo2 {

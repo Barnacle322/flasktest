@@ -15,7 +15,6 @@ body {
     background-color: #4158D0;
     background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
     opacity: 1;
-    overflow: hidden;
     position: absolute;
     /* margin-left: auto;
     margin-right: auto; */
@@ -32,15 +31,67 @@ body {
     box-shadow: 1px 3px 15px 1px grey;
 }
 
-.back_button {
-    width: 30px;
-    height: 30px;
+.logout_button {
+    width: 180px;
+    height: 50px;
     font-size: 25px;
     opacity: 0.8;
     position: relative;
-    top: 10px;
-    left: 10px;
+    color: white;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    top: 25px;
+    left: 30px;
     overflow: hidden;
+    border-radius: 50px;
+    background-color: #B363F1;
+    box-shadow: 1px 3px 10px 1px grey;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.logout_button:hover {
+    background-color: #C850C0;
+}
+
+.center_logout {
+    padding: 14px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.notifications_button {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    opacity: 0.8;
+    position: relative;
+    color: white;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    bottom: 25px;
+    left: 250px;
+    overflow: hidden;
+    border-radius: 50px;
+    background-color: #B363F1;
+    box-shadow: 1px 3px 10px 1px grey;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.notifications_button:hover {
+    background-color: #C850C0;
+}
+
+.center_notifications {
+    padding: 14px;
+    display: flex;
+    left: 1px;
+    justify-content: center;
+    position: relative;
 }
 
 .profile_picture {
@@ -80,16 +131,6 @@ body {
     width: 430px;
 }
 
-.ui.grid.container {
-    width: 100%;
-}
-
-@media only screen {
-    .ui.grid.container {
-        width: 100%;
-    }
-}
-
 .main_content {
     width: 100%;
     height: 100%;
@@ -97,8 +138,14 @@ body {
     opacity: 1;
     position: fixed;
     top: 100px;
-    left: 0px;
-    overflow: hidden;
+    /* left: 20px; */
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 20px;
+    padding-left: 120px;
+    padding-top: 0px;
+    padding-bottom: 140px;
+    margin: auto;
 }
 
 .house_element {
@@ -129,11 +176,11 @@ body {
     height: 300px;
     position: relative;
     top: 60px;
-    background-color: lightgray;
+    background-color: rgb(255, 255, 255);
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
-    box-shadow: 1px 3px 15px 1px grey;
-    opacity: 0.3;
+    box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
+    opacity: 0.8;
 }
 
 .house3 {
@@ -159,38 +206,14 @@ body {
     top: 55px;
 }
 
-.add_button {
-    width: 100px;
-    height: 100px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 300px;
-    position: relative;
-    transition: background-color 0.2s ease-out;
-    transition: color 0.2 ease-out;
-}
-
-.add_button:hover {
-    background-color: rgb(189, 189, 189);
-    color: rgb(105, 78, 109);
-    opacity: 1;
-}
-
-.plus_icon_field {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    font-size: 60px;
-    position: relative;
-}
-
 .white_margin {
-    width: 350px;
-    height: 260px;
+    width: 400px;
+    height: 230px;
     position: relative;
-    top: -220px;
-    left: 25px;
+    bottom: 170px;
     background-color: white;
-    border-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     box-shadow: 1px 3px 15px 1px grey;
 }
 
@@ -205,8 +228,44 @@ body {
     opacity: 1;
     text-align: center;
     width: 100%;
+    height: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
     display: flex;
     justify-content: center;
+    overflow: hidden;
+}
+
+.enter_button {
+    width: 180px;
+    height: 50px;
+    font-size: 25px;
+    opacity: 0.8;
+    position: relative;
+    color: white;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    top: 65px;
+    left: 110px;
+    overflow: hidden;
+    border-radius: 50px;
+    background-color: #B363F1;
+    box-shadow: 1px 3px 10px 1px grey;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.enter_button:hover {
+    background-color: #C850C0;
+}
+
+.center_enter {
+    padding: 14px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    color: white;
 }
 
 .house_name_plate {
@@ -246,14 +305,55 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 .add_field {
     width: 400px;
-    height: 400px;
+    height: 397px;
     background: rgba(255, 255, 255, 0.271);
     justify-content: center;
+    border-radius: 10px;
     text-align: center;
     display: flex;
     justify-content: center;
+}
+
+.add_button {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(255, 255, 255, 0.527);
+    border-radius: 50px;
+    position: relative;
+    transition: background-color 0.2s ease-out;
+    transition: color 0.2 ease-out;
+    top: 115px;
+}
+
+.add_button:hover {
+    background-color: rgba(210, 210, 210, 0.38);
+    color: rgb(105, 78, 109);
+    opacity: 1;
+}
+
+.plus_icon_field {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 60px;
+    position: relative;
+    top: 43px;
+    left: 2px;
+    opacity: 0.3;
+    color: black;
+}
+
+.animate__animated.animate__fadeIn {
+    --animate-duration: 0.3s;
+    --animate-delay: 1s;
+}
+
+.animate__animated.animate__fadeInDownBig {
+    --animate-duration: 0.6s;
+    --animate-delay: 0s;
 }

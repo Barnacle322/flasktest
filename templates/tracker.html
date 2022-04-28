@@ -26,6 +26,7 @@
                     <a class="ui blue button" href="/registration">Register</a> {% if g.user == False %}
                     <a class="ui green button" href="/login">Login</a> {% else %}
                     <a class="ui red button" href="/logout">Logout</a> {% endif %}
+                    <a class="ui blue button" href="/user_list/{{ house_id }}">Invite a user</a>
 
                     <form class="ui form" action="/add/{{ house_id }}" method="post">
                         <div class="field">
@@ -65,7 +66,7 @@
                         </form>
                         {% else %}
                         <div class="ui relaxed grid">
-                            <div class='thirteen wide column'><a class="ui big header">{{ item_list.index(item) + 1 }} | {{ item.name }}</a></div>
+                            <div class='thirteen wide column'><a class="ui big header">{{ item_list.index(item) + 1 }} | {{ item.name }} | {{ item.author }}</a></div>
                             <div class='column'><a class="ui icon button" style="font-size:10px;" href="/edit/{{ item.id }}"><i class="edit icon"></i></a></div>
                         </div>
                         {% endif %} {% if item.complete == False %}
