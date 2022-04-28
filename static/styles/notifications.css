@@ -74,7 +74,6 @@ body {
     background: transparent;
     opacity: 1;
     position: absolute;
-    overflow: hidden;
     animation: fadeInUp;
     animation-duration: slow;
 }
@@ -88,6 +87,7 @@ body {
     width: 120px;
     display: flex;
     justify-content: center;
+    padding: 5px;
     top: 10px
 }
 
@@ -110,29 +110,102 @@ body {
 .accept_button {
     width: 50px;
     height: 50px;
-    font-size: 25px;
+    font-size: 20 px;
     opacity: 0.8;
     position: relative;
+    right: 7px;
     color: ivory;
     font-family: Montserrat;
     font-weight: 700;
     font-size: 20px;
-    overflow: hidden;
     border-radius: 50px;
-    background-color: #77DD77;
+    background-color: #65DF96;
     box-shadow: 1px 3px 10px 1px grey;
     transition: 0.4s;
     transition-duration: 0.5s;
 }
 
 .accept_button:hover {
-    background-color: rgb(67, 180, 67);
+    background-color: #4BD080;
 }
 
 .center_accept {
     padding: 14px;
     display: flex;
+    top: 4px;
     left: 1px;
+    font-size: 16px;
     justify-content: center;
     position: relative;
+}
+
+.decline_button {
+    width: 50px;
+    height: 50px;
+    font-size: 20 px;
+    opacity: 0.8;
+    position: relative;
+    left: 7px;
+    color: ivory;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    border-radius: 50px;
+    background-color: #EB3979;
+    box-shadow: 1px 3px 10px 1px grey;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.decline_button:hover {
+    background-color: #DD2673;
+}
+
+.center_decline {
+    padding: 14px;
+    display: flex;
+    left: 2px;
+    top: 3px;
+    font-size: 16px;
+    justify-content: center;
+    position: relative;
+}
+
+.back_button_field {
+    width: 150px;
+    height: 100%;
+    position: fixed;
+    background-color: transparent;
+    transition: 0.2s;
+    transition-duration: 0.5s;
+    opacity: 0;
+}
+
+.back_button_field:hover {
+    background-color: #00000010;
+    opacity: 1;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 45%;
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+}
+
+.center2 {
+    position: relative;
+    left: 37px;
+    top: 427px;
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+}
+
+.animate__animated.animate__bounce:hover {
+    --opacity: 0;
 }

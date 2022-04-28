@@ -35,6 +35,7 @@ class House(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     name = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(120))
+    address = db.Column(db.String(120))
 
 class Item_House_Map(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -113,8 +114,9 @@ def add_house():
     if request.method == 'POST':
         name = request.form.get("name")
         description = request.form.get("description")
+        address = request.form.get("address")
 
-        house = House(user_id = g.user.id, name = name, description = description)
+        house = House(user_id = g.user.id, name = name, description = description, address = address)
         db.session.add(house)
         db.session.commit()
         table = User_House_Map(sender = g.user.id, user_id = g.user.id, house_id = house.id, accepted = True)    
@@ -122,7 +124,7 @@ def add_house():
         db.session.commit()
         return redirect(url_for("profile"))
         
-    return render_template('add_house.html')
+    return render_template('add_house2.html')
 
 @app.get("/delete_house/<int:house_id>")
 def delete_house(house_id):

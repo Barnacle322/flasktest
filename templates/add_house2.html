@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,400">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- <link rel="stylesheet" href="./add_house.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/add_house.css') }}">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="v9_31">
+        <div class="animate__animated animate__fadeInUp">
+            <div class="center_prompt">
+                <div class="house_add_screen">
+                    <div class="center_title">
+                        <span class="title">Add House</span>
+                    </div>
+                    <form class="form" method="post">
+                        <div class="name_field">
+                            <div class="name_label">House name</div>
+                            <input class="name_input" type="text" name="name">
+                        </div>
+                        <div class="description_field">
+                            <div class="description_label">Description</div>
+                            <input class="description_input" type="text" name="description">
+                        </div>
+                        <div class="address_field">
+                            <div class="address_label">Address</div>
+                            <input class="address_input" type="text" name="address">
+                        </div>
+                        <div class="login_button_field">
+                            <button type='submit' class="button login" id="login">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
