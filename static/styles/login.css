@@ -224,10 +224,12 @@ body {
 }
 
 .register:hover {
+    cursor: pointer;
     color: #4158D0;
 }
 
 .login:hover {
+    cursor: pointer;
     --x: 100%;
     box-shadow: 1px 3px 15px 1px grey;
 }

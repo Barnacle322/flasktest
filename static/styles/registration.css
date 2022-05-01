@@ -219,9 +219,11 @@ input[type=password] {
 }
 
 .register:hover {
+    cursor: pointer;
     color: #4158D0;
 }
 
 .login:hover {
+    cursor: pointer;
     --x: 100%;
 }

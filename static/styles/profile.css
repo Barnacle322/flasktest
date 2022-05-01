@@ -50,6 +50,7 @@ body {
 }
 
 .logout_button:hover {
+    cursor: pointer;
     background-color: #C850C0;
 }
 
@@ -81,6 +82,7 @@ body {
 }
 
 .notifications_button:hover {
+    cursor: pointer;
     background-color: #C850C0;
 }
 
@@ -275,6 +277,7 @@ body {
 }
 
 .enter_button:hover {
+    cursor: pointer;
     background-color: #C850C0;
 }
 
@@ -348,6 +351,7 @@ body {
 }
 
 .add_button:hover {
+    cursor: pointer;
     background-color: rgba(210, 210, 210, 0.38);
     color: rgb(105, 78, 109);
     opacity: 1;

@@ -1,0 +1,149 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+    line-height: normal;
+    transform-origin: center;
+}
+
+.v9_31 {
+    width: 100%;
+    min-width: 600px;
+    height: 100%;
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    opacity: 1;
+    overflow: hidden;
+    position: absolute;
+}
+
+.center_prompt {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+}
+
+.invite_user_screen {
+    width: 500px;
+    height: 900px;
+    background: rgba(255, 255, 255, 1);
+    opacity: 1;
+    position: fixed;
+    border-radius: 3px;
+    overflow: hidden;
+    animation: fadeInUp;
+    animation-duration: slow;
+    box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
+}
+
+.center_title {
+    position: relative;
+    top: 6.5%;
+    justify-content: center;
+    text-align: center;
+}
+
+.title {
+    width: 103px;
+    color: rgba(8, 13, 30, 1);
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 30px;
+    opacity: 1;
+    text-align: center;
+}
+
+.users {
+    width: 92%;
+    height: 730px;
+    top: 150px;
+    position: absolute;
+    margin-left: 20px;
+    background: transparent;
+    opacity: 1;
+    animation: fadeInUp;
+    animation-duration: slow;
+}
+
+#outer.row {
+    padding: 10px;
+    height: 55px;
+}
+
+#inner_dot.column {
+    width: 50px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin-top: 13px;
+    font-size: 5px;
+}
+
+.dot {
+    width: auto;
+    font-family: Montserrat;
+    padding: 5px;
+    font-size: 10px;
+    height: min-content;
+}
+
+#inner_small.column {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+#inner_big.column {
+    width: 300px;
+    height: auto;
+    display: flex;
+    justify-content: left;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.center_invite {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    justify-content: center;
+    position: relative;
+}
+
+.invite_button {
+    width: 100px;
+    height: 30px;
+    font-size: 20 px;
+    opacity: 0.8;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    /* right: 7px; */
+    color: ivory;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    border-radius: 50px;
+    background-color: #52E0FF;
+    border-width: 0px;
+    /* box-shadow: 1px 3px 10px 1px grey;
+    transition: 0.4s;
+    transition-duration: 0.5s; */
+}
+
+.invite_button:hover {
+    cursor: pointer;
+    background-color: #3dbdd9;
+}
+
+.user_name {
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+}

@@ -1,9 +1,7 @@
-from doctest import debug_script
-from pydoc import describe
-import re
+from xml.dom.expatbuilder import Rejecter
 from flask import Flask, render_template, request, redirect, session, url_for, flash, jsonify, sessions, g
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import desc
+from sqlalchemy import and_
 
 app = Flask(__name__)
 
@@ -30,6 +28,9 @@ class User(db.Model):
     username = db.Column(db.String(80), unique = True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
 
+    def __repr__(self):
+        return '<User %r>' % self.username
+
 class House(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -37,17 +38,26 @@ class House(db.Model):
     description = db.Column(db.String(120))
     address = db.Column(db.String(120))
 
+    def __repr__(self):
+        return '<House %r>' % self.name
+
 class Item_House_Map(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     house_id = db.Column(db.Integer, db.ForeignKey('house.id'), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=True)
 
-class User_House_Map(db.Model):
+    def __repr__(self):
+        return '<Item_House_Map %r>' % self.id
+
+class Invitations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sender = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    recipient = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     house_id = db.Column(db.Integer, db.ForeignKey('house.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    accepted = db.Column(db.Boolean, default = False)
+    status = db.Column(db.String(80), nullable=False, default = 'pending')
+
+    def __repr__(self):
+        return '<Invitations %r>' % self.id
 
 db.create_all()
 
@@ -63,8 +73,8 @@ def invite_user(house_id, user_id):
     house_id = house_id
     user_id = user_id
 
-    new_table = User_House_Map(sender = g.user.id, house_id = house_id, user_id=user_id)
-    db.session.add(new_table)
+    invitation = Invitations(sender = g.user.id, recipient = user_id, house_id = house_id, status = 'pending')
+    db.session.add(invitation)
     db.session.commit()
     return redirect("/tracker/" + str(house_id))
 
@@ -73,19 +83,37 @@ def invite_user(house_id, user_id):
 def user_list(house_id):
     if not g.user:
         return redirect(url_for('login'))
-    table = db.session.query(User_House_Map).filter(User_House_Map.house_id == house_id).first()
-    user_list = db.session.query(User).filter(User.id != g.user.id).filter(User.id != table.user_id).all()
-    return render_template('userlist.html', user_list=user_list, house_id=house_id)
+    
 
-# Laod the home page
+    invitation_list = db.session.query(Invitations).filter(Invitations.house_id == house_id).filter((Invitations.status == 'rejected') | (Invitations.status == 'accepted')| (Invitations.status == 'pending')).all()
+    invitation_list_ids = [invitation.recipient for invitation in invitation_list]
+
+    if invitation_list_ids != []:
+        user_list = db.session.query(User).filter(and_(User.id != g.user.id, User.id.not_in(invitation_list_ids))).all()
+    else:
+        user_list = db.session.query(User).filter(User.id != g.user.id).all()
+    print(user_list)
+    return render_template('userlist.html', user_list = user_list, house_id = house_id)
+
+# Redirect to login page if user is not logged in
 @app.get("/")
 def home():
-    # items_list = db.session.query(Item).all()
     return redirect(url_for("login"))
 
+# Registration page
 @app.route('/registration')
 def registration():
     return render_template('registration.html')
+
+# Register a user
+@app.post("/users")
+def add_user():
+    username = request.form.get("username")
+    password = request.form.get("password")
+    new_user = User(username=username, password=password)
+    db.session.add(new_user)
+    db.session.commit()
+    return redirect(url_for("profile"))
 
 # Add an item to the list
 @app.post("/add/<int:house_id>")
@@ -106,6 +134,7 @@ def add_item(house_id):
     db.session.commit()
     return redirect("/tracker/" + str(house_id))
 
+# Add a new house
 @app.route("/add_house", methods=['GET', 'POST'])
 def add_house():
     if not g.user:
@@ -119,13 +148,14 @@ def add_house():
         house = House(user_id = g.user.id, name = name, description = description, address = address)
         db.session.add(house)
         db.session.commit()
-        table = User_House_Map(sender = g.user.id, user_id = g.user.id, house_id = house.id, accepted = True)    
-        db.session.add(table) 
+        invitation = Invitations(sender = g.user.id, recipient = g.user.id, house_id = house.id, status = 'accepted')
+        db.session.add(invitation) 
         db.session.commit()
         return redirect(url_for("profile"))
         
     return render_template('add_house2.html')
 
+# Delete an existing house
 @app.get("/delete_house/<int:house_id>")
 def delete_house(house_id):
     house = db.session.query(House).filter(House.id == house_id).first()
@@ -133,28 +163,31 @@ def delete_house(house_id):
     db.session.commit()
     return redirect(url_for("profile"))
 
+# Profile page
 @app.get("/profile")
 def profile():
     if not g.user:
         return redirect(url_for('login'))
 
     try:
-        table_list = db.session.query(User_House_Map).filter(User_House_Map.user_id == g.user.id).filter(User_House_Map.accepted == True).all()
-        house_list = [db.session.query(House).filter(House.id == table.house_id).first() for table in table_list if table.house_id != None]
+        invitation_list = db.session.query(Invitations).filter(Invitations.recipient == g.user.id).filter(Invitations.status == 'accepted').all()
+        house_list = [db.session.query(House).filter(House.id == invitation.house_id).first() for invitation in invitation_list if invitation.house_id != None]
     except:
         house_list = []
 
     return render_template('profile.html', house_list = house_list)
 
+# Notifications page
 @app.get("/notifications")
 def notifications():
     if not g.user:
         return redirect(url_for('login'))
 
     try:
-        # Get the user_house_map table for the logged user to get all unaccepted invites.
-        table_list = db.session.query(User_House_Map).filter(User_House_Map.user_id == g.user.id).filter(User_House_Map.accepted == False).all()
+        # Get the user_house_map table for the logged user to get all u status invites.
+        table_list = db.session.query(Invitations).filter(Invitations.recipient == g.user.id).filter(Invitations.status == 'pending').all()
         # Swap the sender id with the senders username.
+
         for element in table_list:
             user = db.session.query(User).filter(User.id == element.sender).first()
             house = db.session.query(House).filter(House.id == element.house_id).first()
@@ -167,22 +200,21 @@ def notifications():
         table_list = []
     return render_template('notifications.html', house_list = house_list, table_list = table_list)
 
+# Accept an invitation from the notifications page
 @app.get("/accept_invitation/<int:table_id>")
 def accept_invitation(table_id):
-    table = db.session.query(User_House_Map).filter(User_House_Map.id == table_id).first()
-    table.accepted = True
+    invitation = db.session.query(Invitations).filter(Invitations.id == table_id).first()
+    invitation.status = 'accepted'
     db.session.commit()
     return redirect(url_for("notifications"))
 
-# Add a new user
-@app.post("/users")
-def add_user():
-    username = request.form.get("username")
-    password = request.form.get("password")
-    new_user = User(username=username, password=password)
-    db.session.add(new_user)
+# Decline an invitation from the notifications page
+@app.get("/decline_invitation/<int:table_id>")
+def decline_invitation(table_id):
+    table = db.session.query(Invitations).filter(Invitations.id == table_id).first()
+    table.status = 'rejected'
     db.session.commit()
-    return redirect(url_for("profile"))
+    return redirect(url_for("notifications"))
 
 # Update the status of an item
 @app.get("/update/<int:item_id>")
@@ -203,6 +235,7 @@ def delete(item_id):
     return redirect(url_for("tracker"))
 
 
+# TODO:redo this
 @app.get("/edit/<int:item_id>")
 def initiate_edit(item_id):
     item = db.session.query(Item).filter(Item.id == item_id).first()
@@ -210,7 +243,7 @@ def initiate_edit(item_id):
     db.session.commit()
     return redirect(url_for("tracker"))
 
-
+# TODO:redo this
 @app.post("/edit_name/<int:item_id>")
 def edit_name(item_id):
     item = db.session.query(Item).filter(Item.id == item_id).first()
@@ -219,7 +252,7 @@ def edit_name(item_id):
     db.session.commit()
     return redirect(url_for("tracker"))
 
-
+# Login page
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -237,20 +270,21 @@ def login():
             return redirect(url_for("profile"))
         
         return redirect(url_for("login"))
-    img = './static/elements/PERET-removebg-preview.png'
 
-    return render_template("login.html", img=img)
+    return render_template("login.html")
 
+# Logout
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('login'))
 
+# Tracker page
 @app.route('/tracker/<int:house_id>')
 def tracker(house_id):
     if not g.user:
         return redirect(url_for('login'))
-    house = db.session.query(User_House_Map).filter(User_House_Map.user_id == g.user.id).filter(User_House_Map.house_id == house_id).first()
+    house = db.session.query(Invitations).filter(Invitations.recipient == g.user.id).filter(Invitations.house_id == house_id).filter(Invitations.status == 'accepted').first()
     if house == None:
         return redirect(url_for('profile'))
 

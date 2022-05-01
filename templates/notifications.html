@@ -15,14 +15,11 @@
 <body>
     <div class="v9_31">
         <a href="/profile">
-            <div class="back_button_field">
-                <div class="center"><i class="chevron left icon"></i></div>
-
+            <div id='animation_stuff' class="animations animate__animated animate__shakeX animate__repeat-3 animate__delay-2s animate__slower">
+                <div class="center2"><i class="chevron left icon"></i></div>
             </div>
+            <div class="back_button_field"></div>
         </a>
-        <div class="animate__animated animate__shakeX animate__repeat-3 animate__delay-2s animate__slower">
-            <div class="center2"><i class="chevron left icon"></i></div>
-        </div>
         <div class="animate__animated animate__fadeInUp">
             <div class="center_prompt">
                 <div class="notification_screen">
@@ -38,7 +35,7 @@
                                             You have got a new invitaion!
                                         </div>
                                         <div class="notification_body">
-                                            <b>From:</b> {{ table.sender}} <br> <b>House Name:</b> {{ table.house_name}}
+                                            <b>From:</b> {{ table.sender}} <br> <b>House Name:</b> {{ table.house_name }}
                                         </div>
                                     </div>
                                     <div class="column" id="inner_small">
@@ -64,7 +61,7 @@
                         {% else %}
                         <div class="no_notifications">
                             <div class="center_title">
-                                <span class="title">No Notifications</span>
+                                <span class="title2">No Notifications</span>
                             </div>
                         </div>
                         {% endif %}

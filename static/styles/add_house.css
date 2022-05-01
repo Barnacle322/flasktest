@@ -55,118 +55,6 @@ body {
     padding: 25px;
 }
 
-.notifications {
-    width: 92%;
-    height: 730px;
-    top: 150px;
-    margin-left: 20px;
-    background: transparent;
-    opacity: 1;
-    position: absolute;
-    animation: fadeInUp;
-    animation-duration: slow;
-}
-
-.notification_title {
-    font-family: montserrat;
-    font-weight: 400;
-    font-size: 22px;
-}
-
-.notification_body {
-    font-family: montserrat;
-    font-weight: 400;
-    font-size: 15px;
-}
-
-.accept_button {
-    width: 50px;
-    height: 50px;
-    font-size: 20 px;
-    opacity: 0.8;
-    position: relative;
-    right: 7px;
-    color: ivory;
-    font-family: Montserrat;
-    font-weight: 700;
-    font-size: 20px;
-    border-radius: 50px;
-    background-color: #65DF96;
-    box-shadow: 1px 3px 10px 1px grey;
-    transition: 0.4s;
-    transition-duration: 0.5s;
-}
-
-.accept_button:hover {
-    background-color: #4BD080;
-}
-
-.center_accept {
-    padding: 14px;
-    display: flex;
-    top: 4px;
-    left: 1px;
-    font-size: 16px;
-    justify-content: center;
-    position: relative;
-}
-
-.decline_button {
-    width: 50px;
-    height: 50px;
-    font-size: 20 px;
-    opacity: 0.8;
-    position: relative;
-    left: 7px;
-    color: ivory;
-    font-family: Montserrat;
-    font-weight: 700;
-    font-size: 20px;
-    border-radius: 50px;
-    background-color: #EB3979;
-    box-shadow: 1px 3px 10px 1px grey;
-    transition: 0.4s;
-    transition-duration: 0.5s;
-}
-
-.decline_button:hover {
-    background-color: #DD2673;
-}
-
-.center_decline {
-    padding: 14px;
-    display: flex;
-    left: 2px;
-    top: 3px;
-    font-size: 16px;
-    justify-content: center;
-    position: relative;
-}
-
-.v13_44 {
-    width: 103px;
-    color: rgba(8, 13, 30, 1);
-    position: absolute;
-    top: 30px;
-    left: 99px;
-    font-family: Montserrat;
-    font-weight: 700;
-    font-size: 30px;
-    opacity: 1;
-    text-align: center;
-}
-
-.email_field {
-    width: 235px;
-    height: 44px;
-    background: rgba(222, 222, 222, 1);
-    opacity: 1;
-    position: absolute;
-    top: 106px;
-    left: 33px;
-    overflow: hidden;
-}
-
 .name_label {
     font-family: montserrat;
     font-weight: 700;
@@ -198,16 +86,6 @@ body {
     font-weight: 400;
     font-size: 15px;
     outline: none;
-}
-
-.center {
-    margin: 0;
-    position: relative;
-    top: 50%;
-    left: 70%;
-    opacity: 0.4;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
 }
 
 .description_label {
@@ -308,6 +186,7 @@ body {
 }
 
 .login:hover {
+    cursor: pointer;
     --x: 100%;
     box-shadow: 1px 3px 15px 1px grey;
 }
