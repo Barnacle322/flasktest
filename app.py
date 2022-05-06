@@ -3,6 +3,10 @@ from flask import Flask, render_template, request, redirect, session, url_for, f
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
 
+from PIL import Image
+from io import BytesIO
+import base64
+
 app = Flask(__name__)
 
 app.secret_key = 'somesecretkeythatonlyishouldknow'
@@ -27,6 +31,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique = True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
+    avatar = db.Column(db.Text, nullable=True)
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -88,12 +93,19 @@ def user_list(house_id):
     invitation_list = db.session.query(Invitations).filter(Invitations.house_id == house_id).filter((Invitations.status == 'rejected') | (Invitations.status == 'accepted')| (Invitations.status == 'pending')).all()
     invitation_list_ids = [invitation.recipient for invitation in invitation_list]
 
+    invitation_list_pending = db.session.query(Invitations).filter(Invitations.house_id == house_id).filter(Invitations.status == 'pending').all()
+    invitation_list_ids_pending = [invitation.recipient for invitation in invitation_list_pending]
+
     if invitation_list_ids != []:
         user_list = db.session.query(User).filter(and_(User.id != g.user.id, User.id.not_in(invitation_list_ids))).all()
     else:
         user_list = db.session.query(User).filter(User.id != g.user.id).all()
-    print(user_list)
-    return render_template('userlist.html', user_list = user_list, house_id = house_id)
+
+    if invitation_list_ids_pending != []:
+        user_list_pending = db.session.query(User).filter(and_(User.id != g.user.id, User.id.in_(invitation_list_ids_pending))).all()
+    else:
+        user_list_pending = []
+    return render_template('userlist.html', user_list = user_list, user_list_pending = user_list_pending, house_id = house_id)
 
 # Redirect to login page if user is not logged in
 @app.get("/")
@@ -114,7 +126,7 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
     return redirect(url_for("profile"))
-
+    print("hello world")
 # Add an item to the list
 @app.post("/add/<int:house_id>")
 def add_item(house_id):
@@ -175,7 +187,14 @@ def profile():
     except:
         house_list = []
 
-    return render_template('profile.html', house_list = house_list)
+    # try:
+    avatar = db.session.query(User).filter(User.id == g.user.id).first().avatar
+    data_url = 'data:image/png;base64,' + avatar.decode('ascii')
+    # image = Image.open(BytesIO(base64.b64decode(avatar)))
+    # except:
+    #     avatar = None
+
+    return render_template('profile.html', house_list = house_list, image = data_url)
 
 # Notifications page
 @app.get("/notifications")
@@ -215,6 +234,24 @@ def decline_invitation(table_id):
     table.status = 'rejected'
     db.session.commit()
     return redirect(url_for("notifications"))
+
+@app.route("/add_avatar", methods=['GET', 'POST'])
+def add_avatar():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+
+        avatar = request.files['file']
+        # avatar = request.form.get("avatar")
+        image_string = base64.b64encode(avatar.read())
+
+        user = db.session.query(User).filter(User.id == g.user.id).first()
+        user.avatar = image_string
+        db.session.commit()
+        return redirect(url_for("profile"))
+
+    return render_template('add_avatar.html')
 
 # Update the status of an item
 @app.get("/update/<int:item_id>")

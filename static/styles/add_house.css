@@ -190,3 +190,42 @@ body {
     --x: 100%;
     box-shadow: 1px 3px 15px 1px grey;
 }
+
+.center2 {
+    position: relative;
+    width: 40px;
+    left: 37px;
+    top: 427px;
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.back_button_field {
+    width: 150px;
+    height: 100%;
+    position: fixed;
+    background-color: transparent;
+    transition: 0.2s;
+    transition-duration: 0.5s;
+    opacity: 0;
+}
+
+.animations {
+    position: fixed;
+    height: 0px;
+    animation: shakeX;
+}
+
+.back_button_field+.div#animation_stuff:hover {
+    opacity: 1;
+}
+
+.back_button_field:hover,
+.center2:hover>.back_button_field {
+    cursor: pointer;
+    background-color: #00000010;
+    opacity: 1;
+}

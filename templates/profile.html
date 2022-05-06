@@ -11,34 +11,59 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- <link rel="stylesheet" href="./profile.css"> -->
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/profile.css') }}">
+    <title>Profile</title>
 
-    <title>Document</title>
+
 </head>
 
 <body>
-    <div class="page">
+    <div class="page" id='content'>
         <div class="animate__animated animate__fadeInDownBig">
+            <input type="checkbox" id="switch-button" onclick="myFunction()">
+            <script>
+                function myFunction() {
+                    var element = document.getElementById('content');
+                    element.classList.toggle("page_dark");
+                }
+            </script>
             <div class="top_bar">
-                <a href="/logout">
-                    <div class="logout_button">
+                <div class="logout_button">
+                    <a href="/logout">
                         <div class="center_logout">
                             LOG OUT
                         </div>
-                    </div>
-                </a>
-                <a href="/notifications">
-                    <div class="notifications_button">
+                    </a>
+                </div>
+
+                <div class="notifications_button">
+                    <a href="/notifications">
                         <div class="center_notifications">
                             <i class="bell outline icon"></i>
                         </div>
-                    </div>
-                </a>
-                <div class="profile_picture">
-                    <!-- <img src="TODO IMG" alt=""> -->
+                    </a>
                 </div>
+
+                <label for="switch-button">
+                    <i class="sun icon" id="sun"></i>
+                    <i class="moon icon"id='moon'></i>
+                </label>
+
                 <div class="name_div">
                     <div class="name">
                         {{ g.user.username }}
+                    </div>
+                </div>
+
+                <div class="profile_picture">
+                    <a href="/add_avatar">
+                        <div class="center_profile_picture">
+                            <img id='image' src="{{ image }}" alt="avatar">
+                        </div>
+                    </a>
+                </div>
+                <div class="edit_profile_picture">
+                    <div class="center_edit_profile_picture">
+                        <i class="pencil alternate icon"></i>
                     </div>
                 </div>
             </div>

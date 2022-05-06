@@ -12,11 +12,18 @@ body {
     width: 100%;
     min-width: 600px;
     height: 100%;
-    background-color: #4158D0;
-    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    /* background-color: #4158D0; */
+    background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
     position: absolute;
-    /* margin-left: auto;
-    margin-right: auto; */
+    transition: .3s;
+    transition-delay: 0.5s;
+}
+
+.page_dark {
+    background: linear-gradient(43deg, #001999 0%, #800077 46%, #9A6300 100%);
+    transition: background .3s;
+    transition-duration: .3s;
+    transition-delay: 0.5s;
 }
 
 .top_bar {
@@ -24,9 +31,15 @@ body {
     height: 100px;
     background: rgba(255, 255, 255, 1);
     position: fixed;
-    border-radius: 10px;
+    display: flex;
+    justify-content: normal;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
     overflow: hidden;
     box-shadow: 1px 3px 15px 1px grey;
+    transition: .2s;
 }
 
 .logout_button {
@@ -39,8 +52,10 @@ body {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 20px;
-    top: 25px;
-    left: 30px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
     overflow: hidden;
     border-radius: 50px;
     background-color: #B363F1;
@@ -59,20 +74,23 @@ body {
     display: flex;
     justify-content: center;
     position: relative;
+    color: white;
 }
 
 .notifications_button {
     width: 50px;
+    min-width: 50px;
     height: 50px;
     font-size: 25px;
     opacity: 0.8;
     position: relative;
-    color: white;
     font-family: Montserrat;
     font-weight: 700;
     font-size: 20px;
-    bottom: 25px;
-    left: 250px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
     overflow: hidden;
     border-radius: 50px;
     background-color: #B363F1;
@@ -92,6 +110,7 @@ body {
     left: 1px;
     justify-content: center;
     position: relative;
+    color: white;
 }
 
 .profile_picture {
@@ -99,32 +118,79 @@ body {
     height: 80px;
     background: rgb(156, 156, 156);
     opacity: 1;
-    position: fixed;
-    right: 10px;
-    top: 10px;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
     border-radius: 80px;
+    overflow: visible;
+}
+
+.center_profile_picture {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    color: white;
+    border-radius: 40px;
     overflow: hidden;
 }
 
-.name_div {
-    width: 450px;
+#image {
+    max-width: 100px;
+    max-height: 100px;
+    ;
+    /* border-radius: 40px; */
+}
+
+.edit_profile_picture {
+    width: 80px;
     height: 80px;
+    background: transparent;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    color: black;
+    opacity: 1;
     position: fixed;
-    right: 100px;
+    right: 10px;
     top: 10px;
+    pointer-events: none;
+}
+
+.center_edit_profile_picture {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    opacity: 0;
+}
+
+.name_div {
+    width: 49%;
+    height: 50px;
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 20px;
+    background-color: transparent;
+    display: flex;
+    justify-content: end;
 }
 
 .name {
     width: auto;
+    height: 50px;
     color: rgba(8, 13, 30, 1);
     position: relative;
     font-family: Montserrat;
     font-weight: 700;
     font-size: 30px;
+    top: 5px;
     opacity: 1;
     text-align: right;
-    margin: auto;
-    padding: 20px 0;
 }
 
 .ui.grid>.column:not(.row) {
@@ -367,6 +433,74 @@ body {
     left: 2px;
     opacity: 0.3;
     color: black;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+label {
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 2px solid gray;
+    border-radius: 30px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#sun {
+    color: orange;
+    font-size: 34px;
+    text-shadow: 0px 0px 20px orange;
+    transform: translateX(48px);
+    position: relative;
+    top: -5px;
+    transition: .3s;
+}
+
+#moon {
+    color: #ffffff;
+    font-size: 30px;
+    text-shadow: 0px 0px 20px #ffffff;
+    transform: translateX(0px);
+    position: relative;
+    top: -7px;
+    left: -20px;
+    opacity: 0;
+    transition: .3s;
+}
+
+#switch-button:checked~.top_bar>label>#sun {
+    opacity: 0;
+    transform: translateX(0px);
+}
+
+#switch-button:checked~.top_bar>label>#moon {
+    opacity: 1;
+    transform: translateX(-25px);
+}
+
+#switch-button:checked~.top_bar {
+    background: black;
+    color: white;
+}
+
+#switch-button:checked~.top_bar>.name_div>.name {
+    /* background: black; */
+    color: white;
+}
+
+#switch-button:checked~.top_bar>.name_div>.name {
+    /* background: black; */
+    color: white;
+}
+
+.dark {
+    background: black;
+    color: white;
 }
 
 .animate__animated.animate__fadeIn {

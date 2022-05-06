@@ -34,7 +34,6 @@ body {
     border-radius: 3px;
     overflow: hidden;
     animation: fadeInUp;
-    animation-duration: slow;
     box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
 }
 
@@ -57,9 +56,20 @@ body {
 
 .users {
     width: 92%;
-    height: 730px;
-    top: 150px;
-    position: absolute;
+    height: auto;
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 14px;
+    background: transparent;
+    opacity: 1;
+    animation: fadeInUp;
+    animation-duration: slow;
+}
+
+.pending_users {
+    width: 92%;
+    height: auto;
+    position: relative;
     margin-left: 20px;
     background: transparent;
     opacity: 1;
@@ -146,4 +156,13 @@ body {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 20px;
+}
+
+.lists {
+    width: 100%;
+    height: auto;
+    top: 150px;
+    position: relative;
+    background: transparent;
+    opacity: 1;
 }
