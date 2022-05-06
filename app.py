@@ -11,7 +11,8 @@ app = Flask(__name__)
 
 app.secret_key = 'somesecretkeythatonlyishouldknow'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:12345@localhost:5432/projectdatabase"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -31,7 +32,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique = True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
-    avatar = db.Column(db.Text, nullable=True)
+    avatar = db.Column(db.LargeBinary, nullable=True)
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -126,7 +127,6 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
     return redirect(url_for("profile"))
-    print("hello world")
 # Add an item to the list
 @app.post("/add/<int:house_id>")
 def add_item(house_id):
@@ -187,12 +187,12 @@ def profile():
     except:
         house_list = []
 
-    # try:
-    avatar = db.session.query(User).filter(User.id == g.user.id).first().avatar
-    data_url = 'data:image/png;base64,' + avatar.decode('ascii')
+    try:
+        user = db.session.query(User).filter(User.id == g.user.id).first()
+        data_url = 'data:image/png;base64,' + user.avatar.decode('ascii')
     # image = Image.open(BytesIO(base64.b64decode(avatar)))
-    # except:
-    #     avatar = None
+    except:
+        data_url = None
 
     return render_template('profile.html', house_list = house_list, image = data_url)
 
