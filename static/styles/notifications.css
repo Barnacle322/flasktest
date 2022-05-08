@@ -101,6 +101,12 @@ body {
     top: 10px
 }
 
+.center_buttons {
+    display: flex;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
 #inner_big.column {
     width: 355px;
 }

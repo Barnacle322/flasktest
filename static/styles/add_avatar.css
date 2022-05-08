@@ -13,10 +13,14 @@ body {
     min-width: 600px;
     height: 100%;
     background-color: #4158D0;
-    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /400%;
     opacity: 1;
     overflow: hidden;
     position: absolute;
+}
+
+.v9_31_dark {
+    --x: 100%;
 }
 
 .photo_add_screen {
@@ -30,6 +34,11 @@ body {
     animation: fadeInUp;
     animation-duration: slow;
     box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
+}
+
+.photo_add_screen_dark {
+    background: #2a2e35;
+    color: #fff;
 }
 
 .center_title {
@@ -47,6 +56,10 @@ body {
     font-size: 30px;
     opacity: 1;
     text-align: center;
+}
+
+.title_dark {
+    color: #fff;
 }
 
 .center_prompt {
@@ -77,7 +90,8 @@ body {
     height: 60px;
     background: rgba(222, 222, 222, 1);
     margin: 8px 0;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
     border: 0px solid #ccc;
     border-radius: 5px;
     position: relative;
@@ -86,6 +100,36 @@ body {
     font-weight: 400;
     font-size: 15px;
     outline: none;
+    cursor: pointer;
+    transition: .3s;
+    color: transparent;
+}
+
+.photo_input_dark {
+    background: #12181b;
+}
+
+.photo_input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.photo_input::before {
+    visibility: hidden;
+}
+
+.photo_input:hover {
+    background: rgb(204, 204, 204);
+}
+
+.photo_field_title {
+    font-family: montserrat;
+    font-size: 30px;
+    font-weight: 700;
+    font-style: italic;
+    position: absolute;
+    bottom: 40px;
+    left: 130px;
+    pointer-events: none;
 }
 
 .login_button_field {
@@ -116,10 +160,18 @@ body {
     transition-duration: 0.4s;
 }
 
+.login_dark {
+    font-weight: 700;
+}
+
 .login:hover {
     cursor: pointer;
     --x: 100%;
     box-shadow: 1px 3px 15px 1px grey;
+}
+
+.login_dark:hover {
+    box-shadow: 1px 2px 10px 1px #0101019e;
 }
 
 .center2 {

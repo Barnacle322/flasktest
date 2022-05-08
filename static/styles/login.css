@@ -17,8 +17,6 @@ body {
     opacity: 1;
     overflow: hidden;
     position: absolute;
-    /* margin-left: auto;
-    margin-right: auto; */
 }
 
 .login_prompt {
@@ -163,15 +161,6 @@ body {
     outline: none;
 }
 
-.lock_icon {
-    background: rgba(222, 222, 222, 1);
-    width: 35px;
-    height: 44px;
-    position: relative;
-    font-size: 20px;
-    overflow: hidden;
-}
-
 .login_button_field {
     margin: 0;
     position: absolute;
@@ -201,6 +190,12 @@ body {
     transition-duration: 0.4s;
 }
 
+.login:hover {
+    cursor: pointer;
+    --x: 100%;
+    box-shadow: 1px 3px 15px 1px grey;
+}
+
 .register_button_field {
     margin: 0;
     position: absolute;
@@ -226,10 +221,4 @@ body {
 .register:hover {
     cursor: pointer;
     color: #4158D0;
-}
-
-.login:hover {
-    cursor: pointer;
-    --x: 100%;
-    box-shadow: 1px 3px 15px 1px grey;
 }

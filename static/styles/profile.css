@@ -12,18 +12,28 @@ body {
     width: 100%;
     min-width: 600px;
     height: 100%;
-    /* background-color: #4158D0; */
-    background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
     position: absolute;
-    transition: .3s;
-    transition-delay: 0.5s;
+    transition: all .3s ease;
 }
 
-.page_dark {
-    background: linear-gradient(43deg, #001999 0%, #800077 46%, #9A6300 100%);
-    transition: background .3s;
-    transition-duration: .3s;
-    transition-delay: 0.5s;
+.background {
+    position: absolute;
+    width: 100%;
+    min-width: 600px;
+    height: 100%;
+    background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /400%;
+    /* background-image: linear-gradient(43deg, hsl(230, 61%, 54%) 0%, hsl(304, 52%, 55%) 46%, hsl(39, 100%, 72%) 100%); */
+    transition: 0.5s;
+    transition-duration: 0.6s;
+    /* transition: all .3s ease; */
+}
+
+.background_dark {
+    /* background: linear-gradient(43deg, hsl(230, 59%, 27%) 0%, hsl(304, 50%, 27.5%) 46%, hsl(39, 100%, 36%) 100%); */
+    --x: 100%;
+    /* opacity: 0; */
+    transition: 0.5s;
+    transition-duration: 0.6s;
 }
 
 .top_bar {
@@ -44,11 +54,13 @@ body {
 
 .logout_button {
     width: 180px;
-    min-width: 123px;
+    min-width: 50px;
     height: 50px;
     font-size: 25px;
     opacity: 0.8;
     position: relative;
+    display: flex;
+    justify-content: center;
     color: white;
     font-family: Montserrat;
     font-weight: 700;
@@ -65,6 +77,13 @@ body {
     transition-duration: 0.5s;
 }
 
+.logout_button_dark {
+    background-color: #B363F1;
+    box-shadow: 1px 3px 10px 1px #0101019e;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
 .logout_button:hover {
     cursor: pointer;
     background-color: #C850C0;
@@ -76,6 +95,31 @@ body {
     justify-content: center;
     position: relative;
     color: white;
+}
+
+.center_logout_icon {
+    padding: 14px;
+    display: flex;
+    justify-content: center;
+    bottom: 76px;
+    left: 1px;
+    position: relative;
+    color: white;
+}
+
+#logout_icon {
+    opacity: 0;
+    transform: scaleX(-1);
+}
+
+@media only screen and (max-width: 1062px) {
+    .center_logout {
+        color: #B363F1;
+        opacity: 0;
+    }
+    #logout_icon {
+        opacity: 1;
+    }
 }
 
 .notifications_button {
@@ -100,6 +144,13 @@ body {
     transition-duration: 0.5s;
 }
 
+.notifications_button_dark {
+    background-color: #B363F1;
+    box-shadow: 1px 2px 10px 1px #0101019e;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
 .notifications_button:hover {
     cursor: pointer;
     background-color: #C850C0;
@@ -118,14 +169,15 @@ body {
     width: 80px;
     height: 80px;
     background: rgb(156, 156, 156);
-    opacity: 1;
     position: relative;
+    display: flex;
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 20px;
     margin-right: 20px;
     border-radius: 80px;
     overflow: visible;
+    transition: .3s;
 }
 
 .center_profile_picture {
@@ -137,13 +189,21 @@ body {
     color: white;
     border-radius: 40px;
     overflow: hidden;
+    transition: 0.3s;
+}
+
+#no_user_picture {
+    font-size: 20px;
+    opacity: 0.8;
+    margin-top: 30px;
+    margin-left: 3px;
+    transition: 0.3s;
 }
 
 #image {
-    max-width: 100px;
-    max-height: 100px;
-    ;
-    /* border-radius: 40px; */
+    min-width: 80px;
+    min-height: 80px;
+    object-fit: cover;
 }
 
 .edit_profile_picture {
@@ -154,23 +214,41 @@ body {
     display: flex;
     justify-content: center;
     color: black;
-    opacity: 1;
     position: fixed;
-    right: 10px;
+    right: 20px;
     top: 10px;
     pointer-events: none;
 }
 
 .center_edit_profile_picture {
-    padding: 20px;
+    left: 3px;
+    padding: 24px;
     display: flex;
     justify-content: center;
     position: relative;
+    color: rgb(255, 255, 255);
     opacity: 0;
+    transition: .4s;
+}
+
+.profile_picture:hover {
+    background-color: #666666;
+}
+
+.profile_picture:hover .center_profile_picture>#no_user_picture {
+    opacity: 0.1;
+}
+
+.profile_picture:hover .center_profile_picture {
+    opacity: 0.5;
+}
+
+.profile_picture:hover+.edit_profile_picture>.center_edit_profile_picture {
+    opacity: 0.8;
 }
 
 .name_div {
-    width: 70%;
+    width: 72%;
     height: 50px;
     position: relative;
     margin-top: 25px;
@@ -190,7 +268,6 @@ body {
     font-weight: 700;
     font-size: 30px;
     top: 5px;
-    opacity: 1;
     text-align: right;
 }
 
@@ -202,10 +279,8 @@ body {
     width: 100%;
     height: 100%;
     background: transparent;
-    opacity: 1;
     position: fixed;
     top: 100px;
-    /* left: 20px; */
     overflow-y: scroll;
     overflow-x: hidden;
     padding-right: 20px;
@@ -222,47 +297,23 @@ body {
     top: 20px;
 }
 
-.house_element2 {
-    width: 400px;
-    height: 300px;
-    position: fixed;
-    top: 180px;
-    left: 550px;
-}
-
-.house_element3 {
-    width: 400px;
-    height: 300px;
-    position: relative;
-    top: -558px;
-    left: 1000px;
-}
-
 .house {
     width: 400px;
-    height: 300px;
-    position: relative;
-    top: 60px;
-    background-color: rgb(255, 255, 255);
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
-    opacity: 0.8;
-}
-
-.house3 {
-    width: 400px;
-    height: 398px;
+    height: 400px;
     position: relative;
     top: 0px;
-    background-color: lightgray;
+    background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    box-shadow: 1px 3px 15px 1px grey;
-    opacity: 0.3;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    position: relative;
+    box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
+    opacity: 0.8;
+    transition: all .3s;
+}
+
+.house_dark {
+    background-color: #2a2e35;
+    box-shadow: 1px 3px 15px 1px #010101;
+    transition: all .3s;
+    /* opacity: 0.5; */
 }
 
 .center_icon {
@@ -276,12 +327,33 @@ body {
 .white_margin {
     width: 400px;
     height: 230px;
-    position: relative;
-    bottom: 170px;
+    position: absolute;
+    top: 170px;
     background-color: white;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     box-shadow: 1px 3px 15px 1px grey;
+    transition: all .3s;
+}
+
+.black_margin {
+    background-color: #2a2e35;
+    box-shadow: 0px -3px 7px -2px #010101;
+    color: #fff;
+    transition: all .3s;
+}
+
+.black_margin>.information {
+    color: #fff;
+}
+
+.black_margin>.address {
+    color: #b2becd;
+}
+
+.black_margin>.enter_button {
+    box-shadow: 1px 3px 15px 1px #010101;
+    ;
 }
 
 .information {
@@ -289,10 +361,9 @@ body {
     position: relative;
     top: 25%;
     font-family: Montserrat;
-    font-weight: 4000;
+    font-weight: 400;
     font-size: 25px;
     font-style: italic;
-    opacity: 1;
     text-align: center;
     width: 100%;
     height: 50px;
@@ -311,7 +382,6 @@ body {
     font-weight: 400;
     font-size: 20px;
     font-style: italic;
-    opacity: 1;
     text-align: center;
     width: 100%;
     height: 50px;
@@ -359,25 +429,18 @@ body {
 .house_name_plate {
     width: 400px;
     height: 100px;
-    position: relative;
+    position: absolute;
+    top: 0px;
     background-color: white;
     background-image: radial-gradient( circle farthest-corner at 10.2% 55.8%, rgba(252, 37, 103, 1) 0%, rgba(250, 38, 151, 1) 46.2%, rgba(186, 8, 181, 1) 90.1%);
     box-shadow: -2px 5px 12px 1px rgba(0, 0, 0, 0.26);
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    opacity: 1;
 }
 
-.house_name_plate2 {
-    width: 400px;
-    height: 100px;
-    position: relative;
-    background-color: white;
-    background-image: radial-gradient( circle farthest-corner at 92.3% 71.5%, rgba(83, 138, 214, 1) 0%, rgba(134, 231, 214, 1) 90%);
-    box-shadow: -2px 5px 12px 1px rgba(0, 0, 0, 0.26);
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    opacity: 1;
+.house_name_plate_dark {
+    background-image: radial-gradient( circle farthest-corner at 10.2% 55.8%, rgb(180, 4, 57) 0%, rgba(199, 8, 110), rgb(154, 0, 148) 90.1%);
+    box-shadow: 0px 6px 7px -2px rgba(0, 0, 0, 0.53);
 }
 
 .house_name {
@@ -404,6 +467,11 @@ body {
     text-align: center;
     display: flex;
     justify-content: center;
+    transition: .3s;
+}
+
+.add_field_dark {
+    background: #2a2e3542;
 }
 
 .add_button {
@@ -415,6 +483,16 @@ body {
     transition: background-color 0.2s ease-out;
     transition: color 0.2 ease-out;
     top: 115px;
+    display: flex;
+    justify-content: center;
+}
+
+#add_href {
+    border-radius: 50px;
+}
+
+.add_field_dark>.add_button {
+    background: #ffffff53;
 }
 
 .add_button:hover {
@@ -434,6 +512,8 @@ body {
     left: 2px;
     opacity: 0.3;
     color: black;
+    padding-right: 38px;
+    padding-left: 38px;
 }
 
 input[type="checkbox"] {
@@ -485,24 +565,15 @@ label {
     transform: translateX(-25px);
 }
 
-#switch-button:checked~.top_bar {
-    background: black;
-    color: white;
+.top_bar_dark {
+    background: #2a2e35;
+    color: #b2becd;
+    box-shadow: 1px 3px 15px 1px #010101;
 }
 
-#switch-button:checked~.top_bar>.name_div>.name {
+.name_dark {
     /* background: black; */
-    color: white;
-}
-
-#switch-button:checked~.top_bar>.name_div>.name {
-    /* background: black; */
-    color: white;
-}
-
-.dark {
-    background: black;
-    color: white;
+    color: #fff;
 }
 
 .animate__animated.animate__fadeIn {

@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- <link rel="stylesheet" href="./add_house.css"> -->
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/add_avatar.css') }}">
-    <title>Login</title>
+    <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static',filename='elements/Peret (1).png') }}">
+    <title>Avatar</title>
 </head>
 
 <body>
@@ -24,12 +25,16 @@
             <div class="center_prompt">
                 <div class="photo_add_screen">
                     <div class="center_title">
-                        <span class="title">Add House</span>
+                        <span class="title">Add a Profile Picture</span>
                     </div>
                     <form class="form" method="post" enctype=multipart/form-data>
                         <div class="photo_field">
-                            <div class="photo_label">House name</div>
-                            <input class="photo_input" type=file name="file">
+                            <div class="photo_label">Select a document</div>
+                            <input class="photo_input" id='photo_input' type=file name="file" accept="image/png, image/jpg, image/gif, image/jpeg">
+                            <div class="photo_field_title">
+                                Click to upload
+                            </div>
+                            <!-- <label for="photo_input">Choose the file</label> -->
                         </div>
                         <div class="login_button_field">
                             <button type='submit' class="button login" id="login">Add</button>
@@ -39,6 +44,7 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static',filename='scripts/add_avatar.js') }}"></script>
 </body>
 
 </html>

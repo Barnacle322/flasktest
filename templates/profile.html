@@ -11,26 +11,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- <link rel="stylesheet" href="./profile.css"> -->
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/profile.css') }}">
+    <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static',filename='elements/Peret (1).png') }}">
     <title>Profile</title>
-
-
 </head>
 
 <body>
     <div class="page" id='content'>
+        <div class="background" id="background">
+
+        </div>
         <div class="animate__animated animate__fadeInDownBig">
             <input type="checkbox" id="switch-button" onclick="myFunction()">
-            <script>
-                function myFunction() {
-                    var element = document.getElementById('content');
-                    element.classList.toggle("page_dark");
-                }
-            </script>
             <div class="top_bar">
                 <div class="logout_button">
                     <a href="/logout">
                         <div class="center_logout">
                             LOG OUT
+                        </div>
+                        <div class="center_logout_icon">
+                            <i class="sign-out icon" id="logout_icon"></i>
                         </div>
                     </a>
                 </div>
@@ -57,7 +56,9 @@
                 <div class="profile_picture">
                     <a href="/add_avatar">
                         <div class="center_profile_picture">
-                            <img id='image' src="{{ image }}" alt="avatar">
+                            {% if image != None %}
+                            <img id='image' src="{{ image }}" alt="avatar"> {% else %}
+                            <i class="user outline icon" id="no_user_picture"></i> {% endif %}
                         </div>
                     </a>
                 </div>
@@ -75,27 +76,28 @@
                     {% if house_list.__len__() != 0 %} {% for house in house_list %}
                     <div class="column">
                         <div class="house_element">
+                            <div class="house">
+
+                            </div>
                             <div class="house_name_plate">
                                 <div class="house_name">
                                     {{ house.name }}
                                 </div>
-                                <div class="house">
+                            </div>
 
+                            <div class="white_margin">
+                                <div class="information">
+                                    {{ house.description}}
                                 </div>
-                                <div class="white_margin">
-                                    <div class="information">
-                                        {{ house.description}}
-                                    </div>
-                                    <div class="address">
-                                        {{ house.address}}
-                                    </div>
-                                    <div class="enter_button">
-                                        <a href="/tracker/{{ house.id }}">
-                                            <div class="center_enter">
-                                                ENTER
-                                            </div>
-                                        </a>
-                                    </div>
+                                <div class="address">
+                                    {{ house.address}}
+                                </div>
+                                <div class="enter_button">
+                                    <a href="/tracker/{{ house.id }}">
+                                        <div class="center_enter">
+                                            ENTER
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -104,8 +106,8 @@
                     <div class="column">
                         <div class="house_element">
                             <div class="add_field">
-                                <div class="add_button" href="/add_house">
-                                    <a href="/add_house">
+                                <div class="add_button">
+                                    <a href="/add_house" id="add_href">
                                         <div class="plus_icon_field">
                                             <i class="plus icon"></i>
                                         </div>
@@ -119,6 +121,7 @@
         </div>
 
     </div>
+    <script src="{{ url_for('static',filename='scripts/profile.js') }}"></script>
 </body>
 
 </html>

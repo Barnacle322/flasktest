@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- <link rel="stylesheet" href="./login.css"> -->
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/notifications.css') }}">
-    <title>Login</title>
+    <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static',filename='elements/Peret (1).png') }}">
+    <title>Notifications</title>
 </head>
 
 <body>
@@ -35,24 +36,26 @@
                                             You have got a new invitaion!
                                         </div>
                                         <div class="notification_body">
-                                            <b>From:</b> {{ table.sender}} <br> <b>House Name:</b> {{ table.house_name }}
+                                            <b>From:</b> {{ table.sender.username }} <br> <b>House Name:</b> {{ table.house.name }} <br> <b>House Address:</b> {{ table.house.address }}
                                         </div>
                                     </div>
                                     <div class="column" id="inner_small">
-                                        <a href="/accept_invitation/{{ table.id }}">
-                                            <div class="accept_button">
-                                                <div class="center_accept">
-                                                    <i class="check icon"></i>
+                                        <div class="center_buttons">
+                                            <a href="/accept_invitation/{{ table.id }}">
+                                                <div class="accept_button">
+                                                    <div class="center_accept">
+                                                        <i class="check icon"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                        <a href="/decline_invitation/{{ table.id }}">
-                                            <div class="decline_button">
-                                                <div class="center_decline">
-                                                    <i class="close icon"></i>
+                                            </a>
+                                            <a href="/decline_invitation/{{ table.id }}">
+                                                <div class="decline_button">
+                                                    <div class="center_decline">
+                                                        <i class="close icon"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

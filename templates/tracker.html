@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <!-- <link rel="stylesheet" href="static/mystyle.css"> -->
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static',filename='elements/Peret (1).png') }}">
 
 </head>
 
@@ -66,7 +67,7 @@
                         </form>
                         {% else %}
                         <div class="ui relaxed grid">
-                            <div class='thirteen wide column'><a class="ui big header">{{ item_list.index(item) + 1 }} | {{ item.name }} | {{ item.author }}</a></div>
+                            <div class='thirteen wide column'><a class="ui big header">{{ item_list.index(item) + 1 }} | {{ item.name }} | {{ item.author.username }}</a></div>
                             <div class='column'><a class="ui icon button" style="font-size:10px;" href="/edit/{{ item.id }}"><i class="edit icon"></i></a></div>
                         </div>
                         {% endif %} {% if item.complete == False %}
@@ -77,7 +78,7 @@
                         <i style = "font-size:15px;">Quantity: {{ item.quantity }}</b><br><br>
 
                         <a class="ui blue button" href="/update/{{ item.id }}">I ate it</a>
-                        <a class="ui red button" href="/delete/{{ item.id }}">Delete</a>
+                        <a class="ui red button" href="/delete/{{ house_id }}/{{ item.id }}">Delete</a>
                     </div>
                     {% endfor %}
                 </div>
