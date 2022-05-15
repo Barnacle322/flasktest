@@ -52,8 +52,8 @@ body {
     transition: .2s;
 }
 
-.logout_button {
-    width: 180px;
+.back_button {
+    width: 130px;
     min-width: 50px;
     height: 50px;
     font-size: 25px;
@@ -77,19 +77,19 @@ body {
     transition-duration: 0.5s;
 }
 
-.logout_button_dark {
+.back_button_dark {
     background-color: #B363F1;
     box-shadow: 1px 3px 10px 1px #0101019e;
     transition: 0.4s;
     transition-duration: 0.5s;
 }
 
-.logout_button:hover {
+.back_button:hover {
     cursor: pointer;
     background-color: #C850C0;
 }
 
-.center_logout {
+.center_back {
     padding: 14px;
     display: flex;
     justify-content: center;
@@ -97,7 +97,7 @@ body {
     color: white;
 }
 
-.center_logout_icon {
+.center_back_icon {
     padding: 14px;
     display: flex;
     justify-content: center;
@@ -107,7 +107,7 @@ body {
     color: white;
 }
 
-#logout_icon {
+#back_icon {
     opacity: 0;
     transform: scaleX(-1);
 }
@@ -117,52 +117,9 @@ body {
         color: #B363F1;
         opacity: 0;
     }
-    #logout_icon {
+    #back_icon {
         opacity: 1;
     }
-}
-
-.notifications_button {
-    width: 50px;
-    min-width: 50px;
-    height: 50px;
-    font-size: 25px;
-    opacity: 0.8;
-    position: relative;
-    font-family: Montserrat;
-    font-weight: 700;
-    font-size: 20px;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    margin-left: 20px;
-    margin-right: 20px;
-    overflow: hidden;
-    border-radius: 50px;
-    background-color: #B363F1;
-    box-shadow: 1px 3px 10px 1px grey;
-    transition: 0.4s;
-    transition-duration: 0.5s;
-}
-
-.notifications_button_dark {
-    background-color: #B363F1;
-    box-shadow: 1px 2px 10px 1px #0101019e;
-    transition: 0.4s;
-    transition-duration: 0.5s;
-}
-
-.notifications_button:hover {
-    cursor: pointer;
-    background-color: #C850C0;
-}
-
-.center_notifications {
-    padding: 14px;
-    display: flex;
-    left: 1px;
-    justify-content: center;
-    position: relative;
-    color: white;
 }
 
 .profile_picture {
@@ -248,7 +205,7 @@ body {
 }
 
 .name_div {
-    width: 72%;
+    width: 80%;
     height: 50px;
     position: relative;
     margin-top: 25px;
@@ -273,6 +230,7 @@ body {
 
 .ui.grid>.column:not(.row) {
     width: 430px;
+    height: 330px;
 }
 
 .main_content {
@@ -290,45 +248,18 @@ body {
     margin: auto;
 }
 
-.house_element {
+.item_element {
     width: 400px;
-    height: 400px;
+    height: 250px;
     position: relative;
     top: 20px;
 }
 
-.house {
-    width: 400px;
-    height: 400px;
-    position: relative;
-    top: 0px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
-    opacity: 0.8;
-    transition: all .3s;
-}
-
-.house_dark {
-    background-color: #2a2e35;
-    box-shadow: 1px 3px 15px 1px #010101;
-    transition: all .3s;
-    /* opacity: 0.5; */
-}
-
-.center_icon {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    top: 55px;
-}
-
 .white_margin {
     width: 400px;
-    height: 230px;
+    height: 200px;
     position: absolute;
-    top: 170px;
+    top: 100px;
     background-color: white;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -343,66 +274,88 @@ body {
     transition: all .3s;
 }
 
-.black_margin>.information {
+.black_margin>.author {
     color: #fff;
 }
 
-.black_margin>.address {
-    color: #b2becd;
+.black_margin>.price {
+    color: #fff;
+}
+
+.black_margin>.quantity {
+    color: #fff;
 }
 
 .black_margin>.enter_button {
     box-shadow: 1px 2px 10px 1px #0101019e;
 }
 
-.information {
+.author {
     color: rgba(0, 0, 0, 1);
     position: relative;
-    top: 25%;
-    font-family: Montserrat;
-    font-weight: 400;
-    font-size: 25px;
-    font-style: italic;
-    text-align: center;
-    width: 100%;
-    height: 50px;
-    padding-left: 10px;
-    padding-right: 10px;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.address {
-    color: rgba(0, 0, 0, 1);
-    position: relative;
-    top: 25%;
+    top: 10%;
     font-family: Montserrat;
     font-weight: 400;
     font-size: 20px;
-    font-style: italic;
-    text-align: center;
+    text-align: left;
     width: 100%;
-    height: 50px;
-    padding-left: 10px;
-    padding-right: 10px;
-    opacity: 0.6;
-    display: flex;
-    justify-content: center;
+    height: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     overflow: hidden;
+}
+
+.price {
+    color: rgba(0, 0, 0, 1);
+    position: relative;
+    top: 10%;
+    font-family: Montserrat;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: left;
+    width: 100%;
+    height: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    overflow: hidden;
+}
+
+.quantity {
+    color: rgba(0, 0, 0, 1);
+    position: relative;
+    top: 10%;
+    font-family: Montserrat;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: left;
+    width: 100%;
+    height: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    overflow: hidden;
+}
+
+.info_dark {
+    color: #fff;
 }
 
 .enter_button {
     width: 180px;
     height: 50px;
     font-size: 25px;
-    opacity: 0.8;
+    opacity: 1;
     position: relative;
     color: white;
     font-family: Montserrat;
     font-weight: 700;
     font-size: 20px;
-    top: 65px;
+    top: 30px;
     left: 110px;
     overflow: hidden;
     border-radius: 50px;
@@ -442,7 +395,7 @@ body {
     box-shadow: 0px 6px 7px -2px rgba(0, 0, 0, 0.53);
 }
 
-.edit_house_button {
+.edit_item_button {
     width: 25px;
     height: 25px;
     overflow: hidden;
@@ -456,7 +409,7 @@ body {
     transition: .3s;
 }
 
-.center_edit_house_button {
+.center_edit_item_button {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -465,7 +418,7 @@ body {
     color: #fff;
 }
 
-.edit_house_button:hover {
+.edit_item_button:hover {
     cursor: pointer;
     opacity: 1;
 }
@@ -487,7 +440,7 @@ body {
 
 .add_field {
     width: 400px;
-    height: 397px;
+    height: 300px;
     background: rgba(255, 255, 255, 0.271);
     justify-content: center;
     border-radius: 10px;
@@ -509,7 +462,7 @@ body {
     position: relative;
     transition: background-color 0.2s ease-out;
     transition: color 0.2 ease-out;
-    top: 115px;
+    top: 75px;
     display: flex;
     justify-content: center;
 }

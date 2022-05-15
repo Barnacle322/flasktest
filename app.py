@@ -1,11 +1,8 @@
-from xml.dom.expatbuilder import Rejecter
 from flask import Flask, render_template, request, redirect, session, url_for, flash, jsonify, sessions, g
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
 from sqlalchemy.orm import relationship
 
-from PIL import Image
-from io import BytesIO
 import base64
 
 app = Flask(__name__)
@@ -73,6 +70,14 @@ class Invitations(db.Model):
     def __repr__(self):
         return '<Invitations %r>' % self.id
 
+class Takers(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+
+    user = relationship('User', foreign_keys=[user_id])
+    item = relationship('Item', foreign_keys=[item_id])
+
 db.create_all()
 
 @app.before_request
@@ -131,29 +136,51 @@ def registration():
 def add_user():
     username = request.form.get("username")
     password = request.form.get("password")
+    user = db.session.query(User).filter(User.username == username).first()
+    if user:
+        return redirect(url_for("profile"))
     new_user = User(username=username, password=password)
     db.session.add(new_user)
     db.session.commit()
     return redirect(url_for("profile"))
 # Add an item to the list
-@app.post("/add/<int:house_id>")
+@app.route("/add_item/<int:house_id>", methods=['GET', 'POST'])
 def add_item(house_id):
     if not g.user:
         return redirect(url_for('login'))
 
-    name = request.form.get("name")
-    price = request.form.get("price")
-    quantity = request.form.get("quantity")   
-    user_id = g.user.id
-    new_item = Item(name=name, price=price, quantity=quantity, author_id=user_id)
-    db.session.add(new_item)    
-    db.session.commit()
+        
+    if request.method == 'POST':
+        name = request.form.get("name")
+        price = request.form.get("price")
+        quantity = request.form.get("quantity")   
+        user_id = g.user.id
+        new_item = Item(name=name, price=price, quantity=quantity, author_id=user_id)
+        db.session.add(new_item)    
+        db.session.commit()
 
-    new_table = Item_House_Map(house_id=house_id, item_id=new_item.id)
-    db.session.add(new_table)
-    db.session.commit()
-    return redirect("/tracker/" + str(house_id))
+        new_table = Item_House_Map(house_id=house_id, item_id=new_item.id)
+        db.session.add(new_table)
+        db.session.commit()
+        return redirect("/tracker/" + str(house_id))
+    
+    return render_template('add_item.html', house_id = house_id)
 
+
+@app.route("/edit_item/<int:house_id>/<int:item_id>", methods=['GET', 'POST'])
+def edit_item(house_id, item_id):
+    if not g.user:
+        return redirect(url_for('login'))
+
+    item = db.session.query(Item).filter(Item.id == item_id).first()
+    if request.method == 'POST':
+        item.name = request.form.get("name")
+        item.price = request.form.get("price")
+        item.quantity = request.form.get("quantity")
+        db.session.commit()
+        return redirect("/tracker/" + str(house_id))
+    
+    return render_template('edit_item.html', item = item, house_id = house_id)
 # Add a new house
 @app.route("/add_house", methods=['GET', 'POST'])
 def add_house():
@@ -175,9 +202,34 @@ def add_house():
         
     return render_template('add_house2.html')
 
+@app.route("/edit_house/<int:house_id>", methods=['GET', 'POST'])
+def edit_house(house_id):
+    if not g.user:
+        return redirect(url_for('login'))
+    house = db.session.query(House).filter(House.id == house_id).first()
+    if request.method == 'POST':
+        house = db.session.query(House).filter(House.id == house_id).first()
+        house.name = request.form.get("name")
+        house.description = request.form.get("description")
+        house.address = request.form.get("address")
+        db.session.commit()
+        return redirect(url_for("profile"))
+
+    return render_template('edit_house.html', house_id = house_id, house = house)
+
 # Delete an existing house
 @app.get("/delete_house/<int:house_id>")
 def delete_house(house_id):
+    invitations = db.session.query(Invitations).filter(Invitations.house_id == house_id).all()
+    for invitation in invitations:
+        db.session.delete(invitation)
+    db.session.commit()
+
+    map = db.session.query(Item_House_Map).filter(Item_House_Map.house_id == house_id).all()
+    for item in map:
+        db.session.delete(item)
+    db.session.commit()
+    
     house = db.session.query(House).filter(House.id == house_id).first()
     db.session.delete(house)
     db.session.commit()
@@ -262,8 +314,8 @@ def update(item_id):
     return redirect(url_for("tracker"))
 
 # Delete an item
-@app.get("/delete/<int:house_id>/<int:item_id>")
-def delete(house_id, item_id):
+@app.get("/delete_item/<int:house_id>/<int:item_id>")
+def delete_item(house_id, item_id):
     house_id = house_id
     table = db.session.query(Item_House_Map).filter(Item_House_Map.item_id == item_id).first()
     item = db.session.query(Item).filter(Item.id == item_id).first()
@@ -318,8 +370,7 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for('login'))
 
-# Tracker page
-@app.route('/tracker/<int:house_id>')
+@app.get('/tracker/<int:house_id>')
 def tracker(house_id):
     if not g.user:
         return redirect(url_for('login'))
@@ -330,14 +381,39 @@ def tracker(house_id):
 
     # Queries the "Table" to get to get all the item ids that are compliant with user_id and house_id
     table_list = db.session.query(Item_House_Map).filter(Item_House_Map.house_id == house_id).all()
-    # list = []
-
-    # for table in table_list:
-    #     list.append(db.session.query(Item).filter(Item.id == table.item_id).first())
 
     # Get all the items from the table Item that are compliant with the coresponding item id in the table id, query for which was preceding.
     list = [db.session.query(Item).join(User, Item.author_id == User.id).filter(Item.id == table.item_id).first() for table in table_list if table.item_id]
-    return render_template('tracker.html', item_list = list, house_id = house_id)
+
+    try:
+        user = db.session.query(User).filter(User.id == g.user.id).first()
+        data_url = 'data:image/png;base64,' + user.avatar.decode('ascii')
+    # image = Image.open(BytesIO(base64.b64decode(avatar)))
+    except:
+        data_url = None
+
+    return render_template('tracker2.html', item_list = list, house_id = house_id, image = data_url)
+
+# Tracker page
+# @app.route('/tracker/<int:house_id>')
+# def tracker(house_id):
+#     if not g.user:
+#         return redirect(url_for('login'))
+
+#     house = db.session.query(Invitations).filter(Invitations.recipient_id == g.user.id).filter(Invitations.house_id == house_id).filter(Invitations.status == 'accepted').first()
+#     if house == None:
+#         return redirect(url_for('profile'))
+
+#     # Queries the "Table" to get to get all the item ids that are compliant with user_id and house_id
+#     table_list = db.session.query(Item_House_Map).filter(Item_House_Map.house_id == house_id).all()
+#     # list = []
+
+#     # for table in table_list:
+#     #     list.append(db.session.query(Item).filter(Item.id == table.item_id).first())
+
+#     # Get all the items from the table Item that are compliant with the coresponding item id in the table id, query for which was preceding.
+#     list = [db.session.query(Item).join(User, Item.author_id == User.id).filter(Item.id == table.item_id).first() for table in table_list if table.item_id]
+#     return render_template('tracker.html', item_list = list, house_id = house_id)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -9,23 +9,13 @@ const enableDarkMode = () => {
 
     var background = document.getElementsByClassName('background')[0];
     background.classList.add("background_dark");
-    var logout_button = document.getElementsByClassName('logout_button')[0];
-    logout_button.classList.add("logout_button_dark");
-    var notifications_button = document.getElementsByClassName('notifications_button')[0];
-    notifications_button.classList.add("notifications_button_dark");
+    var back_button = document.getElementsByClassName('back_button')[0];
+    back_button.classList.add("back_button_dark");
+
     try {
         var white_margin = document.getElementsByClassName('white_margin');
         (Array.from(white_margin)).forEach(element => {
             element.classList.add("black_margin");
-        });
-    } catch (error) {
-        //pass
-    }
-
-    try {
-        var house = document.getElementsByClassName('house');
-        (Array.from(house)).forEach(element => {
-            element.classList.add("house_dark");
         });
     } catch (error) {
         //pass
@@ -46,6 +36,7 @@ const enableDarkMode = () => {
     top_bar.classList.add("top_bar_dark");
     var name = document.getElementsByClassName('name')[0];
     name.classList.add("name_dark");
+
     // 2. Update darkMode in localStorage
     localStorage.setItem('darkMode', 'enabled');
 }
@@ -57,22 +48,12 @@ const disableDarkMode = () => {
 
     var background = document.getElementsByClassName('background')[0];
     background.classList.remove("background_dark");
-    var logout_button = document.getElementsByClassName('logout_button')[0];
-    logout_button.classList.remove("logout_button_dark");
-    var notifications_button = document.getElementsByClassName('notifications_button')[0];
-    notifications_button.classList.remove("notifications_button_dark");
+    var back_button = document.getElementsByClassName('back_button')[0];
+    back_button.classList.remove("back_button_dark");
     try {
         var white_margin = document.getElementsByClassName('white_margin');
         (Array.from(white_margin)).forEach(element => {
             element.classList.remove("black_margin");
-        });
-    } catch (error) {
-        //pass
-    }
-    try {
-        var house = document.getElementsByClassName('house');
-        (Array.from(house)).forEach(element => {
-            element.classList.remove("house_dark");
         });
     } catch (error) {
         //pass
