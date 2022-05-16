@@ -159,8 +159,8 @@ def add_item(house_id):
         db.session.add(new_item)    
         db.session.commit()
 
-        new_table = Item_House_Map(house_id=house_id, item_id=new_item.id)
-        db.session.add(new_table)
+        new_map = Item_House_Map(house_id=house_id, item_id=new_item.id)
+        db.session.add(new_map)
         db.session.commit()
         return redirect("/tracker/" + str(house_id))
     
@@ -269,21 +269,21 @@ def notifications():
 
     house_list = [db.session.query(House).filter(House.id == invitation.house_id).first() for invitation in invitation_list if invitation.house_id != None]
 
-    return render_template('notifications.html', house_list = house_list, table_list = invitation_list)
+    return render_template('notifications.html', house_list = house_list, invitation_list = invitation_list)
 
 # Accept an invitation from the notifications page
-@app.get("/accept_invitation/<int:table_id>")
-def accept_invitation(table_id):
-    invitation = db.session.query(Invitations).filter(Invitations.id == table_id).first()
+@app.get("/accept_invitation/<int:invitation_id>")
+def accept_invitation(invitation_id):
+    invitation = db.session.query(Invitations).filter(Invitations.id == invitation_id).first()
     invitation.status = 'accepted'
     db.session.commit()
     return redirect(url_for("notifications"))
 
 # Decline an invitation from the notifications page
-@app.get("/decline_invitation/<int:table_id>")
-def decline_invitation(table_id):
-    table = db.session.query(Invitations).filter(Invitations.id == table_id).first()
-    table.status = 'rejected'
+@app.get("/decline_invitation/<int:invitation_id>")
+def decline_invitation(invitation_id):
+    invitation = db.session.query(Invitations).filter(Invitations.id == invitation_id).first()
+    invitation.status = 'rejected'
     db.session.commit()
     return redirect(url_for("notifications"))
 
@@ -317,9 +317,9 @@ def update(item_id):
 @app.get("/delete_item/<int:house_id>/<int:item_id>")
 def delete_item(house_id, item_id):
     house_id = house_id
-    table = db.session.query(Item_House_Map).filter(Item_House_Map.item_id == item_id).first()
+    new_map = db.session.query(Item_House_Map).filter(Item_House_Map.item_id == item_id).first()
     item = db.session.query(Item).filter(Item.id == item_id).first()
-    db.session.delete(table)
+    db.session.delete(new_map)
     db.session.commit()
     db.session.delete(item)
     db.session.commit()
@@ -380,10 +380,10 @@ def tracker(house_id):
         return redirect(url_for('profile'))
 
     # Queries the "Table" to get to get all the item ids that are compliant with user_id and house_id
-    table_list = db.session.query(Item_House_Map).filter(Item_House_Map.house_id == house_id).all()
+    map_list = db.session.query(Item_House_Map).filter(Item_House_Map.house_id == house_id).all()
 
     # Get all the items from the table Item that are compliant with the coresponding item id in the table id, query for which was preceding.
-    list = [db.session.query(Item).join(User, Item.author_id == User.id).filter(Item.id == table.item_id).first() for table in table_list if table.item_id]
+    list = [db.session.query(Item).join(User, Item.author_id == User.id).filter(Item.id == mapping.item_id).first() for mapping in map_list if mapping.item_id]
 
     try:
         user = db.session.query(User).filter(User.id == g.user.id).first()

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.65">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,400">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
@@ -20,55 +20,7 @@
         <div class="background" id="background">
 
         </div>
-        <div class="animate__animated animate__fadeInDownBig">
-            <input type="checkbox" id="switch-button" onclick="myFunction()">
-            <div class="top_bar">
-                <div class="logout_button">
-                    <a href="/logout">
-                        <div class="center_logout">
-                            LOG OUT
-                        </div>
-                        <div class="center_logout_icon">
-                            <i class="sign-out icon" id="logout_icon"></i>
-                        </div>
-                    </a>
-                </div>
 
-                <div class="notifications_button">
-                    <a href="/notifications">
-                        <div class="center_notifications">
-                            <i class="bell outline icon"></i>
-                        </div>
-                    </a>
-                </div>
-
-                <label for="switch-button">
-                    <i class="sun icon" id="sun"></i>
-                    <i class="moon icon"id='moon'></i>
-                </label>
-
-                <div class="name_div">
-                    <div class="name">
-                        {{ g.user.username }}
-                    </div>
-                </div>
-
-                <div class="profile_picture">
-                    <a href="/add_avatar">
-                        <div class="center_profile_picture">
-                            {% if image != None %}
-                            <img id='image' src="{{ image }}" alt="avatar"> {% else %}
-                            <i class="user outline icon" id="no_user_picture"></i> {% endif %}
-                        </div>
-                    </a>
-                </div>
-                <div class="edit_profile_picture">
-                    <div class="center_edit_profile_picture">
-                        <i class="pencil alternate icon"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="animate__animated animate__fadeIn animate__slower">
             <div class="main_content">
@@ -122,6 +74,56 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="animate__animated animate__fadeInDownBig">
+            <input type="checkbox" id="switch-button" onclick="myFunction()">
+            <div class="top_bar">
+                <div class="logout_button">
+                    <a href="/logout">
+                        <div class="center_logout">
+                            LOG OUT
+                        </div>
+                        <div class="center_logout_icon">
+                            <i class="sign-out icon" id="logout_icon"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="notifications_button">
+                    <a href="/notifications">
+                        <div class="center_notifications">
+                            <i class="bell outline icon"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <label for="switch-button">
+                    <i class="sun icon" id="sun"></i>
+                    <i class="moon icon"id='moon'></i>
+                </label>
+
+                <div class="name_div">
+                    <div class="name">
+                        {{ g.user.username }}
+                    </div>
+                </div>
+
+                <div class="profile_picture">
+                    <a href="/add_avatar">
+                        <div class="center_profile_picture">
+                            {% if image != None %}
+                            <img id='image' src="{{ image }}" alt="avatar"> {% else %}
+                            <i class="user outline icon" id="no_user_picture"></i> {% endif %}
+                        </div>
+                    </a>
+                </div>
+                <div class="edit_profile_picture">
+                    <div class="center_edit_profile_picture">
+                        <i class="pencil alternate icon"></i>
                     </div>
                 </div>
             </div>

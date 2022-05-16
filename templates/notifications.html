@@ -28,7 +28,7 @@
                     <div class="notifications">
                         {% if house_list.__len__() != 0 %}
                         <div class="ui grid">
-                            {% for table in table_list %}
+                            {% for invitation in invitation_list %}
                             <div class="row" id="outer">
                                 <div class="ui grid">
                                     <div class="column" id="inner_big">
@@ -36,19 +36,19 @@
                                             You have got a new invitaion!
                                         </div>
                                         <div class="notification_body">
-                                            <b>From:</b> {{ table.sender.username }} <br> <b>House Name:</b> {{ table.house.name }} <br> <b>House Address:</b> {{ table.house.address }}
+                                            <b>From:</b> {{ invitation.sender.username }} <br> <b>House Name:</b> {{ invitation.house.name }} <br> <b>House Address:</b> {{ invitation.house.address }}
                                         </div>
                                     </div>
                                     <div class="column" id="inner_small">
                                         <div class="center_buttons">
-                                            <a href="/accept_invitation/{{ table.id }}">
+                                            <a href="/accept_invitation/{{ invitation.id }}">
                                                 <div class="accept_button">
                                                     <div class="center_accept">
                                                         <i class="check icon"></i>
                                                     </div>
                                                 </div>
                                             </a>
-                                            <a href="/decline_invitation/{{ table.id }}">
+                                            <a href="/decline_invitation/{{ invitation.id }}">
                                                 <div class="decline_button">
                                                     <div class="center_decline">
                                                         <i class="close icon"></i>
