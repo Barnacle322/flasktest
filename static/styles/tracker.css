@@ -10,7 +10,6 @@ body {
 
 .page {
     width: 100%;
-    min-width: 600px;
     height: 100%;
     position: absolute;
     transition: all .3s ease;
@@ -19,7 +18,6 @@ body {
 .background {
     position: absolute;
     width: 100%;
-    min-width: 600px;
     height: 100%;
     background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /400%;
     /* background-image: linear-gradient(43deg, hsl(230, 61%, 54%) 0%, hsl(304, 52%, 55%) 46%, hsl(39, 100%, 72%) 100%); */
@@ -68,7 +66,6 @@ body {
     margin-top: 25px;
     margin-bottom: 25px;
     margin-left: 20px;
-    margin-right: 20px;
     overflow: hidden;
     border-radius: 50px;
     background-color: #B363F1;
@@ -112,12 +109,76 @@ body {
     transform: scaleX(-1);
 }
 
+.invite_button {
+    width: 130px;
+    min-width: 50px;
+    height: 50px;
+    font-size: 25px;
+    opacity: 0.8;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 20px;
+    overflow: hidden;
+    border-radius: 50px;
+    background-color: #B363F1;
+    box-shadow: 1px 3px 10px 1px grey;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.invite_button_dark {
+    background-color: #B363F1;
+    box-shadow: 1px 3px 10px 1px #0101019e;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.invite_button:hover {
+    cursor: pointer;
+    background-color: #C850C0;
+}
+
+.center_invite {
+    padding: 14px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    color: white;
+}
+
+.center_invite_icon {
+    padding: 14px;
+    display: flex;
+    justify-content: center;
+    bottom: 52px;
+    left: 1px;
+    position: relative;
+    color: white;
+}
+
+#invite_icon {
+    opacity: 0;
+    transform: scaleX(-1);
+}
+
 @media only screen and (max-width: 1062px) {
     .center_back {
-        color: #B363F1;
+        opacity: 0;
+    }
+    .center_invite {
         opacity: 0;
     }
     #back_icon {
+        opacity: 1;
+    }
+    #invite_icon {
         opacity: 1;
     }
 }
@@ -205,12 +266,12 @@ body {
 }
 
 .name_div {
-    width: 80%;
+    width: 75%;
+    min-width: fit-content;
     height: 50px;
     position: relative;
     margin-top: 25px;
     margin-bottom: 25px;
-    margin-left: 20px;
     background-color: transparent;
     display: flex;
     justify-content: end;
@@ -238,13 +299,14 @@ body {
     height: 100%;
     background: transparent;
     position: fixed;
-    /* top: 100px; */
+    top: 100px;
     overflow-y: scroll;
     overflow-x: hidden;
     /* padding-right: 20px; */
-    padding-left: 100px;
-    padding-top: 100px;
-    padding-bottom: 30px;
+    padding-right: 20px;
+    padding-left: 120px;
+    padding-top: 0px;
+    padding-bottom: 140px;
 }
 
 .item_element {

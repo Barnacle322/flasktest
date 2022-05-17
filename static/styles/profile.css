@@ -10,7 +10,6 @@ body {
 
 .page {
     width: 100%;
-    min-width: 600px;
     height: 100%;
     position: absolute;
     transition: all .3s ease;
@@ -19,7 +18,6 @@ body {
 .background {
     position: absolute;
     width: 100%;
-    min-width: 600px;
     height: 100%;
     background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /400%;
     /* background-image: linear-gradient(43deg, hsl(230, 61%, 54%) 0%, hsl(304, 52%, 55%) 46%, hsl(39, 100%, 72%) 100%); */

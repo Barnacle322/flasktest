@@ -35,8 +35,6 @@ class User(db.Model):
     password = db.Column(db.String(120), nullable=False)
     avatar = db.Column(db.LargeBinary, nullable=True)
 
-    def __repr__(self):
-        return '<User %r>' % self.username
 
 class House(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -77,6 +75,9 @@ class Takers(db.Model):
 
     user = relationship('User', foreign_keys=[user_id])
     item = relationship('Item', foreign_keys=[item_id])
+
+    def __repr__(self):
+        return '<Takers %r>' % self.user_id
 
 db.create_all()
 
@@ -136,13 +137,20 @@ def registration():
 def add_user():
     username = request.form.get("username")
     password = request.form.get("password")
+
     user = db.session.query(User).filter(User.username == username).first()
+
     if user:
         return redirect(url_for("profile"))
+
+
     new_user = User(username=username, password=password)
+
+    
     db.session.add(new_user)
     db.session.commit()
     return redirect(url_for("profile"))
+
 # Add an item to the list
 @app.route("/add_item/<int:house_id>", methods=['GET', 'POST'])
 def add_item(house_id):

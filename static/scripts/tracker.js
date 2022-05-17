@@ -11,6 +11,9 @@ const enableDarkMode = () => {
     background.classList.add("background_dark");
     var back_button = document.getElementsByClassName('back_button')[0];
     back_button.classList.add("back_button_dark");
+    var back_button = document.getElementsByClassName('invite_button')[0];
+    back_button.classList.add("invite_button_dark");
+
 
     try {
         var white_margin = document.getElementsByClassName('white_margin');
@@ -50,6 +53,9 @@ const disableDarkMode = () => {
     background.classList.remove("background_dark");
     var back_button = document.getElementsByClassName('back_button')[0];
     back_button.classList.remove("back_button_dark");
+    var back_button = document.getElementsByClassName('invite_button')[0];
+    back_button.classList.remove("invite_button_dark");
+
     try {
         var white_margin = document.getElementsByClassName('white_margin');
         (Array.from(white_margin)).forEach(element => {
