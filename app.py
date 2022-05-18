@@ -135,7 +135,7 @@ def registration():
 # Register a user
 @app.post("/users")
 def add_user():
-    username = request.form.get("username")
+    username = str(request.form.get("username")).lower()
     password = request.form.get("password")
 
     user = db.session.query(User).filter(User.username == username).first()
@@ -143,10 +143,8 @@ def add_user():
     if user:
         return redirect(url_for("profile"))
 
-
     new_user = User(username=username, password=password)
 
-    
     db.session.add(new_user)
     db.session.commit()
     return redirect(url_for("profile"))
@@ -356,7 +354,7 @@ def edit_name(item_id):
 def login():
     if request.method == 'POST':
         session.pop('user_id', None)
-        username = request.form.get("username")
+        username = str(request.form.get("username")).lower()
         password = request.form.get("password")
 
         try:

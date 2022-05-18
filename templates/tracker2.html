@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="white_margin">
                                     <div class="author">
-                                        <b>Bought by:&#160;</b> {{ item.author.username }}
+                                        <b>Bought by:&#160;</b> {{ item.author.username.capitalize() }}
                                     </div>
                                     <div class="price">
                                         <b>Price:&#160;</b> {{ item.price}}€
@@ -113,7 +113,7 @@
 
                 <div class="name_div">
                     <div class="name">
-                        {{ g.user.username }}
+                        {{ g.user.username.capitalize() }}
                     </div>
                 </div>
 

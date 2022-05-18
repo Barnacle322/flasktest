@@ -39,7 +39,7 @@
 
                     <div class="ui segment">
                         <div class="ui grid">
-                            <div class='nine wide column'><a class="ui big header">{{ user.id }} | {{ user.username }}</a></div>
+                            <div class='nine wide column'><a class="ui big header">{{ user.id }} | {{ user.username.capitalize() }}</a></div>
                             <div class='seven wide column'>
                                 <form class="ui form" action="/invite_user/{{ house_id }}/{{ user.id }}" method="post">
                                     <button class="ui green button" type="submit">Invite to a house</button>

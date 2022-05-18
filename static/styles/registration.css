@@ -33,10 +33,11 @@ body {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    border-radius: 3px;
+    border-radius: 10px;
     overflow: hidden;
     animation: fadeInUp;
     animation-duration: slow;
+    box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
 }
 
 .title {

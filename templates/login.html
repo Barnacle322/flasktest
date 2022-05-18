@@ -7,17 +7,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,400">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="./login.css">
-    <!-- <link rel="stylesheet" href="{{ url_for('static',filename='styles/login.css') }}"> -->
+    <!-- <link rel="stylesheet" href="./login.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/login.css') }}">
     <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static',filename='elements/Peret (1).png') }}">
     <title>Login</title>
 </head>
 
 <body>
     <div class="v9_31">
-        <!-- <div class="logo">
-                <img src="{{ url_for('static',filename='styles/elements/PERET-removebg-preview.png') }}" alt="">
-            </div> -->
         <div class="center_prompt">
             <div class="animate__animated animate__fadeInUp animate__fast">
                 <div class="prompt">
@@ -43,16 +40,16 @@
                                 <button class="button login" id="login">Login</button>
                             </div>
                             <div class="register_button_field">
-                                <a class="button register" id="register" href='/registration'>Register</a>
+                                <a class="button register" id="register" href='/registration'>Sign Up</a>
                             </div>
                         </form>
                     </div>
-                    <div class="logo">
-                        <img src="./Minimalist-Showcase-Project-Presentation.png" alt="">
-                    </div>
                     <!-- <div class="logo">
-                        <img src="{{ url_for('static',filename='styles/elements/Minimalist-Showcase-Project-Presentation.png') }}" alt="">
+                        <img src="./Minimalist-Showcase-Project-Presentation.png" alt="">
                     </div> -->
+                    <div class="logo">
+                        <img src="{{ url_for('static',filename='/elements/Minimalist-Showcase-Project-Presentation.png') }}" alt="">
+                    </div>
                 </div>
             </div>
         </div>

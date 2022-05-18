@@ -28,7 +28,7 @@ body {
     width: 1200px;
     height: 544px;
     border-radius: 10px;
-    background: rgb(205, 205, 205);
+    background: rgb(237, 237, 237);
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -64,6 +64,23 @@ img {
     image-rendering: optimizeQuality;
     object-fit: contain;
     pointer-events: none;
+}
+
+@media screen and (max-width: 1200px) {
+    .prompt {
+        width: 302px;
+        height: 418px;
+    }
+    .login_prompt {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        transform: scale(1, 1);
+    }
+    .logo {
+        opacity: 0;
+    }
 }
 
 .v13_44 {
