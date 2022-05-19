@@ -12,10 +12,14 @@ body {
     width: 100%;
     height: 100%;
     background-color: #4158D0;
-    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /400%;
     opacity: 1;
     overflow: hidden;
     position: absolute;
+}
+
+.v9_31_dark {
+    --x: 100%;
 }
 
 .house_add_screen {
@@ -29,6 +33,11 @@ body {
     animation: fadeInUp;
     animation-duration: slow;
     box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
+}
+
+.house_add_screen_dark {
+    background: #2a2e35;
+    color: #fff;
 }
 
 .center_title {
@@ -46,6 +55,10 @@ body {
     font-size: 30px;
     opacity: 1;
     text-align: center;
+}
+
+.title_dark {
+    color: #fff;
 }
 
 .center_prompt {
@@ -87,6 +100,11 @@ body {
     outline: none;
 }
 
+.name_input_dark {
+    color: #fff;
+    background-color: #12181b;
+}
+
 .description_label {
     font-family: montserrat;
     font-weight: 700;
@@ -119,6 +137,11 @@ body {
     outline: none;
     overflow-wrap: break-word;
     hyphens: manual;
+}
+
+.description_input_dark {
+    color: #fff;
+    background-color: #12181b;
 }
 
 .address_label {
@@ -154,6 +177,11 @@ body {
     font-weight: 400;
     font-size: 15px;
     outline: none;
+}
+
+.address_input_dark {
+    color: #fff;
+    background-color: #12181b;
 }
 
 .login_button_field {

@@ -20,11 +20,9 @@ class Item(db.Model):
     price = db.Column(db.Float, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     complete = db.Column(db.Boolean, default = False)
-    editable = db.Column(db.Boolean, default = False)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     author = relationship('User', foreign_keys=[author_id])
-
 
     def __repr__(self):
         return '<Item %r>' % self.name
@@ -43,6 +41,8 @@ class House(db.Model):
     description = db.Column(db.String(120))
     address = db.Column(db.String(120))
 
+    user = relationship('User', foreign_keys=[user_id])
+
     def __repr__(self):
         return '<House %r>' % self.name
 
@@ -50,6 +50,9 @@ class Item_House_Map(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     house_id = db.Column(db.Integer, db.ForeignKey('house.id'), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=True)
+
+    item = relationship('Item', foreign_keys=[item_id])
+    house = relationship('House', foreign_keys=[house_id])
 
     def __repr__(self):
         return '<Item_House_Map %r>' % self.id
@@ -122,32 +125,28 @@ def user_list(house_id):
         user_list_pending = []
     return render_template('userlist.html', user_list = user_list, user_list_pending = user_list_pending, house_id = house_id)
 
-# Redirect to login page if user is not logged in
 @app.get("/")
 def home():
     return redirect(url_for("login"))
 
 # Registration page
-@app.route('/registration')
+@app.route('/registration', methods=['GET', 'POST'])
 def registration():
+    if request.method == 'POST':
+        username = str(request.form.get("username")).lower()
+        password = request.form.get("password")
+
+        user = db.session.query(User).filter(User.username == username).first()
+        if user:
+            return redirect(url_for("profile"))
+
+        new_user = User(username=username, password=password)
+
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for("login"))
     return render_template('registration.html')
 
-# Register a user
-@app.post("/users")
-def add_user():
-    username = str(request.form.get("username")).lower()
-    password = request.form.get("password")
-
-    user = db.session.query(User).filter(User.username == username).first()
-
-    if user:
-        return redirect(url_for("profile"))
-
-    new_user = User(username=username, password=password)
-
-    db.session.add(new_user)
-    db.session.commit()
-    return redirect(url_for("profile"))
 
 # Add an item to the list
 @app.route("/add_item/<int:house_id>", methods=['GET', 'POST'])
@@ -155,11 +154,10 @@ def add_item(house_id):
     if not g.user:
         return redirect(url_for('login'))
 
-        
     if request.method == 'POST':
         name = request.form.get("name")
         price = request.form.get("price")
-        quantity = request.form.get("quantity")   
+        quantity = request.form.get("quantity")
         user_id = g.user.id
         new_item = Item(name=name, price=price, quantity=quantity, author_id=user_id)
         db.session.add(new_item)    
@@ -179,14 +177,53 @@ def edit_item(house_id, item_id):
         return redirect(url_for('login'))
 
     item = db.session.query(Item).filter(Item.id == item_id).first()
+    takers = db.session.query(Takers).filter(Takers.item_id == item_id).all()
+    item2 = item
+    item2.quantity -= len(takers)
+    
     if request.method == 'POST':
         item.name = request.form.get("name")
         item.price = request.form.get("price")
+        if int(request.form.get("quantity")) != item.quantity:
+            print('here')
+            db.session.query(Takers).filter(Takers.item_id == item_id).delete()
+            db.session.commit()
         item.quantity = request.form.get("quantity")
         db.session.commit()
         return redirect("/tracker/" + str(house_id))
     
-    return render_template('edit_item.html', item = item, house_id = house_id)
+    return render_template('edit_item.html', item = item2, house_id = house_id)
+
+# Delete an item
+@app.get("/delete_item/<int:house_id>/<int:item_id>")
+def delete_item(house_id, item_id):
+    if not g.user:
+        return redirect(url_for('login'))
+
+    house_id = house_id
+    new_map = db.session.query(Item_House_Map).filter(Item_House_Map.item_id == item_id).first()
+    item = db.session.query(Item).filter(Item.id == item_id).first()
+    db.session.delete(new_map)
+    db.session.commit()
+    db.session.delete(item)
+    db.session.commit()
+    return redirect("/tracker/" + str(house_id))
+
+@app.get("/take_one/<int:house_id>/<int:item_id>")
+def take_one(house_id, item_id):
+    if not g.user:
+        return redirect(url_for('login'))
+    
+    item = db.session.query(Item).filter(Item.id == item_id).first()
+    takers = db.session.query(Takers).filter(Takers.item_id == item_id).all()
+
+    if (item.quantity - len(takers)) == 0:
+        return redirect("/tracker/" + str(house_id))
+    new_taker = Takers(item_id=item_id, user_id=g.user.id)
+    db.session.add(new_taker)
+    db.session.commit()
+
+    return redirect("/tracker/" + str(house_id))
 # Add a new house
 @app.route("/add_house", methods=['GET', 'POST'])
 def add_house():
@@ -208,10 +245,13 @@ def add_house():
         
     return render_template('add_house2.html')
 
+
+# Edit a house
 @app.route("/edit_house/<int:house_id>", methods=['GET', 'POST'])
 def edit_house(house_id):
     if not g.user:
         return redirect(url_for('login'))
+
     house = db.session.query(House).filter(House.id == house_id).first()
     if request.method == 'POST':
         house = db.session.query(House).filter(House.id == house_id).first()
@@ -293,13 +333,13 @@ def decline_invitation(invitation_id):
     db.session.commit()
     return redirect(url_for("notifications"))
 
+# Add avatar page 
 @app.route("/add_avatar", methods=['GET', 'POST'])
 def add_avatar():
     if not g.user:
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-
         avatar = request.files['file']
         # avatar = request.form.get("avatar")
         image_string = base64.b64encode(avatar.read())
@@ -310,44 +350,6 @@ def add_avatar():
         return redirect(url_for("profile"))
 
     return render_template('add_avatar.html')
-
-# Update the status of an item
-@app.get("/update/<int:item_id>")
-def update(item_id):
-    item = db.session.query(Item).filter(Item.id == item_id).first()
-    item.complete = not item.complete
-    db.session.commit()
-    return redirect(url_for("tracker"))
-
-# Delete an item
-@app.get("/delete_item/<int:house_id>/<int:item_id>")
-def delete_item(house_id, item_id):
-    house_id = house_id
-    new_map = db.session.query(Item_House_Map).filter(Item_House_Map.item_id == item_id).first()
-    item = db.session.query(Item).filter(Item.id == item_id).first()
-    db.session.delete(new_map)
-    db.session.commit()
-    db.session.delete(item)
-    db.session.commit()
-    return redirect("/tracker/" + str(house_id))
-
-
-# TODO:redo this
-@app.get("/edit/<int:item_id>")
-def initiate_edit(item_id):
-    item = db.session.query(Item).filter(Item.id == item_id).first()
-    item.editable = True
-    db.session.commit()
-    return redirect(url_for("tracker"))
-
-# TODO:redo this
-@app.post("/edit_name/<int:item_id>")
-def edit_name(item_id):
-    item = db.session.query(Item).filter(Item.id == item_id).first()
-    item.name = request.form.get("name")
-    item.editable = False
-    db.session.commit()
-    return redirect(url_for("tracker"))
 
 # Login page
 @app.route("/login", methods=['GET', 'POST'])
@@ -389,8 +391,14 @@ def tracker(house_id):
     map_list = db.session.query(Item_House_Map).filter(Item_House_Map.house_id == house_id).all()
 
     # Get all the items from the table Item that are compliant with the coresponding item id in the table id, query for which was preceding.
-    list = [db.session.query(Item).join(User, Item.author_id == User.id).filter(Item.id == mapping.item_id).first() for mapping in map_list if mapping.item_id]
+    item_list = [db.session.query(Item).join(User, Item.author_id == User.id).filter(Item.id == mapping.item_id).first() for mapping in map_list if mapping.item_id]
 
+    takers = db.session.query(Takers).join(Item_House_Map, Takers.item_id == Item_House_Map.item_id).filter(Item_House_Map.house_id == house_id).all()
+    
+    for item in item_list:
+        item_takers = [taker for taker in takers if taker.item_id == item.id]
+        item.quantity = item.quantity - len(item_takers)
+        
     try:
         user = db.session.query(User).filter(User.id == g.user.id).first()
         data_url = 'data:image/png;base64,' + user.avatar.decode('ascii')
@@ -398,7 +406,8 @@ def tracker(house_id):
     except:
         data_url = None
 
-    return render_template('tracker2.html', item_list = list, house_id = house_id, image = data_url)
+    return render_template('tracker2.html', item_list = item_list, house_id = house_id, image = data_url)
+
 
 # Tracker page
 # @app.route('/tracker/<int:house_id>')

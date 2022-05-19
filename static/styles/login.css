@@ -49,9 +49,9 @@ body {
 }
 
 .logo {
-    height: 700px;
-    bottom: 425px;
-    left: 140px;
+    height: 709px;
+    bottom: 433px;
+    left: 130px;
     opacity: 1;
     position: relative;
     border-radius: 3px;
@@ -70,10 +70,12 @@ img {
     .prompt {
         width: 302px;
         height: 418px;
+        background: transparent;
+        box-shadow: none;
     }
     .login_prompt {
         width: 100%;
-        height: 100%;
+        height: 418px;
         left: 0;
         top: 0;
         transform: scale(1, 1);
@@ -250,4 +252,12 @@ img {
 .register:hover {
     cursor: pointer;
     color: #4158D0;
+}
+
+.animate__animated.animate__fadeIn {
+    --animate-delay: 0.4s;
+}
+
+#logo_animation {
+    pointer-events: none;
 }

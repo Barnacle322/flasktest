@@ -18,37 +18,41 @@
         <div class="center_prompt">
             <div class="animate__animated animate__fadeInUp animate__fast">
                 <div class="prompt">
-                    <div class="login_prompt"><span class="v13_44">LOGIN</span>
-                        <form class="form" method="post">
-                            <div class="user_field">
-                                <div class="user_icon">
-                                    <div class="center">
-                                        <i class="user icon"></i>
+                    <div class="animate__animated animate__fadeIn animate__delay-1s">
+                        <div class="login_prompt"><span class="v13_44">LOGIN</span>
+                            <form class="form" method="post">
+                                <div class="user_field">
+                                    <div class="user_icon">
+                                        <div class="center">
+                                            <i class="user icon"></i>
+                                        </div>
                                     </div>
+                                    <input class="user_input" type="text" name="username" placeholder="Username">
                                 </div>
-                                <input class="user_input" type="text" name="username" placeholder="Username">
-                            </div>
-                            <div class="password_field">
-                                <div class="lock_icon">
-                                    <div class="center">
-                                        <i class="lock icon"></i>
+                                <div class="password_field">
+                                    <div class="lock_icon">
+                                        <div class="center">
+                                            <i class="lock icon"></i>
+                                        </div>
                                     </div>
+                                    <input class="password_input" type="password" name="password" placeholder="Password">
                                 </div>
-                                <input class="password_input" type="password" name="password" placeholder="Password">
-                            </div>
-                            <div class="login_button_field">
-                                <button class="button login" id="login">Login</button>
-                            </div>
-                            <div class="register_button_field">
-                                <a class="button register" id="register" href='/registration'>Sign Up</a>
-                            </div>
-                        </form>
+                                <div class="login_button_field">
+                                    <button class="button login" id="login">Login</button>
+                                </div>
+                                <div class="register_button_field">
+                                    <a class="button register" id="register" href='/registration'>Sign Up</a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <!-- <div class="logo">
                         <img src="./Minimalist-Showcase-Project-Presentation.png" alt="">
                     </div> -->
-                    <div class="logo">
-                        <img src="{{ url_for('static',filename='/elements/Minimalist-Showcase-Project-Presentation.png') }}" alt="">
+                    <div class="animate__animated animate__fadeIn animate__delay-2s animate__slow" id="logo_animation">
+                        <div class="logo">
+                            <img src="{{ url_for('static',filename='/elements/Minimalist-Showcase-Project-Presentation.png') }}" alt="">
+                        </div>
                     </div>
                 </div>
             </div>

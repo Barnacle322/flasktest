@@ -12,6 +12,12 @@ const enableDarkMode = () => {
     v9_31.classList.add("v9_31_dark");
     var photo_input = document.getElementsByClassName('name_input')[0];
     photo_input.classList.add("name_input_dark");
+
+    var description_input = document.getElementsByClassName('description_input')[0];
+    description_input.classList.add("description_input_dark");
+
+    var address_input = document.getElementsByClassName('address_input')[0];
+    address_input.classList.add("address_input_dark");
     // var login = document.getElementsByClassName('login')[0];
     // login.classList.add("login_dark");
     var title = document.getElementsByClassName('title')[0];
@@ -31,6 +37,11 @@ const disableDarkMode = () => {
     v9_31.classList.remove("v9_31_dark");
     var photo_input = document.getElementsByClassName('name_input')[0];
     photo_input.classList.remove("name_input_dark");
+    var description_input = document.getElementsByClassName('description_input')[0];
+    description_input.classList.remove("description_input_dark");
+
+    var address_input = document.getElementsByClassName('address_input')[0];
+    address_input.classList.remove("address_input_dark");
     // var login = document.getElementsByClassName('login')[0];
     // login.classList.remove("login_dark");
     var title = document.getElementsByClassName('title')[0];
