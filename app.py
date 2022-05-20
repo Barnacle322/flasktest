@@ -178,21 +178,21 @@ def edit_item(house_id, item_id):
 
     item = db.session.query(Item).filter(Item.id == item_id).first()
     takers = db.session.query(Takers).filter(Takers.item_id == item_id).all()
-    item2 = item
-    item2.quantity -= len(takers)
-    
+    item_quantity = item.quantity - len(takers)
+
     if request.method == 'POST':
         item.name = request.form.get("name")
         item.price = request.form.get("price")
+
         if int(request.form.get("quantity")) != item.quantity:
-            print('here')
             db.session.query(Takers).filter(Takers.item_id == item_id).delete()
-            db.session.commit()
+
         item.quantity = request.form.get("quantity")
         db.session.commit()
         return redirect("/tracker/" + str(house_id))
     
-    return render_template('edit_item.html', item = item2, house_id = house_id)
+    
+    return render_template('edit_item.html', item = item, item_quantity = item_quantity, house_id = house_id)
 
 # Delete an item
 @app.get("/delete_item/<int:house_id>/<int:item_id>")
@@ -224,6 +224,7 @@ def take_one(house_id, item_id):
     db.session.commit()
 
     return redirect("/tracker/" + str(house_id))
+
 # Add a new house
 @app.route("/add_house", methods=['GET', 'POST'])
 def add_house():
