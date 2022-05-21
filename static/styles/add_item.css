@@ -23,6 +23,12 @@ body {
     --x: 100%;
 }
 
+@media only screen and (max-width: 1062px) {
+    .v9_31 {
+        background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /550%;
+    }
+}
+
 .house_add_screen {
     width: 500px;
     height: 900px;

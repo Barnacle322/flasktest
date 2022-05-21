@@ -1,16 +1,9 @@
-def find_factors(x = 1637):
-    factors_list = []
-    for i in range(1, x + 1):
-        if x % i == 0:
-            factors_list.append(i)
-    return factors_list
+def func():
+    user_input = int(input("Enter the number: "))
+    myList = []
+    for i in range(user_input):
+        input_element = int(input("Enter the element: "))
+        myList.append(input_element)
+    return myList
 
-num_1 = int(input("Enter a number: "))
-
-list_1 = find_factors(num_1)
-collection_0 = find_factors()
-
-print(list_1)
-print(tuple(collection_0))
-
-
+print(func())

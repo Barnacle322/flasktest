@@ -18,6 +18,22 @@ body {
     position: absolute;
 }
 
+#animation {
+    height: 100%;
+    width: auto;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+.center_prompt {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 25px; */
+}
+
 .notification_screen {
     width: 500px;
     height: 900px;
@@ -67,12 +83,6 @@ body {
     font-size: 30px;
     opacity: 1;
     text-align: center;
-}
-
-.center_prompt {
-    display: flex;
-    justify-content: center;
-    padding: 25px;
 }
 
 .notifications {

@@ -168,21 +168,6 @@ body {
     transform: scaleX(-1);
 }
 
-@media only screen and (max-width: 1062px) {
-    .center_back {
-        opacity: 0;
-    }
-    .center_invite {
-        opacity: 0;
-    }
-    #back_icon {
-        opacity: 1;
-    }
-    #invite_icon {
-        opacity: 1;
-    }
-}
-
 .profile_picture {
     width: 80px;
     height: 80px;
@@ -289,9 +274,20 @@ body {
     text-align: right;
 }
 
-.ui.grid>.column:not(.row) {
-    width: 430px;
-    height: 330px;
+.grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 400px);
+    grid-template-rows: repeat(auto-fit, 300px);
+    row-gap: 20px;
+    column-gap: 20px;
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    justify-content: center;
+    padding-bottom: 20px;
+    margin-bottom: 100px;
+    overflow-y: scroll;
 }
 
 .main_content {
@@ -300,20 +296,18 @@ body {
     background: transparent;
     position: fixed;
     top: 100px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
-    /* padding-right: 20px; */
-    padding-right: 20px;
-    padding-left: 120px;
-    padding-top: 0px;
-    padding-bottom: 140px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
 }
 
 .item_element {
     width: 400px;
-    height: 250px;
+    height: 300px;
     position: relative;
-    top: 20px;
+    /* top: 20px; */
 }
 
 .white_margin {
@@ -561,7 +555,7 @@ input[type="checkbox"] {
     display: none;
 }
 
-label {
+#label {
     position: relative;
     min-width: fit-content;
     margin-top: 25px;
@@ -625,4 +619,50 @@ label {
 .animate__animated.animate__fadeInDownBig {
     --animate-duration: 0.6s;
     --animate-delay: 0s;
+}
+
+@media only screen and (max-width: 1062px) {
+    .center_back {
+        opacity: 0;
+    }
+    .center_invite {
+        opacity: 0;
+    }
+    #back_icon {
+        opacity: 1;
+    }
+    #invite_icon {
+        opacity: 1;
+    }
+    .background {
+        background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /550%;
+    }
+    #label {
+        min-width: 50px;
+        padding: 0px;
+        width: 50px;
+    }
+    #sun {
+        position: absolute;
+        font-size: 27px;
+        top: 9px;
+        left: 6px;
+        transform: none;
+    }
+    #moon {
+        position: absolute;
+        font-size: 25px;
+        top: 10px;
+        left: 7px;
+        opacity: 0;
+        transform: none;
+    }
+    #switch-button:checked~.top_bar>label>#sun {
+        opacity: 0;
+        transform: none;
+    }
+    #switch-button:checked~.top_bar>label>#moon {
+        opacity: 1;
+        transform: none;
+    }
 }

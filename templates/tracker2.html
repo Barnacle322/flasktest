@@ -22,59 +22,51 @@
         </div>
 
 
-        <div class="animate__animated animate__fadeIn animate__slower">
+        <div class="animate__animated animate__fadeIn animate__slower" id="content_animation">
             <div class="main_content">
-                <div>
-                    <div class="ui grid">
-                        {% if item_list.__len__() != 0 %} {% for item in item_list %}
-                        <div class="column">
-                            <div class="item_element">
-                                <!-- <div class="item">
-                                </div> -->
-                                <div class="house_name_plate">
-                                    <div class="house_name">
-                                        {{ item.name }}
+                <div class="grid">
+                    {% if item_list.__len__() != 0 %} {% for item in item_list %}
+                    <div class="item_element">
+                        <div class="house_name_plate">
+                            <div class="house_name">
+                                {{ item.name }}
+                            </div>
+                            <div class="edit_item_button">
+                                <a href="/edit_item/{{ house_id }}/{{ item.id }}">
+                                    <div class="center_edit_item_button">
+                                        <i class="pencil alternate icon"></i>
                                     </div>
-                                    <div class="edit_item_button">
-                                        <a href="/edit_item/{{ house_id }}/{{ item.id }}">
-                                            <div class="center_edit_item_button">
-                                                <i class="pencil alternate icon"></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="white_margin">
-                                    <div class="author">
-                                        <b>Bought by:&#160;</b> {{ item.author.username.capitalize() }}
-                                    </div>
-                                    <div class="price">
-                                        <b>Price:&#160;</b> {{ item.price}}€
-                                    </div>
-                                    <div class="quantity">
-                                        <b>Quantity:&#160;</b> {{ item.quantity}}
-                                    </div>
-                                    <div class="enter_button">
-                                        <a href="/take_one/{{ house_id }}/{{ item.id }}">
-                                            <div class="center_enter">
-                                                Take One
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
-                        {% endfor %} {% endif %}
-                        <div class="column">
-                            <div class="item_element">
-                                <div class="add_field">
-                                    <div class="add_button">
-                                        <a href="/add_item/{{ house_id }}" id="add_href">
-                                            <div class="plus_icon_field">
-                                                <i class="plus icon"></i>
-                                            </div>
-                                        </a>
+                        <div class="white_margin">
+                            <div class="author">
+                                <b>Bought by:&#160;</b> {{ item.author.username.capitalize() }}
+                            </div>
+                            <div class="price">
+                                <b>Price:&#160;</b> {{ item.price}}€
+                            </div>
+                            <div class="quantity">
+                                <b>Quantity:&#160;</b> {{ item.quantity}}
+                            </div>
+                            <div class="enter_button">
+                                <a href="/take_one/{{ house_id }}/{{ item.id }}">
+                                    <div class="center_enter">
+                                        Take One
                                     </div>
-                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %} {% endif %}
+                    <div class="item_element">
+                        <div class="add_field">
+                            <div class="add_button">
+                                <a href="/add_item/{{ house_id }}" id="add_href">
+                                    <div class="plus_icon_field">
+                                        <i class="plus icon"></i>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -106,7 +98,7 @@
                     </a>
                 </div>
 
-                <label for="switch-button">
+                <label for="switch-button" id="label">
                     <i class="sun icon" id="sun"></i>
                     <i class="moon icon"id='moon'></i>
                 </label>
