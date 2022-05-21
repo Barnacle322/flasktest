@@ -6,6 +6,7 @@ body {
     font-size: 14px;
     line-height: normal;
     transform-origin: center;
+    font-family: Montserrat;
 }
 
 .v9_31 {
@@ -28,23 +29,7 @@ body {
     }
 }
 
-#animation {
-    height: 100%;
-    width: 100%;
-    width: auto;
-    margin-left: 150px;
-    margin-right: 150px;
-}
-
-.center_prompt {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.photo_add_screen {
+.item_edit_screen {
     width: 500px;
     height: 900px;
     background: rgba(255, 255, 255, 1);
@@ -55,7 +40,7 @@ body {
     box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
 }
 
-.photo_add_screen_dark {
+.item_edit_screen_dark {
     background: #2a2e35;
     color: #fff;
 }
@@ -81,14 +66,20 @@ body {
     color: #fff;
 }
 
-.photo_label {
+.center_prompt {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+}
+
+.name_label {
     font-family: montserrat;
     font-weight: 700;
     font-size: 20px;
     position: relative;
 }
 
-.photo_field {
+.name_field {
     width: 100%;
     min-height: fit-content;
     background: transparent;
@@ -98,13 +89,12 @@ body {
     padding: 20px;
 }
 
-.photo_input {
+.name_input {
     width: 100%;
     height: 60px;
     background: rgba(222, 222, 222, 1);
     margin: 8px 0;
-    display: flex;
-    justify-content: center;
+    display: inline-block;
     border: 0px solid #ccc;
     border-radius: 5px;
     position: relative;
@@ -113,44 +103,104 @@ body {
     font-weight: 400;
     font-size: 15px;
     outline: none;
-    cursor: pointer;
-    transition: .3s;
-    color: transparent;
 }
 
-.photo_input_dark {
-    background: #12181b;
+.name_input_dark {
+    color: #fff;
+    background-color: #12181b;
 }
 
-.photo_input::-webkit-file-upload-button {
-    visibility: hidden;
-}
-
-.photo_input::before {
-    visibility: hidden;
-}
-
-.photo_input:hover {
-    background: rgb(204, 204, 204);
-}
-
-.photo_field_title {
+.quantity_label {
     font-family: montserrat;
-    font-size: 30px;
     font-weight: 700;
-    font-style: italic;
-    position: absolute;
-    bottom: 40px;
-    left: 130px;
-    pointer-events: none;
+    font-size: 20px;
+    position: relative;
 }
 
-.login_button_field {
+.quantity_field {
+    width: 100%;
+    min-height: fit-content;
+    background: transparent;
+    opacity: 1;
+    position: relative;
+    top: 110px;
+    padding: 20px;
+}
+
+.quantity_input {
+    width: 100%;
+    height: 60px;
+    background: rgba(222, 222, 222, 1);
+    margin: 8px 0;
+    border: 0px;
+    border-radius: 5px;
+    position: relative;
+    /* overflow: hidden; */
+    font-family: Montserrat;
+    font-weight: 400;
+    font-size: 15px;
+    outline: none;
+    overflow-wrap: break-word;
+    hyphens: manual;
+}
+
+.price_label {
+    font-family: montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    position: relative;
+}
+
+.price_field {
+    width: 100%;
+    min-height: fit-content;
+    background: transparent;
+    opacity: 1;
+    position: relative;
+    top: 110px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 9px
+}
+
+.price_input {
+    width: 100%;
+    height: 60px;
+    background: rgba(222, 222, 222, 1);
+    display: inline-block;
+    border: 0px solid #ccc;
+    margin: 8px 0;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    font-family: Montserrat;
+    font-weight: 400;
+    font-size: 15px;
+    outline: none;
+}
+
+.save_button_field {
     display: flex;
     justify-content: center;
     position: relative;
     top: 200px;
     padding: 25px;
+}
+
+.delete_button_field {
+    position: relative;
+    top: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+.delete_title {
+    font-family: montserrat;
+    color: red;
+}
+
+.delete_button_field:hover .delete_title {
+    text-decoration: underline;
 }
 
 .login {
@@ -173,18 +223,10 @@ body {
     transition-duration: 0.4s;
 }
 
-.login_dark {
-    font-weight: 700;
-}
-
 .login:hover {
     cursor: pointer;
     --x: 100%;
     box-shadow: 1px 3px 15px 1px grey;
-}
-
-.login_dark:hover {
-    box-shadow: 1px 2px 10px 1px #0101019e;
 }
 
 .center2 {

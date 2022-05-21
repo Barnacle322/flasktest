@@ -29,20 +29,18 @@ body {
     }
 }
 
-.house_add_screen {
+.item_add_screen {
     width: 500px;
     height: 900px;
     background: rgba(255, 255, 255, 1);
     opacity: 1;
     position: fixed;
-    border-radius: 3px;
+    border-radius: 10px;
     overflow: hidden;
-    animation: fadeInUp;
-    animation-duration: slow;
     box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
 }
 
-.house_add_screen_dark {
+.item_add_screen_dark {
     background: #2a2e35;
     color: #fff;
 }

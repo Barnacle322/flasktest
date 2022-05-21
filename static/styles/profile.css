@@ -110,19 +110,6 @@ body {
     transform: scaleX(-1);
 }
 
-@media only screen and (max-width: 1062px) {
-    .center_logout {
-        color: #B363F1;
-        opacity: 0;
-    }
-    #logout_icon {
-        opacity: 1;
-    }
-    .background {
-        background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /550%;
-    }
-}
-
 .notifications_button {
     width: 50px;
     min-width: 50px;
@@ -272,8 +259,20 @@ body {
     text-align: right;
 }
 
-.ui.grid>.column:not(.row) {
-    width: 430px;
+.grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 400px);
+    grid-template-rows: repeat(auto-fit, 400px);
+    row-gap: 20px;
+    column-gap: 20px;
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    justify-content: center;
+    padding-bottom: 20px;
+    margin-bottom: 100px;
+    overflow-y: scroll;
 }
 
 .main_content {
@@ -282,20 +281,17 @@ body {
     background: transparent;
     position: fixed;
     top: 100px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
-    padding-right: 20px;
-    padding-left: 120px;
-    padding-top: 0px;
-    padding-bottom: 140px;
-    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
 }
 
 .house_element {
     width: 400px;
     height: 400px;
     position: relative;
-    top: 20px;
 }
 
 .house {
@@ -612,4 +608,47 @@ label {
 .animate__animated.animate__fadeInDownBig {
     --animate-duration: 0.6s;
     --animate-delay: 0s;
+}
+
+@media only screen and (max-width: 1062px) {
+    .center_logout {
+        color: #B363F1;
+        opacity: 0;
+    }
+    #logout_icon {
+        opacity: 1;
+    }
+    .background {
+        background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /550%;
+        transition: none;
+        transition-duration: none;
+    }
+    #label {
+        min-width: 50px;
+        padding: 0px;
+        width: 50px;
+    }
+    #sun {
+        position: absolute;
+        font-size: 27px;
+        top: 9px;
+        left: 6px;
+        transform: none;
+    }
+    #moon {
+        position: absolute;
+        font-size: 25px;
+        top: 10px;
+        left: 7px;
+        opacity: 0;
+        transform: none;
+    }
+    #switch-button:checked~.top_bar>label>#sun {
+        opacity: 0;
+        transform: none;
+    }
+    #switch-button:checked~.top_bar>label>#moon {
+        opacity: 1;
+        transform: none;
+    }
 }
