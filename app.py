@@ -11,6 +11,7 @@ app.secret_key = 'somesecretkeythatonlyishouldknow'
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:12345@localhost:5432/projectdatabase"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://jwtdsuzp:VAcbiITCmSzw2VHFyZk4ejKFeZ7faoq3@tyke.db.elephantsql.com/jwtdsuzp"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -26,13 +27,16 @@ class Item(db.Model):
     house = relationship('House', foreign_keys=[house_id])
 
     def __repr__(self):
-        return '<Item %r>' % self.name
+        return '<Item (id:%r, name:%r)>' % (self.id, self.name)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique = True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     avatar = db.Column(db.LargeBinary, nullable=True)
+
+    def __repr__(self) -> str:
+        return '<User (id:%r, username:%r)>' % (self.id, self.username)
 
 
 class House(db.Model):
@@ -45,7 +49,7 @@ class House(db.Model):
     user = relationship('User', foreign_keys=[user_id])
 
     def __repr__(self):
-        return '<House %r>' % self.name
+        return '<House (id:%r, name:%r)>' % (self.id, self.name)
 
 
 class Invitations(db.Model):
@@ -60,7 +64,7 @@ class Invitations(db.Model):
     recipient = relationship('User', foreign_keys=[recipient_id])
 
     def __repr__(self):
-        return '<Invitations %r>' % self.id
+        return '<Invitations (id:%r, sender_id:%r, recipient_id:%r)>' % (self.id, self.sender_id, self.recipient_id)
 
 class Takers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -71,7 +75,7 @@ class Takers(db.Model):
     item = relationship('Item', foreign_keys=[item_id])
 
     def __repr__(self):
-        return '<Takers %r>' % self.user_id
+        return '<Takers (id:%r, user_id:%r)>' % (self.id, self.user_id)
 
 db.create_all()
 
@@ -388,7 +392,24 @@ def tracker(house_id):
     item_list = db.session.query(Item).filter(Item.house_id == house_id).all()
 
     takers = db.session.query(Takers).join(Item, Takers.item_id == Item.id).filter(Item.house_id == house_id).all()
+
+    participants = db.session.query(Invitations).join(User, Invitations.recipient_id == User.id).filter(Invitations.house_id == house_id).filter(Invitations.status == 'accepted').all()
     
+    debtors = {}
+
+    for participant in participants:
+        debtors[participant.recipient_id] = 0
+
+    for taker in takers:
+        if taker.user_id in debtors:
+            debtors[taker.user_id] -= taker.item.price / taker.item.quantity
+            debtors[taker.item.author.id] += taker.item.price / taker.item.quantity
+        else:
+            debtors[taker.user_id] = -taker.item.price / taker.item.quantity
+    
+    debtors = {k: v for k, v in sorted(debtors.items(), key=lambda item: item[1])}
+    print(debtors)
+
     for item in item_list:
         item_takers = [taker for taker in takers if taker.item_id == item.id]
         item.quantity = item.quantity - len(item_takers)
@@ -400,7 +421,11 @@ def tracker(house_id):
     except:
         data_url = None
 
-    return render_template('tracker2.html', item_list = item_list, house_id = house_id, image = data_url)
+    participants = db.session.query(Invitations).join(User, Invitations.recipient_id == User.id).filter(Invitations.house_id == house_id).filter(Invitations.status == 'accepted').all()
+
+    house = db.session.query(House).filter(House.id == house_id).first()
+
+    return render_template('tracker2.html', item_list = item_list, house = house, participants = participants, debtors = debtors, image = data_url)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -109,60 +109,6 @@ body {
     transform: scaleX(-1);
 }
 
-.invite_button {
-    width: 130px;
-    min-width: 50px;
-    height: 50px;
-    font-size: 25px;
-    opacity: 0.8;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    color: white;
-    font-family: Montserrat;
-    font-weight: 700;
-    font-size: 20px;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    margin-left: 20px;
-    overflow: hidden;
-    border-radius: 50px;
-    background-color: #B363F1;
-    box-shadow: 1px 3px 10px 1px grey;
-    transition: 0.4s;
-    transition-duration: 0.5s;
-}
-
-.invite_button_dark {
-    background-color: #B363F1;
-    box-shadow: 1px 3px 10px 1px #0101019e;
-    transition: 0.4s;
-    transition-duration: 0.5s;
-}
-
-.invite_button:hover {
-    cursor: pointer;
-    background-color: #C850C0;
-}
-
-.center_invite {
-    padding: 14px;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    color: white;
-}
-
-.center_invite_icon {
-    padding: 14px;
-    display: flex;
-    justify-content: center;
-    bottom: 52px;
-    left: 1px;
-    position: relative;
-    color: white;
-}
-
 #invite_icon {
     opacity: 0;
     transform: scaleX(-1);
@@ -251,7 +197,7 @@ body {
 }
 
 .name_div {
-    width: 75%;
+    width: 80%;
     min-width: fit-content;
     height: 50px;
     position: relative;
@@ -288,6 +234,7 @@ body {
     padding-bottom: 20px;
     margin-bottom: 100px;
     overflow-y: scroll;
+    transition: 0.3s;
 }
 
 .main_content {
@@ -433,7 +380,7 @@ body {
     color: white;
 }
 
-.house_name_plate {
+.item_name_plate {
     width: 400px;
     height: 100px;
     position: absolute;
@@ -445,7 +392,7 @@ body {
     border-top-left-radius: 10px;
 }
 
-.house_name_plate_dark {
+.item_name_plate_dark {
     background-image: radial-gradient( circle farthest-corner at 10.2% 55.8%, rgb(180, 4, 57) 0%, rgba(199, 8, 110), rgb(154, 0, 148) 90.1%);
     box-shadow: 0px 6px 7px -2px rgba(0, 0, 0, 0.53);
 }
@@ -478,7 +425,7 @@ body {
     opacity: 1;
 }
 
-.house_name {
+.item_name {
     color: rgba(255, 255, 255, 1);
     position: relative;
     top: 25%;
@@ -611,6 +558,187 @@ input[type="checkbox"] {
     color: #fff;
 }
 
+#info_animation {
+    height: 100%;
+    width: 35rem;
+    transition: 0.3s;
+}
+
+.house_info {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s;
+    box-shadow: 1px 3px 15px 1px grey;
+}
+
+.house_info_dark {
+    background-color: #2a2e35;
+    color: #b2becd;
+    box-shadow: 1px 3px 15px 1px #010101;
+}
+
+.house_picture {
+    width: 140px;
+    height: 140px;
+    position: relative;
+    top: 100px;
+    border-radius: 75px;
+    background: rgb(156, 156, 156);
+}
+
+.house_name {
+    position: relative;
+    top: 120px;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 25px;
+    color: black;
+}
+
+.house_info_dark .house_name {
+    color: #fff;
+}
+
+.house_address {
+    position: relative;
+    top: 120px;
+    font-family: Montserrat;
+    font-size: 20px;
+    color: black;
+    opacity: 0.6;
+}
+
+.house_info_dark .house_address {
+    color: #fff;
+}
+
+.dividerr {
+    position: relative;
+    top: 140px;
+    width: 100%;
+    height: 1px;
+    background: rgb(156, 156, 156);
+}
+
+.participants_grid {
+    display: grid;
+    grid-template-rows: auto;
+    height: auto;
+    width: 200px;
+    position: relative;
+    top: 160px;
+    color: black;
+}
+
+.participant {
+    width: 100%;
+    height: 40px;
+    color: black;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.house_info_dark .participant {
+    color: #fff;
+}
+
+.participant_name {
+    position: relative;
+    width: min-content;
+    font-family: Montserrat;
+    font-weight: 700;
+}
+
+.participant_debt {
+    position: relative;
+    width: min-content;
+    font-family: Montserrat;
+}
+
+.invite_button {
+    width: 130px;
+    height: 50px;
+    font-size: 25px;
+    opacity: 0.8;
+    position: relative;
+    top: 180px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    overflow: hidden;
+    border-radius: 50px;
+    background-color: #B363F1;
+    box-shadow: 1px 3px 10px 1px grey;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.invite_button_dark {
+    background-color: #B363F1;
+    box-shadow: 1px 3px 10px 1px #0101019e;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.invite_button:hover {
+    cursor: pointer;
+    background-color: #C850C0;
+}
+
+.center_invite {
+    padding: 14px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    color: white;
+}
+
+#label_for_menu {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border-radius: 25px;
+    background: black;
+    opacity: 0.2;
+    cursor: pointer;
+    overflow: visible;
+    transition: 0.3s;
+}
+
+#label_for_menu:hover {
+    opacity: 0.5;
+}
+
+#badge {
+    color: white;
+    font-size: 23px;
+    position: relative;
+    top: 9px;
+    left: 6.5px;
+}
+
+#menu-button:checked~#info_animation {
+    width: 0px;
+}
+
+#menu-button:checked~#info_animation>.house_info {
+    opacity: 0;
+}
+
 .animate__animated.animate__fadeIn {
     --animate-duration: 0.3s;
     --animate-delay: 1s;
@@ -621,23 +749,33 @@ input[type="checkbox"] {
     --animate-delay: 0s;
 }
 
-@media only screen and (max-width: 1062px) {
+@media only screen and (max-width: 909px) {
     .center_back {
         opacity: 0;
     }
-    .center_invite {
-        opacity: 0;
-    }
     #back_icon {
-        opacity: 1;
-    }
-    #invite_icon {
         opacity: 1;
     }
     .background {
         background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /550%;
         transition: none;
         transition-duration: none;
+    }
+    #info_animation {
+        width: 0px;
+    }
+    .house_info {
+        opacity: 0;
+    }
+    #menu-button:checked~#info_animation {
+        width: 35rem;
+    }
+    #menu-button:checked~#info_animation>.house_info {
+        opacity: 1;
+    }
+    #menu-button:checked~.grid {
+        opacity: 0;
+        width: 50%;
     }
     #label {
         min-width: 50px;

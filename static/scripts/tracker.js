@@ -39,7 +39,8 @@ const enableDarkMode = () => {
     top_bar.classList.add("top_bar_dark");
     var name = document.getElementsByClassName('name')[0];
     name.classList.add("name_dark");
-
+    var name = document.getElementsByClassName('house_info')[0]
+    name.classList.add("house_info_dark");
     // 2. Update darkMode in localStorage
     localStorage.setItem('darkMode', 'enabled');
 }
@@ -79,6 +80,8 @@ const disableDarkMode = () => {
     top_bar.classList.remove("top_bar_dark");
     var name = document.getElementsByClassName('name')[0];
     name.classList.remove("name_dark");
+    var name = document.getElementsByClassName('house_info')[0]
+    name.classList.remove("house_info_dark");
     // 2. Update darkMode in localStorage 
     localStorage.setItem('darkMode', null);
 }

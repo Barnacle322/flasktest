@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,400">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <!-- <link rel="stylesheet" href="./profile.css"> -->
+    <!-- <link rel="stylesheet" href="./tracker.css"> -->
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/tracker.css') }}">
     <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static',filename='elements/Peret (1).png') }}">
     <title>Profile</title>
@@ -24,15 +24,16 @@
 
         <div class="animate__animated animate__fadeIn animate__slower" id="content_animation">
             <div class="main_content">
+                <input type="checkbox" id="menu-button">
                 <div class="grid">
                     {% if item_list.__len__() != 0 %} {% for item in item_list %}
                     <div class="item_element">
-                        <div class="house_name_plate">
-                            <div class="house_name">
+                        <div class="item_name_plate">
+                            <div class="item_name">
                                 {{ item.name }}
                             </div>
                             <div class="edit_item_button">
-                                <a href="/edit_item/{{ house_id }}/{{ item.id }}">
+                                <a href="/edit_item/{{ house.id }}/{{ item.id }}">
                                     <div class="center_edit_item_button">
                                         <i class="pencil alternate icon"></i>
                                     </div>
@@ -50,7 +51,7 @@
                                 <b>Quantity:&#160;</b> {{ item.quantity}}
                             </div>
                             <div class="enter_button">
-                                <a href="/take_one/{{ house_id }}/{{ item.id }}">
+                                <a href="/take_one/{{ house.id }}/{{ item.id }}">
                                     <div class="center_enter">
                                         Take One
                                     </div>
@@ -62,7 +63,7 @@
                     <div class="item_element">
                         <div class="add_field">
                             <div class="add_button">
-                                <a href="/add_item/{{ house_id }}" id="add_href">
+                                <a href="/add_item/{{ house.id }}" id="add_href">
                                     <div class="plus_icon_field">
                                         <i class="plus icon"></i>
                                     </div>
@@ -70,6 +71,50 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="animate__animated animate__fadeInRight animate__slower" id="info_animation">
+                    <div class="house_info">
+                        <div class="house_picture">
+
+                        </div>
+                        <div class="house_name">
+                            {{ house.name }}
+                        </div>
+                        <div class="house_address">
+                            {{ house.address }}
+                        </div>
+
+                        <div class="dividerr">
+
+                        </div>
+
+                        <div class="participants_grid">
+                            {% if participants.__len__() != 0 %} {% for participant in participants %}
+
+                            <div class="participant">
+                                <div class="participant_name">
+                                    {{ participant.recipient.username.capitalize() }}
+                                </div>
+                                <div class="participant_debt">
+                                    {{ debtors[participant.recipient.id] if participant.recipient.id in debtors else 0 }}€
+                                </div>
+
+                            </div>
+                            {% endfor %} {% endif %}
+                        </div>
+
+                        <div class='invite_button'>
+                            <a href="/user_list/{{ house.id }}">
+                                <div class="center_invite">
+                                    Invite
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <label for="menu-button" id="label_for_menu">
+                        <i class="id badge outline icon" id="badge"></i>
+                    </label>
                 </div>
             </div>
         </div>
@@ -85,16 +130,6 @@
                             <i class="sign-out icon" id="back_icon"></i>
                         </div>
 
-                    </a>
-                </div>
-                <div class='invite_button'>
-                    <a href="/user_list/{{ house_id }}">
-                        <div class="center_invite">
-                            Invite
-                        </div>
-                        <div class="center_invite_icon">
-                            <i class="user plus icon" id="invite_icon"></i>
-                        </div>
                     </a>
                 </div>
 
