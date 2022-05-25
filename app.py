@@ -20,33 +20,33 @@ class Item(db.Model):
     name = db.Column(db.String(80), nullable=False)
     price = db.Column(db.Float, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-    author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     house_id = db.Column(db.Integer, db.ForeignKey('house.id'), nullable=False)
 
-    author = relationship('User', foreign_keys=[author_id])
+    author = relationship('Users', foreign_keys=[author_id])
     house = relationship('House', foreign_keys=[house_id])
 
     def __repr__(self):
         return '<Item (id:%r, name:%r)>' % (self.id, self.name)
 
-class User(db.Model):
+class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique = True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     avatar = db.Column(db.LargeBinary, nullable=True)
 
     def __repr__(self) -> str:
-        return '<User (id:%r, username:%r)>' % (self.id, self.username)
+        return '<Users (id:%r, username:%r)>' % (self.id, self.username)
 
 
 class House(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     name = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(120))
     address = db.Column(db.String(120))
 
-    user = relationship('User', foreign_keys=[user_id])
+    users = relationship('Users', foreign_keys=[user_id])
 
     def __repr__(self):
         return '<House (id:%r, name:%r)>' % (self.id, self.name)
@@ -54,24 +54,24 @@ class House(db.Model):
 
 class Invitations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    sender_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    recipient_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     house_id = db.Column(db.Integer, db.ForeignKey('house.id'), nullable=False)
     status = db.Column(db.String(80), nullable=False, default = 'pending')
 
     house = relationship('House', foreign_keys=[house_id])
-    sender = relationship('User', foreign_keys=[sender_id])
-    recipient = relationship('User', foreign_keys=[recipient_id])
+    sender = relationship('Users', foreign_keys=[sender_id])
+    recipient = relationship('Users', foreign_keys=[recipient_id])
 
     def __repr__(self):
         return '<Invitations (id:%r, sender_id:%r, recipient_id:%r)>' % (self.id, self.sender_id, self.recipient_id)
 
 class Takers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
 
-    user = relationship('User', foreign_keys=[user_id])
+    users = relationship('Users', foreign_keys=[user_id])
     item = relationship('Item', foreign_keys=[item_id])
 
     def __repr__(self):
@@ -81,17 +81,17 @@ db.create_all()
 
 @app.before_request
 def before_request():
-    g.user = None
+    g.users = None
 
     if 'user_id' in session:
-        g.user = db.session.query(User).filter(User.id == session['user_id']).first()
+        g.users = db.session.query(Users).filter(Users.id == session['user_id']).first()
 
 @app.post('/invite_user/<int:house_id>/<int:user_id>')
 def invite_user(house_id, user_id):
     house_id = house_id
     user_id = user_id
 
-    invitation = Invitations(sender_id = g.user.id, recipient_id = user_id, house_id = house_id, status = 'pending')
+    invitation = Invitations(sender_id = g.users.id, recipient_id = user_id, house_id = house_id, status = 'pending')
     db.session.add(invitation)
     db.session.commit()
     return redirect("/tracker/" + str(house_id))
@@ -99,7 +99,7 @@ def invite_user(house_id, user_id):
 
 @app.get("/user_list/<int:house_id>")
 def user_list(house_id):
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
     
 
@@ -110,12 +110,12 @@ def user_list(house_id):
     invitation_list_ids_pending = [invitation.recipient_id for invitation in invitation_list_pending]
 
     if invitation_list_ids != []:
-        user_list = db.session.query(User).filter(and_(User.id != g.user.id, User.id.not_in(invitation_list_ids))).all()
+        user_list = db.session.query(Users).filter(and_(Users.id != g.users.id, Users.id.not_in(invitation_list_ids))).all()
     else:
-        user_list = db.session.query(User).filter(User.id != g.user.id).all()
+        user_list = db.session.query(Users).filter(Users.id != g.users.id).all()
 
     if invitation_list_ids_pending != []:
-        user_list_pending = db.session.query(User).filter(and_(User.id != g.user.id, User.id.in_(invitation_list_ids_pending))).all()
+        user_list_pending = db.session.query(Users).filter(and_(Users.id != g.users.id, Users.id.in_(invitation_list_ids_pending))).all()
     else:
         user_list_pending = []
     return render_template('userlist.html', user_list = user_list, user_list_pending = user_list_pending, house_id = house_id)
@@ -131,11 +131,11 @@ def registration():
         username = str(request.form.get("username")).lower()
         password = request.form.get("password")
 
-        user = db.session.query(User).filter(User.username == username).first()
-        if user:
+        users = db.session.query(Users).filter(Users.username == username).first()
+        if users:
             return redirect(url_for("profile"))
 
-        new_user = User(username=username, password=password)
+        new_user = Users(username=username, password=password)
 
         db.session.add(new_user)
         db.session.commit()
@@ -146,14 +146,14 @@ def registration():
 # Add an item to the list
 @app.route("/add_item/<int:house_id>", methods=['GET', 'POST'])
 def add_item(house_id):
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
 
     if request.method == 'POST':
         name = request.form.get("name")
         price = request.form.get("price")
         quantity = request.form.get("quantity")
-        user_id = g.user.id
+        user_id = g.users.id
         new_item = Item(name=name, price=price, quantity=quantity, author_id=user_id, house_id = house_id)
         db.session.add(new_item)    
         db.session.commit()
@@ -165,7 +165,7 @@ def add_item(house_id):
 
 @app.route("/edit_item/<int:house_id>/<int:item_id>", methods=['GET', 'POST'])
 def edit_item(house_id, item_id):
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
 
     item = db.session.query(Item).filter(Item.id == item_id).first()
@@ -188,7 +188,7 @@ def edit_item(house_id, item_id):
 # Delete an item
 @app.get("/delete_item/<int:house_id>/<int:item_id>")
 def delete_item(house_id, item_id):
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
 
     house_id = house_id
@@ -201,7 +201,7 @@ def delete_item(house_id, item_id):
 
 @app.get("/take_one/<int:house_id>/<int:item_id>")
 def take_one(house_id, item_id):
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
     
     item = db.session.query(Item).filter(Item.id == item_id).first()
@@ -209,7 +209,7 @@ def take_one(house_id, item_id):
 
     if (item.quantity - len(takers)) == 0:
         return redirect("/tracker/" + str(house_id))
-    new_taker = Takers(item_id=item_id, user_id=g.user.id)
+    new_taker = Takers(item_id=item_id, user_id=g.users.id)
     db.session.add(new_taker)
     db.session.commit()
 
@@ -218,7 +218,7 @@ def take_one(house_id, item_id):
 # Add a new house
 @app.route("/add_house", methods=['GET', 'POST'])
 def add_house():
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
 
     if request.method == 'POST':
@@ -226,10 +226,10 @@ def add_house():
         description = request.form.get("description")
         address = request.form.get("address")
 
-        house = House(user_id = g.user.id, name = name, description = description, address = address)
+        house = House(user_id = g.users.id, name = name, description = description, address = address)
         db.session.add(house)
         db.session.commit()
-        invitation = Invitations(sender_id = g.user.id, recipient_id = g.user.id, house_id = house.id, status = 'accepted')
+        invitation = Invitations(sender_id = g.users.id, recipient_id = g.users.id, house_id = house.id, status = 'accepted')
         db.session.add(invitation) 
         db.session.commit()
         return redirect(url_for("profile"))
@@ -240,7 +240,7 @@ def add_house():
 # Edit a house
 @app.route("/edit_house/<int:house_id>", methods=['GET', 'POST'])
 def edit_house(house_id):
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
 
     house = db.session.query(House).filter(House.id == house_id).first()
@@ -281,19 +281,19 @@ def delete_house(house_id):
 # Profile page
 @app.get("/profile")
 def profile():
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
 
     try:
-        invitation_list = db.session.query(Invitations).filter(Invitations.recipient_id == g.user.id).filter(Invitations.status == 'accepted').all()
+        invitation_list = db.session.query(Invitations).filter(Invitations.recipient_id == g.users.id).filter(Invitations.status == 'accepted').all()
         house_list = [db.session.query(House).filter(House.id == invitation.house_id).first() for invitation in invitation_list if invitation.house_id != None]
     except:
         house_list = []
 
     try:
-        user = db.session.query(User).filter(User.id == g.user.id).first()
-        if user:
-            data_url = 'data:image/png;base64,' + user.avatar.decode('ascii')
+        users = db.session.query(Users).filter(Users.id == g.users.id).first()
+        if users:
+            data_url = 'data:image/png;base64,' + users.avatar.decode('ascii')
         else: 
             data_url = None
     # image = Image.open(BytesIO(base64.b64decode(avatar)))
@@ -305,12 +305,12 @@ def profile():
 # Notifications page
 @app.get("/notifications")
 def notifications():
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
 
     # try:
-    # Get the user_house_map table for the logged user to get all u status invites.
-    invitation_list = db.session.query(Invitations).join(User, Invitations.sender_id == User.id).join(House, Invitations.house_id == House.id).filter(Invitations.recipient_id == g.user.id).filter(Invitations.status == 'pending').all()
+    # Get the user_house_map table for the logged users to get all u status invites.
+    invitation_list = db.session.query(Invitations).join(Users, Invitations.sender_id == Users.id).join(House, Invitations.house_id == House.id).filter(Invitations.recipient_id == g.users.id).filter(Invitations.status == 'pending').all()
     # Swap the sender id with the senders username.
 
     house_list = [db.session.query(House).filter(House.id == invitation.house_id).first() for invitation in invitation_list if invitation.house_id != None]
@@ -336,7 +336,7 @@ def decline_invitation(invitation_id):
 # Add avatar page 
 @app.route("/add_avatar", methods=['GET', 'POST'])
 def add_avatar():
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
 
     if request.method == 'POST':
@@ -344,8 +344,8 @@ def add_avatar():
         # avatar = request.form.get("avatar")
         image_string = base64.b64encode(avatar.read())
 
-        user = db.session.query(User).filter(User.id == g.user.id).first()
-        user.avatar = image_string
+        users = db.session.query(Users).filter(Users.id == g.users.id).first()
+        users.avatar = image_string
         db.session.commit()
         return redirect(url_for("profile"))
 
@@ -360,12 +360,12 @@ def login():
         password = request.form.get("password")
 
         try:
-            user = db.session.query(User).filter(User.username == username).first()
+            users = db.session.query(Users).filter(Users.username == username).first()
         except:
-            user = None
+            users = None
 
-        if user and user.password == password:
-            session['user_id'] = user.id
+        if users and users.password == password:
+            session['user_id'] = users.id
             return redirect(url_for("profile"))
         
         return redirect(url_for("login"))
@@ -380,10 +380,10 @@ def logout():
 
 @app.get('/tracker/<int:house_id>')
 def tracker(house_id):
-    if not g.user:
+    if not g.users:
         return redirect(url_for('login'))
 
-    house = db.session.query(Invitations).filter(Invitations.recipient_id == g.user.id).filter(Invitations.house_id == house_id).filter(Invitations.status == 'accepted').first()
+    house = db.session.query(Invitations).filter(Invitations.recipient_id == g.users.id).filter(Invitations.house_id == house_id).filter(Invitations.status == 'accepted').first()
     if house == None:
         return redirect(url_for('profile'))
 
@@ -392,7 +392,7 @@ def tracker(house_id):
 
     takers = db.session.query(Takers).join(Item, Takers.item_id == Item.id).filter(Item.house_id == house_id).all()
 
-    participants = db.session.query(Invitations).join(User, Invitations.recipient_id == User.id).filter(Invitations.house_id == house_id).filter(Invitations.status == 'accepted').all()
+    participants = db.session.query(Invitations).join(Users, Invitations.recipient_id == Users.id).filter(Invitations.house_id == house_id).filter(Invitations.status == 'accepted').all()
     
     debtors = {}
 
@@ -414,13 +414,13 @@ def tracker(house_id):
         item.quantity = item.quantity - len(item_takers)
         
     try:
-        user = db.session.query(User).filter(User.id == g.user.id).first()
-        data_url = 'data:image/png;base64,' + user.avatar.decode('ascii')
+        users = db.session.query(Users).filter(Users.id == g.users.id).first()
+        data_url = 'data:image/png;base64,' + users.avatar.decode('ascii')
     # image = Image.open(BytesIO(base64.b64decode(avatar)))
     except:
         data_url = None
 
-    participants = db.session.query(Invitations).join(User, Invitations.recipient_id == User.id).filter(Invitations.house_id == house_id).filter(Invitations.status == 'accepted').all()
+    participants = db.session.query(Invitations).join(Users, Invitations.recipient_id == Users.id).filter(Invitations.house_id == house_id).filter(Invitations.status == 'accepted').all()
 
     house = db.session.query(House).filter(House.id == house_id).first()
 
