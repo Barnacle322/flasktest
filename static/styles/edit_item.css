@@ -23,10 +23,12 @@ body {
     --x: 100%;
 }
 
-@media only screen and (max-width: 1062px) {
-    .v9_31 {
-        background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /550%;
-    }
+#animation {
+    height: 100%;
+    width: 100%;
+    width: auto;
+    margin-left: 150px;
+    margin-right: 150px;
 }
 
 .item_edit_screen {
@@ -67,9 +69,11 @@ body {
 }
 
 .center_prompt {
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
-    padding: 25px;
+    align-items: center;
 }
 
 .name_label {
@@ -144,6 +148,11 @@ body {
     hyphens: manual;
 }
 
+.quantity_input_dark {
+    color: #fff;
+    background-color: #12181b;
+}
+
 .price_label {
     font-family: montserrat;
     font-weight: 700;
@@ -177,6 +186,11 @@ body {
     font-weight: 400;
     font-size: 15px;
     outline: none;
+}
+
+.price_input_dark {
+    color: #fff;
+    background-color: #12181b;
 }
 
 .save_button_field {
@@ -229,11 +243,20 @@ body {
     box-shadow: 1px 3px 15px 1px grey;
 }
 
+#animation_stuff {
+    height: 100%;
+    width: 130px;
+}
+
 .center2 {
     position: relative;
-    width: 40px;
+    /* width: 40px;
     left: 37px;
-    top: 427px;
+    top: 427px; */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 60px;
     font-weight: bold;
     color: white;
@@ -254,7 +277,6 @@ body {
 .animations {
     position: fixed;
     height: 0px;
-    animation: shakeX;
 }
 
 .back_button_field+.div#animation_stuff:hover {
@@ -266,4 +288,17 @@ body {
     cursor: pointer;
     background-color: #00000010;
     opacity: 1;
+}
+
+@media screen and (max-width: 900px) {
+    #animation_stuff {
+        opacity: 0;
+        pointer-events: none;
+    }
+    #href {
+        pointer-events: none;
+    }
+    .v9_31 {
+        background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /550%;
+    }
 }

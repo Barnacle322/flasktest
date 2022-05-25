@@ -6,8 +6,8 @@ console.log(localStorage)
 const enableDarkMode = () => {
     // 1. Add the class to the body
     // console.log(darkMode);
-    var add_photo = document.getElementsByClassName('item_add_screen')[0];
-    add_photo.classList.add("item_add_screen_dark");
+    var add_photo = document.getElementsByClassName('item_edit_screen')[0];
+    add_photo.classList.add("item_edit_screen_dark");
     var v9_31 = document.getElementsByClassName('v9_31')[0];
     v9_31.classList.add("v9_31_dark");
     var photo_input = document.getElementsByClassName('name_input')[0];
@@ -31,8 +31,8 @@ const disableDarkMode = () => {
 
     // console.log(darkMode);
 
-    var add_photo = document.getElementsByClassName('house_add_screen')[0];
-    add_photo.classList.remove("house_add_screen_dark");
+    var add_photo = document.getElementsByClassName('house_edit_screen')[0];
+    add_photo.classList.remove("house_edit_screen_dark");
     var v9_31 = document.getElementsByClassName('v9_31')[0];
     v9_31.classList.remove("v9_31_dark");
     var photo_input = document.getElementsByClassName('name_input')[0];

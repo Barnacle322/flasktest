@@ -96,70 +96,76 @@
                                     {{ participant.recipient.username.capitalize() }}
                                 </div>
                                 <div class="participant_debt">
-                                    {{ debtors[participant.recipient.id] if participant.recipient.id in debtors else 0 }}€
-                                </div>
-
+                                    {% if (debtors[participant.recipient.id] if participant.recipient.id in debtors else 0) >= 1 %}
+                                    <div style="color:rgb(0, 231, 0)">{{ debtors[participant.recipient.id] if participant.recipient.id in debtors else 0 }}€</div>
+                                    {% elif (debtors[participant.recipient.id] if participant.recipient.id in debtors else 0)
+                                    <=- 1 %} <div style="color:rgb(231, 0, 0)">{{ debtors[participant.recipient.id] if participant.recipient.id in debtors else 0 }}€</div>
+                                {% else %}
+                                <div>0€</div>
+                                {% endif %}
                             </div>
-                            {% endfor %} {% endif %}
-                        </div>
 
-                        <div class='invite_button'>
-                            <a href="/user_list/{{ house.id }}">
-                                <div class="center_invite">
-                                    Invite
-                                </div>
-                            </a>
                         </div>
+                        {% endfor %} {% endif %}
                     </div>
 
-                    <label for="menu-button" id="label_for_menu">
+                    <div class='invite_button'>
+                        <a href="/user_list/{{ house.id }}">
+                            <div class="center_invite">
+                                Invite
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <label for="menu-button" id="label_for_menu">
                         <i class="id badge outline icon" id="badge"></i>
                     </label>
-                </div>
             </div>
         </div>
-        <div class="animate__animated animate__fadeInDownBig">
-            <input type="checkbox" id="switch-button" onclick="myFunction()">
-            <div class="top_bar">
-                <div class="back_button">
-                    <a href="/profile">
-                        <div class="center_back">
-                            Back
-                        </div>
-                        <div class="center_back_icon">
-                            <i class="sign-out icon" id="back_icon"></i>
-                        </div>
+    </div>
+    <div class="animate__animated animate__fadeInDownBig">
+        <input type="checkbox" id="switch-button" onclick="myFunction()">
+        <div class="top_bar">
+            <div class="back_button">
+                <a href="/profile">
+                    <div class="center_back">
+                        Back
+                    </div>
+                    <div class="center_back_icon">
+                        <i class="sign-out icon" id="back_icon"></i>
+                    </div>
 
-                    </a>
-                </div>
+                </a>
+            </div>
 
-                <label for="switch-button" id="label">
+            <label for="switch-button" id="label">
                     <i class="sun icon" id="sun"></i>
                     <i class="moon icon"id='moon'></i>
                 </label>
 
-                <div class="name_div">
-                    <div class="name">
-                        {{ g.user.username.capitalize() }}
-                    </div>
+            <div class="name_div">
+                <div class="name">
+                    {{ g.user.username.capitalize() }}
                 </div>
+            </div>
 
-                <div class="profile_picture">
-                    <a href="/add_avatar">
-                        <div class="center_profile_picture">
-                            {% if image != None %}
-                            <img id='image' src="{{ image }}" alt="avatar"> {% else %}
-                            <i class="user outline icon" id="no_user_picture"></i> {% endif %}
-                        </div>
-                    </a>
-                </div>
-                <div class="edit_profile_picture">
-                    <div class="center_edit_profile_picture">
-                        <i class="pencil alternate icon"></i>
+            <div class="profile_picture">
+                <a href="/add_avatar">
+                    <div class="center_profile_picture">
+                        {% if image != None %}
+                        <img id='image' src="{{ image }}" alt="avatar"> {% else %}
+                        <i class="user outline icon" id="no_user_picture"></i> {% endif %}
                     </div>
+                </a>
+            </div>
+            <div class="edit_profile_picture">
+                <div class="center_edit_profile_picture">
+                    <i class="pencil alternate icon"></i>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <script src="{{ url_for('static',filename='scripts/tracker.js') }}"></script>
 </body>

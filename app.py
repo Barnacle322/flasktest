@@ -182,8 +182,7 @@ def edit_item(house_id, item_id):
         item.quantity = request.form.get("quantity")
         db.session.commit()
         return redirect("/tracker/" + str(house_id))
-    
-    
+
     return render_template('edit_item.html', item = item, item_quantity = item_quantity, house_id = house_id)
 
 # Delete an item

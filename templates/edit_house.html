@@ -3,30 +3,34 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.50">
+    <meta name="viewport" content="width=device-width, initial-scale=0.65">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,400">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <!-- <link rel="stylesheet" href="./add_house.css"> -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/edit_house.css') }}">
-    <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static',filename='elements/Peret (1).png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- <link rel="stylesheet " href="./add_house.css "> -->
+    <link rel="stylesheet" href="{{ url_for( 'static',filename='styles/edit_house.css' ) }}">
+    <link rel="shortcut icon " type="image/jpg " href="{{ url_for( 'static',filename='elements/Peret (1).png' ) }}">
     <title>Add a House</title>
 </head>
 
 <body>
-    <div class="v9_31">
-        <a href="/profile">
+    <div class="v9_31 ">
+
+        <a href="/profile" id="href">
             <div id='animation_stuff' class="animations animate__animated animate__shakeX animate__repeat-3 animate__delay-2s animate__slower">
                 <div class="center2"><i class="chevron left icon"></i></div>
             </div>
             <div class="back_button_field"></div>
         </a>
-        <div class="animate__animated animate__fadeInUp">
+
+        <div class="animate__animated animate__fadeInUp" id="animation">
             <div class="center_prompt">
                 <div class="house_add_screen">
+
                     <div class="center_title">
                         <span class="title">Edit House</span>
                     </div>
+
                     <form class="form" method="post">
                         <div class="name_field">
                             <div class="name_label">House name</div>
@@ -43,13 +47,14 @@
                         <div class="save_button_field">
                             <button type='submit' class="button login" id="login">Save</button>
                         </div>
-
                     </form>
-                    <div class="delete_button_field">
-                        <a href="/delete_house/{{ house_id }}" ">
-                            <div class="delete_title ">Delete</div>
+
+                    <div class="delete_button_field ">
+                        <a href="/delete_house/{{ house_id }}">
+                            <div class="delete_title">Delete</div>
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>
