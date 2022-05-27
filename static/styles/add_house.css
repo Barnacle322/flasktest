@@ -233,9 +233,6 @@ body {
 
 .center2 {
     position: relative;
-    /* width: 40px;
-    left: 37px;
-    top: 427px; */
     height: 100%;
     display: flex;
     justify-content: center;

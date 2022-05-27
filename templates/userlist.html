@@ -16,13 +16,13 @@
 
 <body>
     <div class="v9_31">
-        <a href="/tracker/{{ house_id }}">
+        <a href="/tracker/{{ house_id }}" id="href">
             <div id='animation_stuff' class="animations animate__animated animate__shakeX animate__repeat-3 animate__delay-2s animate__slower">
                 <div class="center2"><i class="chevron left icon"></i></div>
             </div>
             <div class="back_button_field"></div>
         </a>
-        <div class="animate__animated animate__fadeInUp">
+        <div class="animate__animated animate__fadeInUp" id=animation>
             <div class="center_prompt">
                 <div class="invite_user_screen">
                     <div class="center_title"><span class="title">Invite Users</span></div>
@@ -95,6 +95,7 @@
                 </div>
             </div>
         </div>
+        <script src="{{ url_for( 'static',filename='scripts/userlist.js' ) }} "></script>
 </body>
 
 </html>

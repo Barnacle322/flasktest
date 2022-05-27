@@ -243,11 +243,17 @@ body {
     box-shadow: 1px 3px 15px 1px grey;
 }
 
+#animation_stuff {
+    height: 100%;
+    width: 130px;
+}
+
 .center2 {
     position: relative;
-    width: 40px;
-    left: 37px;
-    top: 427px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 60px;
     font-weight: bold;
     color: white;

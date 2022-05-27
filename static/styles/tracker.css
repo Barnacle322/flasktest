@@ -109,11 +109,6 @@ body {
     transform: scaleX(-1);
 }
 
-#invite_icon {
-    opacity: 0;
-    transform: scaleX(-1);
-}
-
 .profile_picture {
     width: 80px;
     height: 80px;
@@ -630,14 +625,16 @@ input[type="checkbox"] {
     display: grid;
     grid-template-rows: auto;
     height: auto;
-    width: 200px;
+    width: 220px;
     position: relative;
     top: 160px;
     color: black;
 }
 
 .participant {
-    width: 100%;
+    width: 200px;
+    margin-right: 10px;
+    margin-left: 10px;
     height: 40px;
     color: black;
     font-size: 20px;
@@ -664,7 +661,48 @@ input[type="checkbox"] {
     font-family: Montserrat;
 }
 
-.invite_button {
+.participant_add {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.house_info_dark .participant_add {
+    background: rgb(255 255 255 / 15%);
+}
+
+.house_info_dark .participant_add:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.participant_add:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#plus_href {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    opacity: 0.3;
+}
+
+.house_info_dark #plus_href {
+    color: #fff;
+    opacity: 0.3;
+}
+
+.stats_button {
     width: 130px;
     height: 50px;
     font-size: 25px;
@@ -685,19 +723,19 @@ input[type="checkbox"] {
     transition-duration: 0.5s;
 }
 
-.invite_button_dark {
+.stats_button_dark {
     background-color: #B363F1;
     box-shadow: 1px 3px 10px 1px #0101019e;
     transition: 0.4s;
     transition-duration: 0.5s;
 }
 
-.invite_button:hover {
+.stats_button:hover {
     cursor: pointer;
     background-color: #C850C0;
 }
 
-.center_invite {
+.center_stats {
     padding: 14px;
     display: flex;
     justify-content: center;

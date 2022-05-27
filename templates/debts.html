@@ -16,7 +16,7 @@
 <body>
     <div class="page">
         <div class="background"></div>
-        <div class="animate__animated animate__fadeIn" id="animation">
+        <div class="animate__animated animate__fadeInUp" id="animation">
             <div class="main-content">
                 <div class="debtors">
                     <div class="title">
@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="ball"></div>
                                 <div class="name">{{ debtor.username.capitalize() }}</div>
-                                <div class="debt" style='color: #00b900'>{{ debtors[debtor] }}€</div>
+                                <div class="debt" style='color: #00b900'>{{ debtors[debtor]|round(2) }}€</div>
                             </div>
                             {% endfor %}
                         </div>
@@ -44,7 +44,7 @@
                             <div class="row">
                                 <div class="ball"></div>
                                 <div class="name">{{ debt.username.capitalize() }}</div>
-                                <div class="debt" style="color: #ea0000">{{ debts[debt] }}€</div>
+                                <div class="debt" style="color: #ea0000">{{ debts[debt]|round(2) }}€</div>
                             </div>
                             {% endfor %}
                         </div>
@@ -58,6 +58,7 @@
             </div>
             <div class="back_button_field"></div>
         </a>
+        <script src="{{ url_for( 'static',filename='scripts/debts.js' ) }} "></script>
 </body>
 
 </html>
