@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.65">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,400">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- <link rel="stylesheet " href="./debts.css "> -->
+    <link rel="stylesheet" href="{{ url_for( 'static',filename='styles/debts.css' ) }}">
+    <link rel="shortcut icon " type="image/jpg " href="{{ url_for( 'static',filename='elements/Peret (1).png' ) }}">
+    <title>Add a House</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="background"></div>
+        <div class="animate__animated animate__fadeIn" id="animation">
+            <div class="main-content">
+                <div class="debtors">
+                    <div class="title">
+                        My Debtors
+                    </div>
+                    <div class="contents">
+                        <div class="grid">
+                            {% for debtor in debtors %}
+                            <div class="row">
+                                <div class="ball"></div>
+                                <div class="name">{{ debtor.username.capitalize() }}</div>
+                                <div class="debt" style='color: #00b900'>{{ debtors[debtor] }}€</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="debts">
+                    <div class="title">
+                        My Debts
+                    </div>
+                    <div class="contents">
+                        <div class="grid">
+                            {% for debt in debts %}
+                            <div class="row">
+                                <div class="ball"></div>
+                                <div class="name">{{ debt.username.capitalize() }}</div>
+                                <div class="debt" style="color: #ea0000">{{ debts[debt] }}€</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="/tracker/{{ house_id }}" id="href">
+            <div id='animation_stuff' class="animations animate__animated animate__shakeX animate__repeat-3 animate__delay-2s animate__slower">
+                <div class="center2"><i class="chevron left icon"></i></div>
+            </div>
+            <div class="back_button_field"></div>
+        </a>
+</body>
+
+</html>

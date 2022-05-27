@@ -1,0 +1,237 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Montserrat;
+    font-size: 14px;
+    line-height: normal;
+    transform-origin: center;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: all .3s ease;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /400%;
+    transition: 0.5s;
+    transition-duration: 0.6s;
+}
+
+.background_dark {
+    --x: 100%;
+    transition: 0.5s;
+    transition-duration: 0.6s;
+}
+
+#animation {
+    height: 100%;
+    width: auto;
+}
+
+.main-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.debts {
+    min-width: 500px;
+    min-height: 600px;
+    height: 900px;
+    border-radius: 10px;
+    position: relative;
+    margin-right: 20px;
+    margin-left: 20px;
+    display: block;
+    background-color: #fff;
+    box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
+}
+
+.debts_dark {
+    background: #2a2e35;
+    color: #fff;
+}
+
+.debtors {
+    min-width: 500px;
+    min-height: 600px;
+    height: 900px;
+    border-radius: 10px;
+    position: relative;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #fff;
+    box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
+}
+
+.debtors_dark {
+    background: #2a2e35;
+    color: #fff;
+}
+
+.title {
+    position: relative;
+    top: 70px;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    color: rgba(8, 13, 30, 1);
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 35px;
+}
+
+.debtors_dark .title {
+    color: #fff;
+}
+
+.debts_dark .title {
+    color: #fff;
+}
+
+.contents {
+    position: absolute;
+    width: 100%;
+    height: 770px;
+    padding-left: 20px;
+    padding-right: 20px;
+    top: 130px;
+    border-radius: 10px;
+}
+
+.grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 400px);
+    row-gap: 20px;
+    justify-content: center;
+    padding: 20px 40px;
+    transition: 0.3s;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.ball {
+    min-width: 15px;
+    min-height: 15px;
+    border-radius: 50%;
+    background-color: black;
+    margin-right: 20px;
+}
+
+.debtors_dark .ball {
+    background-color: #fff;
+}
+
+.debts_dark .ball {
+    background-color: #fff;
+}
+
+.name {
+    width: 85%;
+    font-family: Montserrat;
+    font-size: 25px;
+}
+
+.debt {]
+    width: fit-content;
+    font-family: Montserrat;
+    font-size: 25px;
+}
+#href {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 130px;
+}
+#animation_stuff {
+    position: absolute;
+    height: 100%;
+    width: 130px;
+}
+
+.center2 {
+    position: relative;
+    /* width: 40px;
+    left: 37px;
+    top: 427px; */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    transition: 0.4s;
+    transition-duration: 0.5s;
+}
+
+.back_button_field {
+    width: 150px;
+    height: 100%;
+    position: fixed;
+    background-color: transparent;
+    transition: 0.2s;
+    transition-duration: 0.5s;
+    opacity: 0;
+}
+
+.animations {
+    position: fixed;
+    height: 0px;
+}
+
+.back_button_field+.div#animation_stuff:hover {
+    opacity: 1;
+}
+
+.back_button_field:hover,
+.center2:hover>.back_button_field {
+    cursor: pointer;
+    background-color: #00000010;
+    opacity: 1;
+}
+@media screen and (max-width: 1350px) {
+    #animation_stuff {
+        opacity: 0;
+        pointer-events: none;
+    }
+    #href {
+        pointer-events: none;
+    }
+}
+@media screen and (max-width:1089px) {
+    .debtors {
+        width: 400px;
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+    .debts {
+        width: 400px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .background {
+        background: linear-gradient(43deg, #425ad1 0%, #c851c0 19%, #ffcd70 30%, #ffcd70 40%, #1c2a6d 51%, #692465 74%, #b87700 100%) var(--x, 0) /550%;
+        transition: none;
+        transition-duration: none;
+    }
+}
