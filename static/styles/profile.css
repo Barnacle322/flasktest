@@ -298,19 +298,38 @@ body {
     width: 400px;
     height: 400px;
     position: relative;
-    top: 0px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.337);
-    opacity: 0.8;
     transition: all .3s;
 }
 
 .house_dark {
-    background-color: #2a2e35;
+    background-color: rgba(42, 46, 53, 0.8);
     box-shadow: 1px 3px 15px 1px #010101;
     transition: all .3s;
     /* opacity: 0.5; */
+}
+
+.balance {
+    position: relative;
+    top: 100px;
+    width: 400px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.balance_text {
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 30px;
+    color: black;
+}
+
+.house_dark .balance_text {
+    color: white;
 }
 
 .center_icon {

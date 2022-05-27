@@ -21,9 +21,20 @@
         <div class="animate__animated animate__fadeIn animate__slower">
             <div class="main_content">
                 <div class="grid">
-                    {% if house_list.__len__() != 0 %} {% for house in house_list %}
+                    {% if balance.__len__() != 0 %} {% for house in balance %}
                     <div class="house_element">
                         <div class="house">
+                            <div class="balance">
+                                <div class="balance_text">
+                                    {% if balance[house] >= 1 %}
+                                    <div style="color:rgb(0, 231, 0)"><span class="balance_text">Balance:</span> {{ balance[house] }}$</div>
+                                    {% elif balance[house] <= -1 %}
+                                    <div style="color:rgb(231, 0, 0)"><span class="balance_text">Balance:</span> {{ balance[house] }}$</div>
+                                    {% else %}
+                                    Balance: {{ balance[house] }}$
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                         <div class="house_name_plate">
                             <div class="house_name">

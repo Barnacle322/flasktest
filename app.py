@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, g
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import and_
+from sqlalchemy import and_, or_
 from sqlalchemy.orm import relationship
 
 import base64
@@ -117,13 +117,13 @@ def user_list(house_id):
         Invitations.status == 'pending').all()
     invitation_list_ids_pending = [invitation.recipient_id for invitation in invitation_list_pending]
 
-    if invitation_list_ids != []:
+    if invitation_list_ids:
         user_list = db.session.query(Users).filter(
             and_(Users.id != g.users.id, Users.id.not_in(invitation_list_ids))).all()
     else:
         user_list = db.session.query(Users).filter(Users.id != g.users.id).all()
 
-    if invitation_list_ids_pending != []:
+    if invitation_list_ids_pending:
         user_list_pending = db.session.query(Users).filter(
             and_(Users.id != g.users.id, Users.id.in_(invitation_list_ids_pending))).all()
     else:
@@ -308,6 +308,19 @@ def profile():
     except:
         house_list = []
 
+    balance = {}
+    for house in house_list:
+        balance[house] = 0
+
+    takers = db.session.query(Takers).join(Item, Takers.item_id == Item.id).filter((Takers.user_id == g.users.id) | (Item.author_id == g.users.id)).all()
+    
+    for taker in takers:
+        if taker.user_id == g.users.id:
+            balance[taker.item.house] -= taker.item.price / taker.item.quantity
+        if taker.item.author_id == g.users.id:
+            balance[taker.item.house] += taker.item.price / taker.item.quantity
+
+
     try:
         users = db.session.query(Users).filter(Users.id == g.users.id).first()
         if users:
@@ -318,7 +331,7 @@ def profile():
     except:
         data_url = None
 
-    return render_template('profile.html', house_list=house_list, image=data_url)
+    return render_template('profile.html', balance=balance, image=data_url)
 
 
 # Notifications page
@@ -456,7 +469,6 @@ def tracker(house_id):
             debtors[taker.users] = -taker.item.price / taker.item.quantity
 
     debtors = {k: v for k, v in sorted(debtors.items(), key=lambda item: item[1], reverse=True)}
-    print(debtors)
     for item in item_list:
         item_takers = [taker for taker in takers if taker.item_id == item.id]
         item.quantity = item.quantity - len(item_takers)
@@ -468,13 +480,9 @@ def tracker(house_id):
     except:
         data_url = None
 
-    participants = db.session.query(Invitations).join(Users, Invitations.recipient_id == Users.id).filter(
-        Invitations.house_id == house_id).filter(Invitations.status == 'accepted').all()
-
     house = db.session.query(House).filter(House.id == house_id).first()
 
-    return render_template('tracker.html', item_list=item_list, house=house, participants=participants,
-                           debtors=debtors, image=data_url)
+    return render_template('tracker.html', item_list=item_list, house=house, debtors=debtors, image=data_url)
 
 
 if __name__ == "__main__":
