@@ -249,7 +249,7 @@ def add_house():
         db.session.commit()
         return redirect(url_for("profile"))
 
-    return render_template('add_house2.html')
+    return render_template('add_house.html')
 
 
 # Edit a house
@@ -473,7 +473,7 @@ def tracker(house_id):
 
     house = db.session.query(House).filter(House.id == house_id).first()
 
-    return render_template('tracker2.html', item_list=item_list, house=house, participants=participants,
+    return render_template('tracker.html', item_list=item_list, house=house, participants=participants,
                            debtors=debtors, image=data_url)
 
 
