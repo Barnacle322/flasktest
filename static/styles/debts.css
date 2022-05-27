@@ -151,17 +151,19 @@ body {
     font-size: 25px;
 }
 
-.debt {]
+.debt {
     width: fit-content;
     font-family: Montserrat;
     font-size: 25px;
 }
+
 #href {
     position: absolute;
     top: 0px;
     height: 100%;
     width: 130px;
 }
+
 #animation_stuff {
     position: absolute;
     height: 100%;
@@ -209,6 +211,7 @@ body {
     background-color: #00000010;
     opacity: 1;
 }
+
 @media screen and (max-width: 1350px) {
     #animation_stuff {
         opacity: 0;
@@ -218,6 +221,7 @@ body {
         pointer-events: none;
     }
 }
+
 @media screen and (max-width:1089px) {
     .debtors {
         width: 400px;
