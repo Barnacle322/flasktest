@@ -584,7 +584,29 @@ input[type="checkbox"] {
     position: relative;
     top: 100px;
     border-radius: 75px;
+    background: rgb(103, 103, 103);
+}
+
+.edit_house_picture {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    top: 5px;
+    left: 105px;
+    border-radius: 75px;
     background: rgb(156, 156, 156);
+    transition: 0s;
+}
+
+#house_pencil {
+    color: #fff;
+    position: relative;
+    bottom: 1px;
+    left: 2px;
+    transition: 0s;
 }
 
 .house_name {
