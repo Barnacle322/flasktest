@@ -95,8 +95,12 @@ def profile():
         return redirect(url_for('login'))
 
     try:
-        invitation_list = db.session.query(Invitations).filter(Invitations.recipient_id == g.users.id).filter(
-            Invitations.status == 'accepted').all()
+        invitation_list = (
+            db.session.query(Invitations)
+            .filter(Invitations.recipient_id == g.users.id)
+            .filter(Invitations.status == 'accepted')
+            .all()
+        )
         house_list = [db.session.query(House).filter(House.id == invitation.house_id).first() for invitation in
                       invitation_list if invitation.house_id != None]
     except:
@@ -106,7 +110,12 @@ def profile():
     for house in house_list:
         balance[house] = 0
 
-    takers = db.session.query(Takers).join(Item, Takers.item_id == Item.id).filter((Takers.user_id == g.users.id) | (Item.author_id == g.users.id)).all()
+    takers = (
+        db.session.query(Takers)
+        .join(Item, Takers.item_id == Item.id)
+        .filter((Takers.user_id == g.users.id) | (Item.author_id == g.users.id))
+        .all()
+    )
     
     for taker in takers:
         if taker.user_id == g.users.id:
@@ -171,7 +180,7 @@ def edit_house(house_id):
         # Commit the changes to the database
         db.session.commit()
         return redirect(url_for("profile"))
-
+    
     return render_template('edit_house.html', house_id=house_id, house=house)
 
 
@@ -181,7 +190,11 @@ def delete_house(house_id):
     db.session.query(Invitations).filter(Invitations.house_id == house_id).delete()
     db.session.commit()
 
-    takers = db.session.query(Takers).join(Item, Takers.item_id == Item.id).filter(Item.house_id == house_id).all()
+    takers = (
+        db.session.query(Takers)
+        .join(Item, Takers.item_id == Item.id)
+        .filter(Item.house_id == house_id).all()
+    )
     
     for taker in takers:
         db.session.delete(taker)
@@ -206,9 +219,13 @@ def notifications():
         return redirect(url_for('login'))
 
     # Get the user_house_map table for the logged users to get all u status invites.
-    invitation_list = db.session.query(Invitations).join(Users, Invitations.sender_id == Users.id).join(House,
-                                                                                                        Invitations.house_id == House.id).filter(
-        Invitations.recipient_id == g.users.id).filter(Invitations.status == 'pending').all()
+    invitation_list = (
+        db.session.query(Invitations)
+            .join(Users, Invitations.sender_id == Users.id)
+            .join(House, Invitations.house_id == House.id)
+            .filter(Invitations.recipient_id == g.users.id)
+            .filter(Invitations.status == 'pending').all(
+        )
     # Swap the sender id with the senders username.
 
     house_list = [db.session.query(House).filter(House.id == invitation.house_id).first() for invitation in
@@ -258,8 +275,14 @@ def tracker(house_id):
     if not g.users:
         return redirect(url_for('login'))
 
-    house = db.session.query(Invitations).filter(Invitations.recipient_id == g.users.id).filter(
-        Invitations.house_id == house_id).filter(Invitations.status == 'accepted').first()
+    house = (
+        db.session.query(Invitations)
+        .filter(Invitations.recipient_id == g.users.id)
+        .filter(Invitations.house_id == house_id)
+        .filter(Invitations.status == 'accepted')
+        .first()
+    )
+    
     if house == None:
         return redirect(url_for('profile'))
 
@@ -267,8 +290,13 @@ def tracker(house_id):
 
     takers = db.session.query(Takers).join(Item, Takers.item_id == Item.id).filter(Item.house_id == house_id).all()
 
-    participants = db.session.query(Invitations).join(Users, Invitations.recipient_id == Users.id).filter(
-        Invitations.house_id == house_id).filter(Invitations.status == 'accepted').all()
+    participants = (
+        db.session.query(Invitations)
+        .join(Users, Invitations.recipient_id == Users.id)
+        .filter(Invitations.house_id == house_id)
+        .filter(Invitations.status == 'accepted')
+        .all()
+    )
 
     debtors = {}
 
@@ -313,8 +341,12 @@ def user_list(house_id):
     invitation_list_ids = [invitation.recipient_id for invitation in invitation_list]
 
     # Get all of the pending invitations with a specific house_id
-    invitation_list_pending = db.session.query(Invitations).filter(Invitations.house_id == house_id).filter(
-        Invitations.status == 'pending').all()
+    invitation_list_pending = (
+        db.session.query(Invitations)
+        .filter(Invitations.house_id == house_id)
+        .filter(Invitations.status == 'pending')
+        .all()
+    )
     
     # Create a list of all the users that a have a pending invitation to the house
     invitation_list_ids_pending = [invitation.recipient_id for invitation in invitation_list_pending]
@@ -322,8 +354,11 @@ def user_list(house_id):
     # Check whether there are any invitations to a specific house
     if invitation_list_ids:
         # If there are then get all of the users that are not invited to the house
-        user_list = db.session.query(Users).filter(
-            and_(Users.id != g.users.id, Users.id.not_in(invitation_list_ids))).all()
+        user_list = (
+            db.session.query(Users)
+            .filter(and_(Users.id != g.users.id, Users.id.not_in(invitation_list_ids)))
+            .all()
+        )
     else:
         # Otherwise get all of the users that are not the user that is logged in
         user_list = db.session.query(Users).filter(Users.id != g.users.id).all()
@@ -331,8 +366,11 @@ def user_list(house_id):
     # If there are some pending invitations
     if invitation_list_ids_pending:
         # Get all of the users who have a pending invitation
-        user_list_pending = db.session.query(Users).filter(
-            and_(Users.id != g.users.id, Users.id.in_(invitation_list_ids_pending))).all()
+        user_list_pending = (
+            db.session.query(Users)
+            .filter(and_(Users.id != g.users.id, Users.id.in_(invitation_list_ids_pending)))
+            .all()
+        )
     else:
         # Otherwise send an empty list
         user_list_pending = []
@@ -465,8 +503,23 @@ def debts(house_id):
     if not g.users:
         return redirect(url_for('login'))
 
-    takers = db.session.query(Takers).join(Item, Takers.item_id == Item.id).join(Users, Takers.user_id == Users.id).filter(Item.house_id == house_id).all()
-    participants = db.session.query(Invitations).join(Users, Invitations.sender_id == Users.id).join(House, Invitations.house_id == House.id).filter(House.id == house_id).filter(Invitations.status == "accepted").all()
+    takers = (
+        db.session.query(Takers)
+        .join(Item, Takers.item_id == Item.id)
+        .join(Users, Takers.user_id == Users.id)
+        .filter(Item.house_id == house_id)
+        .all()
+    )
+    
+    participants = (
+        db.session.query(Invitations)
+        .join(Users, Invitations.sender_id == Users.id)
+        .join(House, Invitations.house_id == House.id)
+        .filter(House.id == house_id)
+        .filter(Invitations.status == "accepted")
+        .all()
+    )
+
     debtors = {}
     debts = {}
     for owner in participants:
